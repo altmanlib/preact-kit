@@ -28,7 +28,7 @@ export function Button({ variant, size, type = "button", class: className, child
 /** A link in the button's look, for an action that navigates or downloads. */
 export function LinkButton({ variant, size, class: className, children, ...rest }: LinkButtonProps) {
   return (
-    <a class={buttonClass({ variant, size }, className as string | undefined)} {...rest}>
+    <a class={buttonClass({ variant, size }, className as string | undefined)} {...(rest as Record<string, unknown>)}>
       {children}
     </a>
   );
