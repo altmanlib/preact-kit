@@ -22,17 +22,24 @@ export type Import = { from: string; specifier: string };
 
 export const ZONES: Zone[] = [
   {
-    name: "kit-contract",
-    paths: ["kit/demo.ts"],
-    why: "the shape a component hands the gallery; it knows nothing else",
+    name: "kit-core",
+    paths: ["kit/demo.ts", "kit/texts.ts", "kit/texts.test.ts"],
+    why: "the demo contract and the kit's fixed sentences; they know nothing else",
     uses: [],
+    browser: true,
+  },
+  {
+    name: "kit/lib",
+    paths: ["kit/lib"],
+    why: "hooks and request helpers with no markup of their own; they know only the kit's sentences",
+    uses: ["kit/texts.ts"],
     browser: true,
   },
   {
     name: "kit/primitives",
     paths: ["kit/primitives"],
-    why: "generic controls: no business words, texts or endpoints; they know only the demo contract",
-    uses: ["kit/demo.ts"],
+    why: "generic controls: no business words, texts or endpoints; they know the demo contract, the kit's sentences and lib",
+    uses: ["kit/demo.ts", "kit/texts.ts", "kit/lib"],
     browser: true,
   },
   {

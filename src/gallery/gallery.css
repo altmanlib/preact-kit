@@ -79,6 +79,12 @@
   background: var(--card-shell);
   border-radius: var(--radius);
 }
+/* Demos that need a full-width column wrap their content in this. */
+.demo-stack {
+  display: grid;
+  gap: var(--space-3);
+  width: 100%;
+}
 @media (max-width: 720px) {
   .g-shell {
     grid-template-columns: 1fr;

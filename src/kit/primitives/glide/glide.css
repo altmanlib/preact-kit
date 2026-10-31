@@ -1,0 +1,10 @@
+/* Padding and negative margin keep focus rings from being clipped. */
+.glide {
+  overflow: hidden;
+  padding: var(--space-1);
+  margin: calc(var(--space-1) * -1);
+  box-sizing: content-box;
+}
+.glide-on {
+  transition: height var(--duration-slide) var(--ease-out);
+}

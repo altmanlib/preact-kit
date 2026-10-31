@@ -1,0 +1,59 @@
+/*
+ * A segmented control, shared by the filter chips and the in-page tabs (SubNav): a gray shell as the track, the chosen
+ * option as an inner block. Chips are buttons, tabs are links; the rules below are what they have in common.
+ */
+.chips,
+.subnav {
+  display: inline-flex;
+  justify-self: start;
+  max-width: 100%;
+  gap: var(--space-0);
+  padding: var(--space-1);
+  overflow-x: auto;
+  background: var(--card-shell);
+  border-radius: var(--radius);
+  scrollbar-width: none;
+}
+.chip,
+.subnav a {
+  display: inline-flex;
+  align-items: center;
+  height: var(--control-chip);
+  padding: 0 var(--space-3);
+  font: inherit;
+  font-size: var(--text-xs);
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+.chip:hover,
+.subnav a:hover {
+  color: var(--text);
+}
+.chip-on,
+.chip-on:hover,
+.subnav a[aria-current="page"] {
+  color: var(--text);
+  font-weight: var(--weight-semibold);
+  background: var(--card-inner);
+}
+
+/* A titled group puts its name before the track; it stays on one line. */
+.chips-titled {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 100%;
+}
+.chips-title {
+  font-size: var(--text-xs);
+  color: var(--muted);
+  white-space: nowrap;
+}

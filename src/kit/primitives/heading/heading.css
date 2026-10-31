@@ -1,0 +1,27 @@
+.page-head,
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.page-head {
+  min-height: var(--control-md);
+}
+/* A title and the line that explains it read as one block, closer than the page's own gap. */
+.head-intro {
+  display: grid;
+  gap: var(--space-1);
+}
+/* An open section: head row, then the content, with no box around it. */
+.section {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  margin-top: var(--space-3);
+}
+.section h3 {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}

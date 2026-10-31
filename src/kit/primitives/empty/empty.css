@@ -1,0 +1,15 @@
+.empty {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--muted);
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+.empty-art {
+  width: 6.5rem;
+  height: 5.5rem;
+}
