@@ -16,6 +16,8 @@ export const defaultText = {
   increase: "Increase",
   decrease: "Decrease",
   confirmTitle: "Please confirm",
+  remove: "Remove",
+  breadcrumb: "Breadcrumb",
   unknownError: "Something went wrong. Please try again.",
 };
 

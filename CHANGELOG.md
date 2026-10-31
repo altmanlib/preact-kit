@@ -5,6 +5,7 @@
 ## Unreleased
 
 - 新增 `Switch`, `Tabs`(纯状态, 方向键/Home/End 切换)
+- 新增 `Alert`(图标/标题/操作/可关闭), `Spinner`, `Progress`(确定与不确定), `Tag`(可移除), `Avatar`(图片失败或缺失时显示姓名首字), `Card`, `Breadcrumb`, `Accordion`(基于原生 `details`, 默认互斥), `Stack`/`Grid`; `kitText` 新增 `remove`/`breadcrumb`
 - **不兼容**: `ConfirmButton` 改为弹出 `Modal` 确认(原来是浏览器 `confirm()`); `onConfirm` 可返回 Promise, 新增 `title`/`confirmLabel`/`error` 属性, `danger` 按钮得到 `danger` 确认按钮
 - `Modal` 新增 `submitVariant`; 没有输入框的表单对话框首次聚焦在提交按钮上
 - 新增 `RadioGroup`(带说明/禁用项/错误), `NumberField`(文本型, ± 步进与上下方向键, 失焦时按 `min`/`max` 修正); 新增 `lib/number`; `kitText` 新增 `confirmTitle`/`increase`/`decrease`

@@ -1,0 +1,25 @@
+.spinner {
+  display: inline-block;
+  flex: none;
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+  border: var(--rule) solid var(--line-strong);
+  border-top-color: var(--ink);
+  border-radius: var(--radius-pill);
+  animation: spinner-turn 0.8s linear infinite;
+}
+.spinner-sm {
+  width: var(--space-3);
+  height: var(--space-3);
+}
+.spinner-lg {
+  width: var(--space-6);
+  height: var(--space-6);
+  border-width: var(--rule-strong);
+}
+
+@keyframes spinner-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
