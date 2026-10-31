@@ -19,6 +19,7 @@ export function Modal({
   onClose,
   onSubmit,
   submitLabel = kitText.confirm,
+  submitVariant = "primary",
   submitDisabled = false,
   error,
   children,
@@ -28,6 +29,8 @@ export function Modal({
   /** When set, the dialog is a form with cancel and confirm. May return a promise; the dialog leaves once it resolves. */
   onSubmit?: () => unknown;
   submitLabel?: string;
+  /** `danger` for a dialog that confirms a destructive action. */
+  submitVariant?: "primary" | "danger";
   submitDisabled?: boolean;
   /** A failed submit, shown at the end of the form. */
   error?: unknown;
@@ -81,7 +84,7 @@ export function Modal({
             <Button variant="quiet" onClick={leave}>
               {kitText.cancel}
             </Button>
-            <Button type="submit" variant="primary" disabled={submitDisabled}>
+            <Button type="submit" variant={submitVariant} disabled={submitDisabled}>
               {submitLabel}
             </Button>
           </footer>

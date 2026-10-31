@@ -13,6 +13,9 @@ export const defaultText = {
   nextPage: "Next",
   pagination: "Pagination",
   notifications: "Notifications",
+  increase: "Increase",
+  decrease: "Decrease",
+  confirmTitle: "Please confirm",
   unknownError: "Something went wrong. Please try again.",
 };
 

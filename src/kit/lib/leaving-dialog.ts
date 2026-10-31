@@ -25,7 +25,8 @@ export function useLeavingDialog({ onClose, animate, focusFirst }: { onClose: ()
   }, []);
 
   useEffect(() => {
-    if (focusFirst) dialog.current?.querySelector<HTMLElement>("input, textarea")?.focus();
+    // A form starts on its first field, or on its submit button when it has none (a plain confirmation).
+    if (focusFirst) (dialog.current?.querySelector<HTMLElement>("input, textarea") ?? dialog.current?.querySelector<HTMLElement>('[type="submit"]'))?.focus();
   }, [focusFirst]);
 
   const finish = () => {

@@ -1,0 +1,23 @@
+.number-field {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-1);
+  align-items: center;
+}
+.number-field .btn-icon {
+  background: var(--surface-sunken);
+}
+.number-field .btn-icon:hover:not(:disabled) {
+  background: var(--surface-press);
+}
+.number-field .btn-icon:disabled {
+  color: var(--disabled-ink);
+  cursor: not-allowed;
+}
+.number-input {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.number-input[aria-invalid="true"] {
+  border-color: var(--bad);
+}
