@@ -1,0 +1,53 @@
+/* A stack in the bottom-right corner; the popover is only shown while there is something in it. */
+.toaster {
+  position: fixed;
+  inset: auto var(--gutter) var(--gutter) auto;
+  width: min(24rem, calc(100vw - var(--gutter) * 2));
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+}
+.toaster:popover-open {
+  display: grid;
+  gap: var(--space-2);
+}
+.toast {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  color: var(--text);
+  background: var(--card-inner);
+  border: var(--hairline) solid var(--line);
+  border-left: var(--rule-strong) solid var(--muted);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.toast-message {
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+.toast-icon {
+  color: var(--muted);
+}
+.toast-ok {
+  border-left-color: var(--ok);
+}
+.toast-ok .toast-icon {
+  color: var(--ok);
+}
+.toast-warn {
+  border-left-color: var(--warn);
+}
+.toast-warn .toast-icon {
+  color: var(--warn);
+}
+.toast-bad {
+  border-left-color: var(--bad);
+}
+.toast-bad .toast-icon {
+  color: var(--bad);
+}

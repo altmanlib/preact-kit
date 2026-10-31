@@ -17,7 +17,7 @@ src/
 ├─ kit/
 │  ├─ tokens.css  motion.css  base.css   # 设计 token, 动效, 重置
 │  ├─ demo.ts  texts.ts                  # 与展示站的契约; 组件的固定文案(可用 setKitText 改写)
-│  ├─ lib/                               # hook 与请求工具: errors, http, signals, paging, leaving-dialog
+│  ├─ lib/                               # hook 与请求工具: errors, http, signals, paging, leaving-dialog, roving, anchor, toasts
 │  ├─ primitives/<name>/                 # index.tsx + <name>.css + <name>.demo.tsx
 │  └─ patterns/<name>/                   # 由 primitives 组合出的页面范式
 ├─ gallery/                              # 展示站, 自动收集 *.demo.tsx

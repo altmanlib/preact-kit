@@ -5,6 +5,7 @@
 ## Unreleased
 
 - 新增 `Switch`, `Tabs`(纯状态, 方向键/Home/End 切换)
+- 新增 `Toast`: `showToast()` 在任何地方调用, `Toaster` 挂载一次; 位于顶层, 不会被 Modal/Drawer 压住; `kitText` 新增 `notifications`
 - 新增 `lib/roving`: 列表项键盘焦点移动(跳过禁用项)与首字母定位
 - 新增 `Dropdown`(动作菜单), `Select`(单选列表, 可带 `name` 随表单提交), `Tooltip`; 基于 Popover API 与 CSS anchor positioning, 无需 JS 定位
 

@@ -12,6 +12,7 @@ export const defaultText = {
   prevPage: "Previous",
   nextPage: "Next",
   pagination: "Pagination",
+  notifications: "Notifications",
   unknownError: "Something went wrong. Please try again.",
 };
 
