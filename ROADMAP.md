@@ -24,5 +24,5 @@
 
 ## 待决策
 
-- `Combobox`/`DatePicker` 这类定位与焦点管理更复杂的弹层: 在现有 Popover 基础上自写, 还是引入无样式库再套 token; 做到该项时评估
+- `Combobox`/`DatePicker` 这类定位与焦点管理更复杂的组件: 是否引入 Zag.js(候选对比、验证与取舍见 [docs/record/2026-10-31-headless-library-survey.md](docs/record/2026-10-31-headless-library-survey.md)); 若引入, 先做 `Combobox` 还是 `DatePicker`
 - 浏览器下限: 弹层依赖 Popover API 与 CSS anchor positioning, 只在 Chromium 上验证过; 需要覆盖其他或更老的浏览器时再验证并加回退
