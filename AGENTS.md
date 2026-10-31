@@ -2,6 +2,12 @@
 
 Preact 组件脚手架: 一套带设计 token(含暗色)的通用组件, 加一个自动收集示例的展示站. 可作模板直接复制, 也是新组件的试验场. 栈: Bun + Preact 11 + `@preact/signals`, 无 UI 框架, 手写 CSS
 
+## 文档索引
+
+- @docs/guide/add-component.md: 新增组件(目录, 文件, 样式与代码约定, 弹层与验证)
+- @docs/record/2026-10-31-headless-library-survey.md: 无样式库调研, 待决策是否引入 Zag.js
+- @ROADMAP.md: 已完成, 暂缓, 待办, 待决策与近期建议
+- @CHANGELOG.md: 版本记录, `## Unreleased` 记录下个版本的内容
 
 ## 开工流程
 
@@ -19,6 +25,11 @@ Preact 组件脚手架: 一套带设计 token(含暗色)的通用组件, 加一�
 - 边界靠 `src/architecture.test.ts` 强制: kit 不得引用 gallery; 新目录出现时在 `src/architecture.ts` 加 zone
 - 重复一出现就抽; 旧写法删净, 不留兼容层
 - 对外可见的改动(新增/改动/删除组件, 属性变化, token 变化)在提交时写进 `CHANGELOG.md` 的 `## Unreleased`; 不兼容改动标明
+- 本仓是公开仓库: 文档, 代码, demo 数据与提交信息里不出现用户的业务项目信息(项目名, 业务词汇, 域名), 示例数据用通用内容
+- 新增依赖用 `bun add`; 现有运行时依赖只有 `preact`, `@preact/signals`, `lucide-preact` 与 `@tanstack/preact-query`(仅 `lib/paging` 与 `ListPage` 用)
+- 弹层(`popover`)的类名样式写成 `.pop.<名>` 以压过共用的 `.pop`, 不依赖样式表的打包顺序
+- 交互类组件(键盘, 焦点, 弹层, 对话框)除 `bun run ci` 外, 要在浏览器里实测, 明暗两套都看; 纯逻辑放在 `lib/` 或组件目录的 `.ts` 里并写测试
+- 写文件与 `git commit` 不要在同一批并行执行, 先写完再 `bun run format` 与 `bun run ci`, 再提交
 - 代码注释用英文; 文档用中文, 只写现行事实
 - `docs/` 文档带 front matter 四项(`title`/`type`/`status`/`updated`), `title` 与 `# 标题` 一致, 由 `bun run docs:check` 校验; 本文件与 `README.md`/`ROADMAP.md`/`CHANGELOG.md` 不在其范围内
 - 提交前 `bun run ci`; 格式化命令是 `bun run format`
