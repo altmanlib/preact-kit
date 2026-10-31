@@ -21,11 +21,14 @@ export function DataTable<T>({
   columns,
   rows,
   rowKey,
+  rowAttrs,
   busy = false,
 }: {
   columns: Column<T>[];
   rows: T[];
   rowKey: (row: T) => string;
+  /** Extra attributes for a row's `<tr>`, such as a `data-*` marker. */
+  rowAttrs?: (row: T) => Record<string, string>;
   /** The rows are the previous ones, kept until the new ones arrive; they are drawn dimmed. */
   busy?: boolean;
 }) {
@@ -43,7 +46,7 @@ export function DataTable<T>({
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={rowKey(row)}>
+            <tr key={rowKey(row)} {...rowAttrs?.(row)}>
               {columns.map((column) => (
                 <td key={column.key} class={[column.class, column.cellClass].filter(Boolean).join(" ") || undefined}>
                   {column.cell(row)}
@@ -69,6 +72,7 @@ export function QueryTable<T>({
   rows,
   columns,
   rowKey,
+  rowAttrs,
   empty,
   skeletonRows,
 }: {
@@ -76,6 +80,7 @@ export function QueryTable<T>({
   rows: T[];
   columns: Column<T>[];
   rowKey: (row: T) => string;
+  rowAttrs?: (row: T) => Record<string, string>;
   /** What to say for no rows; the stock empty text when omitted. */
   empty?: ComponentChildren;
   skeletonRows?: number;
@@ -85,7 +90,7 @@ export function QueryTable<T>({
       {query.isPending ? <Skeleton kind="table" cols={columns.length} rows={skeletonRows} /> : null}
       {!query.isPending && query.error ? <ErrorNote error={query.error} onRetry={() => query.refetch()} /> : null}
       {query.data !== undefined && rows.length === 0 ? <Empty>{empty}</Empty> : null}
-      {rows.length > 0 ? <DataTable columns={columns} rows={rows} rowKey={rowKey} busy={query.isPlaceholderData} /> : null}
+      {rows.length > 0 ? <DataTable columns={columns} rows={rows} rowKey={rowKey} rowAttrs={rowAttrs} busy={query.isPlaceholderData} /> : null}
     </>
   );
 }

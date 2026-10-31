@@ -1,0 +1,63 @@
+/* Tabs sit on the bar's bottom edge: the standing one carries a rule in the brand colour. */
+.top-nav {
+  position: relative;
+  display: flex;
+  gap: var(--space-0);
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.top-nav a {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  /* The top padding balances the bottom rule so the label and the hover pill share one centre line. */
+  padding: var(--rule-strong) var(--space-3) 0;
+  border-bottom: var(--rule-strong) solid transparent;
+  color: var(--text);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--duration-enter) var(--ease-out);
+}
+/* The hover pill is drawn inside the full-height link, so the standing tab's rule still reaches the bar's edge. */
+.top-nav a::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: var(--space-2) var(--space-1) calc(var(--space-2) - var(--rule-strong));
+  border-radius: var(--radius-sm);
+  background: var(--card-shell-hover);
+  opacity: 0;
+  transform: scale(0.92);
+  transition:
+    opacity var(--duration-enter) var(--ease-out),
+    transform var(--duration-enter) var(--ease-out);
+}
+.top-nav a:hover::before {
+  opacity: 1;
+  transform: none;
+}
+.top-nav a[aria-current="page"] {
+  font-weight: var(--weight-bold);
+}
+/* The standing tab's rule: one bar that slides between the links (see TopNav). */
+.top-nav-indicator {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: var(--nav-w, 0);
+  height: var(--rule-strong);
+  background: var(--accent);
+  opacity: var(--nav-on, 0);
+  transform: translateX(var(--nav-x, 0));
+  pointer-events: none;
+}
+.top-nav[data-ready] .top-nav-indicator {
+  transition:
+    transform var(--duration-slide) var(--ease-out),
+    width var(--duration-slide) var(--ease-out),
+    opacity var(--duration-enter) var(--ease-out);
+}

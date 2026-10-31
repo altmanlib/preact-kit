@@ -4,6 +4,11 @@
 
 ## Unreleased
 
+- 新增 `TopNav`(顶栏标签, 一条指示线滑向当前页)与 `isCurrentPath`; `kitText` 新增 `mainNavigation`
+- 新增 `lib/format`: `formatTime`(本地时间 `YYYY-MM-DD HH:mm:ss`)
+- `DataTable` 与 `QueryTable` 新增 `rowAttrs`(给行加 `data-*` 等属性)
+- `Section` 与 `Tile` 新增 `class`, 其余属性透传给根元素
+
 ## 0.3.0 - 2026-10-31
 
 - **不兼容**: 包名改为 `@altmanlib/preact-kit`, 经 GitHub 安装(`github:altmanlib/preact-kit#v<版本>`), 按子路径导入(`primitives/<名>` `patterns/<名>` `lib/<名>` `texts` `base.css` `tokens.css` `motion.css`), 不再以拷贝 `src/kit/` 的方式使用; `preact` 与 `@preact/signals` 改为 peer 依赖, `@tanstack/preact-query` 为可选 peer

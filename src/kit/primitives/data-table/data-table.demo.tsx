@@ -32,10 +32,10 @@ export default defineDemo({
   examples: [
     {
       title: "DataTable",
-      note: 'Row actions go in the last column with `class: "actions"`; `num` right-aligns figures.',
+      note: 'Row actions go in the last column with `class: "actions"`; `num` right-aligns figures; `rowAttrs` adds attributes such as a `data-*` marker to a row.',
       render: () => (
         <div class="demo-stack">
-          <DataTable columns={COLUMNS} rows={ROWS} rowKey={(row) => row.id} />
+          <DataTable columns={COLUMNS} rows={ROWS} rowKey={(row) => row.id} rowAttrs={(row) => ({ "data-order": row.id })} />
         </div>
       ),
     },

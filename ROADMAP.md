@@ -5,6 +5,7 @@
 - 骨架: 目录, 展示站(自动收集 demo, 明暗/跟随系统切换), token(`light-dark()`), 边界检查
 - primitives: `Button` `Badge` `Note`/`ErrorNote` `Empty` `Skeleton` `Tile`/`Tiles` `Fact`/`Facts` `PageHead`/`Section` `Chips` `SubNav` `Pager` `GlideHeight` `Field`/`TextField`/`TextAreaField`/`CheckField` `IconButton` `CopyButton`/`CopyField` `ConfirmButton` `DataTable`/`QueryTable` `Modal` `Drawer` `DialogProvider`/`useDialog` `Switch` `Tabs` `Dropdown` `Select` `Tooltip` `Toast`/`Toaster` `RadioGroup` `NumberField` `Alert` `Spinner` `Progress` `Tag` `Avatar` `Card` `Breadcrumb` `Accordion` `Stack`/`Grid`
 - lib: `errors`(`ApiError`/`setErrorTexts`), `http`(`request`/`query`), `signals`(`useFields`/`useOpen`/`set`), `paging`(`usePagedList`, 依赖 `@tanstack/preact-query`), `leaving-dialog`(Modal 与 Drawer 共用的进出场逻辑), `roving`(列表键盘焦点与首字母定位), `anchor`(弹层与触发器的锚点命名), `toasts`(`showToast` 与队列), `number`(数字文本的解析/步进/修正)
+- primitives 另有 `TopNav`(顶栏标签与滑动指示条); `DataTable`/`QueryTable` 的 `rowAttrs`, `Section` 与 `Tile` 的 `class` 及透传属性; lib 另有 `format`(`formatTime`)
 - patterns: `ListPage`
 - `ConfirmButton` 用 `Modal` 弹出确认框, `onConfirm` 可返回 Promise
 - 固定文案集中在 `kit/texts.ts`, 应用用 `setKitText` 改写; API 错误码文案用 `setErrorTexts` 注册
@@ -13,7 +14,7 @@
 ## 近期建议(接着做时从这里选)
 
 - 弹层与对话框键盘行为的 e2e 冒烟测试(`bun run ci` 目前不覆盖浏览器行为)
-- 迁入原有的通用单元: `TopNav`, `SecretMask`/`SecretReveal`, `formatTime`/`downloadFile`(见待办)
+- 迁入原有的通用单元: `SecretMask`/`SecretReveal`, `downloadFile`(见待办)
 - 决定是否引入 Zag.js(见待决策); 决定后再做 `Combobox`/`DatePicker`
 
 ## 暂缓(较重, 等用户启动)
@@ -24,7 +25,7 @@
 ## 待办(无顺序)
 
 - 依赖包分发的迁移(决策见 [docs/record/2026-10-31-package-distribution.md](docs/record/2026-10-31-package-distribution.md)): 包改造已完成, 待发版后让使用方改依赖并删除本地重复单元
-- 待迁入或新增的通用单元: `TopNav`(滑动指示条), `SecretMask`/`SecretReveal`, `PictureDropzone`(通用文件上传的基础), `Login` 与 `useCodeSender`, `PageRoot`/`SessionGate`(会话外壳), `formatTime`/`downloadFile`
+- 待迁入或新增的通用单元: `SecretMask`/`SecretReveal`, `PictureDropzone`(通用文件上传的基础), `Login` 与 `useCodeSender`, `PageRoot`/`SessionGate`(会话外壳), `downloadFile`
 - 表单: 表单校验范式
 - 浮层: `Popover`(通用)
 - 导航: 页码版 `Pagination`, `Stepper`

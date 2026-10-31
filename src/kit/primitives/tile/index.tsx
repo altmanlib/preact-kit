@@ -1,6 +1,6 @@
 import "./tile.css";
 
-import type { ComponentChildren } from "preact";
+import type { ComponentChildren, ComponentProps } from "preact";
 
 /** Shell colour of a Tile; peers on one page use different variants so the row has hierarchy. */
 export type TileVariant = "default" | "accent" | "ok" | "warn" | "bad";
@@ -25,8 +25,10 @@ export function Tile({
   suffix,
   live = false,
   valueTestId,
+  class: extraClass,
   children,
-}: {
+  ...rest
+}: Omit<ComponentProps<"div">, "label" | "value" | "class" | "className" | "children"> & {
   label: ComponentChildren;
   value: ComponentChildren;
   hint?: ComponentChildren;
@@ -39,10 +41,12 @@ export function Tile({
   /** Announce changes of the tile to assistive technology. */
   live?: boolean;
   valueTestId?: string;
+  /** An extra class, such as a status colour. */
+  class?: string;
   /** Further lines under the hint. */
   children?: ComponentChildren;
 }) {
-  const className = ["tile", variant === "default" ? undefined : `tile-${variant}`, alert ? "tile-alert" : undefined].filter(Boolean).join(" ");
+  const className = ["tile", variant === "default" ? undefined : `tile-${variant}`, alert ? "tile-alert" : undefined, extraClass].filter(Boolean).join(" ");
   const body = (
     <>
       <span class="tile-label">{label}</span>
@@ -59,13 +63,13 @@ export function Tile({
   );
   if (href !== undefined) {
     return (
-      <a class={className} href={href}>
+      <a {...(rest as Record<string, unknown>)} class={className} href={href}>
         {body}
       </a>
     );
   }
   return (
-    <div class={className} aria-live={live ? "polite" : undefined}>
+    <div {...rest} class={className} aria-live={live ? "polite" : undefined}>
       {body}
     </div>
   );

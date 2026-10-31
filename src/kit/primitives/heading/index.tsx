@@ -1,6 +1,6 @@
 import "./heading.css";
 
-import type { ComponentChildren } from "preact";
+import type { ComponentChildren, ComponentProps } from "preact";
 
 /** A head with the line that explains it: placed in one block so the two sit closer than the page's own gap. */
 function HeadIntro({ intro, children }: { intro?: ComponentChildren; children: ComponentChildren }) {
@@ -34,17 +34,21 @@ export function Section({
   actions,
   intro,
   testId,
+  class: className,
   children,
-}: {
+  ...section
+}: Omit<ComponentProps<"section">, "title" | "class" | "className"> & {
   title: ComponentChildren;
   actions?: ComponentChildren;
   /** A line right under the title, read with it as one unit. */
   intro?: ComponentChildren;
   testId?: string;
+  /** An extra class for the section. */
+  class?: string;
   children: ComponentChildren;
 }) {
   return (
-    <section class="section" data-testid={testId}>
+    <section {...section} class={className ? `section ${className}` : "section"} data-testid={testId}>
       <HeadIntro intro={intro}>
         <div class="section-head">
           <h2>{title}</h2>

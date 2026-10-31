@@ -18,6 +18,7 @@ export const defaultText = {
   confirmTitle: "Please confirm",
   remove: "Remove",
   breadcrumb: "Breadcrumb",
+  mainNavigation: "Main navigation",
   unknownError: "Something went wrong. Please try again.",
 };
 
