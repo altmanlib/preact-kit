@@ -47,7 +47,7 @@ export function useLeavingDialog({ onClose, animate, focusFirst }: { onClose: ()
   // Close only once the exit animation has finished; the timeout is the fallback when it never fires.
   useSignalEffect(() => {
     if (!leaving.value) return;
-    const element = animate === "panel" ? panel.current : dialog.current;
+    const element: HTMLElement | null = animate === "panel" ? panel.current : dialog.current;
     if (!element) return;
     let done = false;
     const end = () => {

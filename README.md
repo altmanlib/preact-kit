@@ -16,8 +16,10 @@ bun run ci       # 格式/类型/文档/测试
 src/
 ├─ kit/
 │  ├─ tokens.css  motion.css  base.css   # 设计 token, 动效, 重置
-│  ├─ demo.ts                            # 组件与展示站之间的契约
-│  └─ primitives/<name>/                 # index.tsx + <name>.css + <name>.demo.tsx
+│  ├─ demo.ts  texts.ts                  # 与展示站的契约; 组件的固定文案(可用 setKitText 改写)
+│  ├─ lib/                               # hook 与请求工具: errors, http, signals, paging, leaving-dialog
+│  ├─ primitives/<name>/                 # index.tsx + <name>.css + <name>.demo.tsx
+│  └─ patterns/<name>/                   # 由 primitives 组合出的页面范式
 ├─ gallery/                              # 展示站, 自动收集 *.demo.tsx
 └─ server.ts                             # 开发服务
 ```

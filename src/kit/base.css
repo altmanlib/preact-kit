@@ -59,6 +59,11 @@ small {
   border-radius: var(--radius-sm);
 }
 
+/* Set while a modal dialog is open (useLeavingDialog), so the page behind it does not scroll. */
+html.dialog-open {
+  overflow: hidden;
+}
+
 code,
 .mono {
   font-family: var(--font-mono);

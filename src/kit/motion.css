@@ -34,6 +34,24 @@
   }
 }
 
+/* The dimmed page behind a dialog fades in and out; Modal and Drawer use these for ::backdrop. */
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes scrim-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .enter {
   animation: view-in var(--duration-enter) var(--ease-out) both;
 }
