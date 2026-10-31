@@ -5,7 +5,8 @@
 ## Unreleased
 
 - 新增 `Switch`, `Tabs`(纯状态, 方向键/Home/End 切换)
-- 新增 `lib/roving`: 列表项键盘焦点移动(跳过禁用项)
+- 新增 `lib/roving`: 列表项键盘焦点移动(跳过禁用项)与首字母定位
+- 新增 `Dropdown`(动作菜单), `Select`(单选列表, 可带 `name` 随表单提交), `Tooltip`; 基于 Popover API 与 CSS anchor positioning, 无需 JS 定位
 
 ## 0.1.0 - 2026-10-31
 

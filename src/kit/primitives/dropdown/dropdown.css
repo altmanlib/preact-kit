@@ -1,0 +1,4 @@
+/* The menu's look is the shared popover surface (_shared/popover.css); this adds only what a menu needs. */
+[role="menu"].pop {
+  min-width: max(anchor-size(width), 10rem);
+}

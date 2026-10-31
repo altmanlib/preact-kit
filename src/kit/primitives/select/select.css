@@ -1,0 +1,29 @@
+.select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  text-align: left;
+  cursor: pointer;
+}
+.select-trigger:disabled {
+  cursor: not-allowed;
+}
+.select-trigger[aria-invalid="true"] {
+  border-color: var(--bad);
+}
+.select-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.select-placeholder {
+  color: var(--disabled-ink);
+}
+.select-list {
+  max-height: 16rem;
+  overflow-y: auto;
+}
+.select-list .pop-item[aria-selected="true"] {
+  font-weight: var(--weight-semibold);
+}

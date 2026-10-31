@@ -19,12 +19,54 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   /* Flip above the trigger, or against the other edge, when there is no room. */
-  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
 }
-.pop-end {
+.pop.pop-end {
   left: auto;
   right: anchor(right);
 }
 .pop:popover-open {
   animation: view-in var(--duration-fast) var(--ease-out) both;
+}
+
+/* A row in a menu or a list: a bare button that fills the row. */
+.pop-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--control-md);
+  padding: 0 var(--space-2);
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--text);
+  text-align: left;
+  white-space: nowrap;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.pop-item:hover:not(:disabled),
+.pop-item:focus-visible {
+  background: var(--surface-hover);
+}
+.pop-item:focus-visible {
+  outline: var(--focus-ring) solid var(--focus);
+  outline-offset: calc(var(--focus-ring) * -1);
+}
+.pop-item:disabled {
+  color: var(--disabled-ink);
+  cursor: not-allowed;
+}
+.pop-item-danger {
+  color: var(--bad);
+}
+.pop-item-danger:hover:not(:disabled),
+.pop-item-danger:focus-visible {
+  background: var(--bad-soft);
 }

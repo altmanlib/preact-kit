@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 
-import { nextIndex } from "./roving.ts";
+import { nextIndex, typeahead } from "./roving.ts";
 
 const base = { count: 4, orientation: "horizontal" as const };
 
@@ -22,6 +22,17 @@ test("disabled items are skipped, including at the ends", () => {
   expect(nextIndex({ ...base, current: 1, key: "ArrowRight", isDisabled })).toBe(3);
   expect(nextIndex({ ...base, current: 3, key: "ArrowRight", isDisabled })).toBe(1);
   expect(nextIndex({ ...base, current: 2, key: "Home", isDisabled })).toBe(1);
+});
+
+test("typeahead finds the next label that starts with the character, wrapping and skipping disabled", () => {
+  const labels = ["Apple", "Banana", "Avocado", "Cherry"];
+  expect(typeahead({ labels, current: 0, char: "a" })).toBe(2);
+  expect(typeahead({ labels, current: 2, char: "A" })).toBe(0);
+  expect(typeahead({ labels, current: 0, char: "c" })).toBe(3);
+  expect(typeahead({ labels, current: 0, char: "a", isDisabled: (index) => index === 2 })).toBe(0);
+  expect(typeahead({ labels, current: 0, char: "z" })).toBeUndefined();
+  expect(typeahead({ labels, current: 0, char: " " })).toBeUndefined();
+  expect(typeahead({ labels, current: 0, char: "Enter" })).toBeUndefined();
 });
 
 test("other keys, an empty list and an all-disabled list give nothing", () => {

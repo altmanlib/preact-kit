@@ -1,5 +1,17 @@
 export type Orientation = "horizontal" | "vertical";
 
+/** The next item after `current` (wrapping) whose label starts with the typed character, for type-ahead in menus and lists; `undefined` for a non-printable key or no match. */
+export function typeahead(options: { labels: string[]; current: number; char: string; isDisabled?: (index: number) => boolean }): number | undefined {
+  const { labels, current, char, isDisabled = () => false } = options;
+  if (char.length !== 1 || char.trim() === "") return undefined;
+  const wanted = char.toLowerCase();
+  for (let taken = 1; taken <= labels.length; taken += 1) {
+    const index = (current + taken) % labels.length;
+    if (!isDisabled(index) && labels[index]?.toLowerCase().startsWith(wanted)) return index;
+  }
+  return undefined;
+}
+
 const KEYS: Record<Orientation, { next: string; prev: string }> = {
   horizontal: { next: "ArrowRight", prev: "ArrowLeft" },
   vertical: { next: "ArrowDown", prev: "ArrowUp" },
