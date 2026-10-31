@@ -51,7 +51,7 @@ updated: 2026-10-31
 
 `Dropdown`, `Select`, `Tooltip`, `Toast` 的做法, 新增同类组件照此:
 
-- 用浏览器的 Popover API: 元素带 `popover="auto"`(点外面与 Esc 关闭)或 `"manual"`(自己控制), 触发按钮用 `popovertarget`, 状态变化在 `onToggle` 里读 `event.newState`; 这些属性的类型在 `src/jsx.d.ts`
+- 用浏览器的 Popover API: 元素带 `popover="auto"`(点外面与 Esc 关闭)或 `"manual"`(自己控制), 触发按钮用 `popovertarget`, 状态变化在 `onToggle` 里读 `event.newState`; 这些属性的类型由 Preact 自带
 - 定位用 CSS anchor positioning: `useAnchor()`(`kit/lib/anchor.ts`)给出弹层 `id` 与锚点名, 触发器写 `style="anchor-name: …"`, 弹层写 `style="position-anchor: …"`, 样式用 `_shared/popover.css` 的 `.pop`(菜单项与列表项用 `.pop-item`)
 - 列表里的方向键, Home, End, 跳过禁用项与首字母定位用 `kit/lib/roving.ts`
 - 弹层在顶层渲染, 不会被 `Modal`/`Drawer` 压住

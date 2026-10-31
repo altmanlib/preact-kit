@@ -1,14 +1,31 @@
 {
-  "name": "preact-kit",
-  "private": true,
+  "name": "@altmanlib/preact-kit",
   "version": "0.2.0",
-  "description": "Preact component scaffold: generic components, light/dark design tokens and a self-collecting gallery",
+  "description": "Preact component library: generic components and light/dark design tokens, installed from GitHub, with a self-collecting gallery",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/altmanlib/preact-kit.git"
+    "url": "git+https://github.com/altmanlib/preact-kit.git"
+  },
+  "homepage": "https://github.com/altmanlib/preact-kit#readme",
+  "bugs": {
+    "url": "https://github.com/altmanlib/preact-kit/issues"
   },
   "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    "./primitives/*": "./src/kit/primitives/*/index.tsx",
+    "./patterns/*": "./src/kit/patterns/*/index.tsx",
+    "./lib/*": "./src/kit/lib/*.ts",
+    "./texts": "./src/kit/texts.ts",
+    "./base.css": "./src/kit/base.css",
+    "./tokens.css": "./src/kit/tokens.css",
+    "./motion.css": "./src/kit/motion.css",
+    "./assets": "./src/kit/assets.d.ts",
+    "./package.json": "./package.json"
+  },
   "engines": {
     "bun": ">=1.4.4"
   },
@@ -26,14 +43,24 @@
     "merge-main": "bash scripts/merge-main.sh"
   },
   "dependencies": {
-    "@preact/signals": "^2.11.4",
-    "@tanstack/preact-query": "^5.105.0",
-    "lucide-preact": "^1.63.0",
-    "preact": "^11.1.0"
+    "lucide-preact": "^1.63.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.4",
+    "@preact/signals": "^2.11.4",
+    "@tanstack/preact-query": "^5.105.0",
     "@types/bun": "^1.4.4",
+    "preact": "^11.1.0",
     "typescript": "^6.0.3"
+  },
+  "peerDependencies": {
+    "@preact/signals": "^2.11.4",
+    "@tanstack/preact-query": "^5.105.0",
+    "preact": "^11.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/preact-query": {
+      "optional": true
+    }
   }
 }

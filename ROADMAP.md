@@ -23,7 +23,7 @@
 
 ## 待办(无顺序)
 
-- 改为依赖包分发(`@altmanlib/preact-kit`, 经 GitHub 安装): 决策与待定项见 [docs/record/2026-10-31-package-distribution.md](docs/record/2026-10-31-package-distribution.md)
+- 依赖包分发的迁移(决策见 [docs/record/2026-10-31-package-distribution.md](docs/record/2026-10-31-package-distribution.md)): 包改造已完成, 待发版后让使用方改依赖并删除本地重复单元
 - 待迁入或新增的通用单元: `TopNav`(滑动指示条), `SecretMask`/`SecretReveal`, `PictureDropzone`(通用文件上传的基础), `Login` 与 `useCodeSender`, `PageRoot`/`SessionGate`(会话外壳), `formatTime`/`downloadFile`
 - 表单: 表单校验范式
 - 浮层: `Popover`(通用)

@@ -5,15 +5,20 @@
     "": {
       "name": "preact-kit",
       "dependencies": {
-        "@preact/signals": "^2.11.4",
-        "@tanstack/preact-query": "^5.105.0",
         "lucide-preact": "^1.63.0",
-        "preact": "^11.1.0",
       },
       "devDependencies": {
         "@biomejs/biome": "^2.6.4",
+        "@preact/signals": "^2.11.4",
+        "@tanstack/preact-query": "^5.105.0",
         "@types/bun": "^1.4.4",
+        "preact": "^11.1.0",
         "typescript": "^6.0.3",
+      },
+      "peerDependencies": {
+        "@preact/signals": "^2.11.4",
+        "@tanstack/preact-query": "^5.105.0",
+        "preact": "^11.1.0",
       },
     },
   },

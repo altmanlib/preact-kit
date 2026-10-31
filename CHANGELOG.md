@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- **不兼容**: 包名改为 `@altmanlib/preact-kit`, 经 GitHub 安装(`github:altmanlib/preact-kit#v<版本>`), 按子路径导入(`primitives/<名>` `patterns/<名>` `lib/<名>` `texts` `base.css` `tokens.css` `motion.css`), 不再以拷贝 `src/kit/` 的方式使用; `preact` 与 `@preact/signals` 改为 peer 依赖, `@tanstack/preact-query` 为可选 peer
+- **不兼容**: `src/assets.d.ts` 移到 `src/kit/assets.d.ts`, 使用方在 `tsconfig.json` 的 `types` 加 `@altmanlib/preact-kit/assets`; 删除 `src/jsx.d.ts`(Preact 11.1 已自带 Popover 属性类型)
+
 ## 0.2.0 - 2026-10-31
 
 - 新增 `Switch`, `Tabs`(纯状态, 方向键/Home/End 切换)
