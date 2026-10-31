@@ -1,0 +1,127 @@
+/*
+ * Design tokens: palette, type, space, shape and motion as role tokens. This is the only file that holds raw colors.
+ * Each color is one `light-dark(light, dark)` pair; `color-scheme` picks the side: the system by default, or the
+ * `data-theme="light|dark"` attribute on <html>. A rebrand is a new set of these values and nothing else.
+ */
+:root {
+  color-scheme: light dark;
+
+  /* ---- palette ---- */
+  /* desk and surfaces, from the page inwards */
+  --bg: light-dark(#fff, #121118);
+  --surface: light-dark(#fbfbfd, #17161f);
+  --surface-sunken: light-dark(#f1f0f6, #0e0d14);
+  /* card shell and the inner block some cards hold inside it */
+  --card-shell: light-dark(#f5f5f9, #1c1b26);
+  --card-shell-hover: light-dark(#eeeef5, #232230);
+  --card-inner: light-dark(#fff, #15141d);
+  --surface-hover: light-dark(#f3f2f8, #22212d);
+  --surface-press: light-dark(#e8e6f1, #2a2937);
+  /* hairline for separators; controls get one step stronger */
+  --line: light-dark(#e4e3ed, #2c2b3a);
+  --line-strong: light-dark(#cfcddc, #3b3a4d);
+  --line-hover: light-dark(#b8b5cc, #54526b);
+  /* text */
+  --text: light-dark(#1b1a25, #ecebf5);
+  --muted: light-dark(#5d5b6f, #a09eb5);
+  --text-invert: light-dark(#fbfbfe, #121118);
+  /* brand: the primary action, the focus ring and the standing tab */
+  --ink: light-dark(#5b3df5, #7a63ff);
+  --ink-hover: light-dark(#4a2fd8, #8f7bff);
+  --on-ink: #fff;
+  --accent: var(--ink);
+  --accent-soft: light-dark(#edeafe, #2a2452);
+  /* states */
+  --ok: light-dark(#2b6a4c, #6fd0a0);
+  --ok-soft: light-dark(#e0eee6, #17301f);
+  --warn: light-dark(#7d5300, #f0c060);
+  --warn-soft: light-dark(#f7ecd5, #33270f);
+  --bad: light-dark(#a93128, #ff8b80);
+  --bad-soft: light-dark(#f6e2df, #3a1b19);
+  --bad-soft-hover: light-dark(#f1d3ce, #4a2220);
+  --idle-soft: light-dark(#f1f0f6, #24232f);
+  --disabled-ink: light-dark(#a5a3b6, #6a6880);
+  --backdrop: light-dark(rgb(18 16 32 / 42%), rgb(0 0 0 / 60%));
+  /* shadows are built from one color so they work in both schemes */
+  --shadow-color: light-dark(rgb(27 26 37), rgb(0 0 0));
+  --shadow: 0 12px 32px color-mix(in srgb, var(--shadow-color) 12%, transparent), 0 1px 2px color-mix(in srgb, var(--shadow-color) 6%, transparent);
+  --shadow-bar: 0 1px 2px color-mix(in srgb, var(--shadow-color) 6%, transparent), 0 4px 14px color-mix(in srgb, var(--shadow-color) 5%, transparent);
+  --shadow-lift: 0 1px 2px color-mix(in srgb, var(--shadow-color) 8%, transparent), 0 16px 40px color-mix(in srgb, var(--shadow-color) 14%, transparent);
+
+  /* ---- type ---- */
+  /* Latin system UI first so English glyphs are not taken from CJK faces */
+  --font-body: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --text-2xs: 0.75rem; /* 12px: table head, badge, hint */
+  --text-xs: 0.8125rem; /* 13px: label, chip, note */
+  --text-sm: 0.875rem; /* 14px: body, button, field */
+  --text-md: 1rem; /* 16px: card and drawer titles */
+  --text-xl: 1.375rem; /* 22px: page title */
+  --text-stat: 1.5rem; /* 24px: tile figure */
+  --leading-tight: 1.25;
+  --leading-body: 1.55;
+  --underline-offset: 3px;
+  --icon-stroke: 2;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ---- space: a 4px grid ---- */
+  --space-0: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-10: 40px;
+  --space-14: 56px;
+
+  /* ---- shape and controls ---- */
+  --hairline: 1px;
+  --rule: 2px; /* the standing tab's underline */
+  --rule-strong: 3px; /* the top bar's standing tab: the page-level mark */
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-pill: 999px;
+  --control-sm: 28px; /* a button inside a table row */
+  --control-md: 32px; /* buttons, inputs, the filter track */
+  --control-lg: 36px; /* a control a finger needs, and the narrow bar */
+  --control-icon: 30px; /* an icon-only square */
+  --control-chip: 24px;
+  --badge-h: 20px;
+  --icon-sm: 16px;
+
+  /* ---- layout: one column for the bar and the page, so every left edge lines up ---- */
+  --page: 1120px;
+  --gutter: 24px;
+  --bar-h: 52px;
+  --drawer-width: 380px;
+  --modal-width: 400px;
+  --table-min: 720px;
+  --facts-label: 8.5em;
+
+  /* ---- interaction and layers ---- */
+  --focus: var(--ink);
+  --focus-ring: 2px;
+  --focus-offset: 2px;
+  --z-sticky: 10;
+  --z-overlay: 100;
+
+  /* ---- motion: short, out-eased moves; the drawer is the only thing that travels far ---- */
+  --duration-fast: 120ms;
+  --duration-enter: 240ms;
+  --duration-slide: 320ms;
+  --skeleton-delay: 200ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --enter-lift: 6px;
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}

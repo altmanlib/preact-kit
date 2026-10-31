@@ -1,0 +1,30 @@
+{
+  "name": "preact-kit",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "engines": {
+    "bun": ">=1.4.4"
+  },
+  "packageManager": "bun@1.4.4",
+  "scripts": {
+    "gen": "bun scripts/gen-demos.ts",
+    "dev": "bun run gen && bun src/server.ts",
+    "format": "bun fmt src scripts",
+    "format:check": "bun fmt --check src scripts",
+    "typecheck": "bun run gen && bun check",
+    "test": "bun test ./src ./scripts --timeout 30000",
+    "docs:check": "bun scripts/check-docs.ts",
+    "ci": "bun run format:check && bun run typecheck && bun run docs:check && bun run test"
+  },
+  "dependencies": {
+    "@preact/signals": "^2.11.4",
+    "lucide-preact": "^1.63.0",
+    "preact": "^11.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.4",
+    "@types/bun": "^1.4.4",
+    "typescript": "^6.0.3"
+  }
+}

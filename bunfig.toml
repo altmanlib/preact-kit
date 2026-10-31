@@ -1,0 +1,7 @@
+# Aligned with biome.json formatter options (editor still uses Biome).
+[fmt]
+printWidth = 160
+tabWidth = 2
+useTabs = false
+semi = true
+sortImports = true
