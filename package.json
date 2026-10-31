@@ -21,7 +21,9 @@
     "typecheck": "bun run gen && bun check",
     "test": "bun test ./src ./scripts --timeout 30000",
     "docs:check": "bun scripts/check-docs.ts",
-    "ci": "bun run format:check && bun run typecheck && bun run docs:check && bun run test"
+    "ci": "bun run format:check && bun run typecheck && bun run docs:check && bun run test",
+    "release": "bash scripts/release.sh",
+    "merge-main": "bash scripts/merge-main.sh"
   },
   "dependencies": {
     "@preact/signals": "^2.11.4",

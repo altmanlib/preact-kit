@@ -23,7 +23,7 @@ export default defineDemo({
               2026-10-31 09:12:44
             </Fact>
             <Fact label="Callback" class="mono wrap">
-              https://merchant.example.com/api/payments/notify?order=ORD-20261031-0042
+              https://example.com/hooks/notify?order=ORD-20261031-0042
             </Fact>
           </Facts>
         </div>

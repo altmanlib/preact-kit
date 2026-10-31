@@ -2,6 +2,8 @@
 
 版本遵循 [SemVer](https://semver.org/lang/zh-CN/); 1.0 之前, 次版本号可含不兼容改动
 
+## Unreleased
+
 ## 0.1.0 - 2026-10-31
 
 首个版本

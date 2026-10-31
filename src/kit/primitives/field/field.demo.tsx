@@ -42,8 +42,8 @@ export default defineDemo({
               <option>Team</option>
             </select>
           </Field>
-          <Field label="Tenant id">
-            <input class="input" value="t_01hxyz" disabled />
+          <Field label="Workspace id">
+            <input class="input" value="ws_01hxyz" disabled />
           </Field>
         </div>
       ),
