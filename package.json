@@ -1,7 +1,7 @@
 {
   "name": "preact-kit",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Preact component scaffold: generic components, light/dark design tokens and a self-collecting gallery",
   "license": "MIT",
   "repository": {
