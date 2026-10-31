@@ -1,0 +1,30 @@
+/*
+ * The surface shared by everything that opens next to a trigger (Dropdown, Select, Tooltip). The browser puts a
+ * `popover` element in the top layer and handles light dismiss and Esc; here it is placed against the trigger with CSS
+ * anchor positioning. The trigger sets `anchor-name`, the popover sets `position-anchor` (both inline, per instance).
+ */
+.pop {
+  position: fixed;
+  inset: auto;
+  top: anchor(bottom);
+  left: anchor(left);
+  margin: 0;
+  margin-block: var(--space-1);
+  padding: var(--space-1);
+  min-width: anchor-size(width);
+  max-width: min(24rem, calc(100vw - var(--gutter) * 2));
+  color: var(--text);
+  background: var(--card-inner);
+  border: var(--hairline) solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  /* Flip above the trigger, or against the other edge, when there is no room. */
+  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+}
+.pop-end {
+  left: auto;
+  right: anchor(right);
+}
+.pop:popover-open {
+  animation: view-in var(--duration-fast) var(--ease-out) both;
+}

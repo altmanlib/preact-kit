@@ -1,0 +1,51 @@
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.switch-disabled {
+  color: var(--disabled-ink);
+  cursor: not-allowed;
+}
+/* The real checkbox stays in the page for focus and forms, but is not drawn. */
+.switch-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.switch-track {
+  position: relative;
+  flex: none;
+  width: calc(var(--space-5) * 1.75);
+  height: var(--space-5);
+  background: var(--line-strong);
+  border-radius: var(--radius-pill);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+.switch-thumb {
+  position: absolute;
+  top: var(--space-0);
+  left: var(--space-0);
+  width: calc(var(--space-5) - var(--space-1));
+  height: calc(var(--space-5) - var(--space-1));
+  background: var(--on-ink);
+  border-radius: var(--radius-pill);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+.switch-input:checked + .switch-track {
+  background: var(--ink);
+}
+.switch-input:checked + .switch-track .switch-thumb {
+  transform: translateX(calc(var(--space-5) * 0.75));
+}
+.switch-input:focus-visible + .switch-track {
+  outline: var(--focus-ring) solid var(--focus);
+  outline-offset: var(--focus-offset);
+}
+.switch-input:disabled + .switch-track {
+  opacity: 0.5;
+}

@@ -1,9 +1,10 @@
 /*
- * A segmented control, shared by the filter chips and the in-page tabs (SubNav): a gray shell as the track, the chosen
- * option as an inner block. Chips are buttons, tabs are links; the rules below are what they have in common.
+ * A segmented control, shared by the filter chips, the route tabs (SubNav) and the panel tabs (Tabs): a gray shell as
+ * the track, the chosen option as an inner block. Chips and Tabs are buttons, SubNav is links; the rules below are what they have in common.
  */
 .chips,
-.subnav {
+.subnav,
+.tabs {
   display: inline-flex;
   justify-self: start;
   max-width: 100%;
@@ -15,6 +16,7 @@
   scrollbar-width: none;
 }
 .chip,
+.tab,
 .subnav a {
   display: inline-flex;
   align-items: center;
@@ -33,12 +35,21 @@
     background-color var(--duration-fast) var(--ease-out),
     color var(--duration-fast) var(--ease-out);
 }
-.chip:hover,
+.chip:hover:not(:disabled),
+.tab:hover:not(:disabled),
 .subnav a:hover {
   color: var(--text);
 }
+.tab:disabled {
+  color: var(--disabled-ink);
+  cursor: not-allowed;
+}
+.tab-panel {
+  padding-top: var(--space-3);
+}
 .chip-on,
 .chip-on:hover,
+.tab[aria-selected="true"],
 .subnav a[aria-current="page"] {
   color: var(--text);
   font-weight: var(--weight-semibold);
