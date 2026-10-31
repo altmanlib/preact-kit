@@ -1,7 +1,13 @@
 {
   "name": "preact-kit",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "description": "Preact component scaffold: generic components, light/dark design tokens and a self-collecting gallery",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/altmanlib/preact-kit.git"
+  },
   "type": "module",
   "engines": {
     "bun": ">=1.4.4"

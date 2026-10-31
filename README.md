@@ -24,8 +24,17 @@ src/
 └─ server.ts                             # 开发服务
 ```
 
+## 使用方式
+
+复制代码形态: 把 `src/kit/` 拷进自己的项目, 在页面引入 `kit/base.css`, 按需引用组件; 改品牌只改 `tokens.css`; 文案用 `setKitText` 改写. 展示站(`src/gallery/`)与 `scripts/gen-demos.ts` 可不带走
+
 ## 文档
 
 - [docs/guide/add-component.md](docs/guide/add-component.md): 新增组件
 - [ROADMAP.md](ROADMAP.md): 组件清单与进度
+- [CHANGELOG.md](CHANGELOG.md): 版本记录
 - [AGENTS.md](AGENTS.md): 开发约定
+
+## 许可
+
+MIT, 见 [LICENSE](LICENSE). `Empty` 的插图改自 [unDraw](https://undraw.co/) "No data"

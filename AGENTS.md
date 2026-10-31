@@ -21,5 +21,7 @@ Preact 组件脚手架: 一套带设计 token(含暗色)的通用组件, 加一�
 
 ## Git 工作流
 
-- 本仓只有 `main`, 暂无远程; agent 可自行 commit, `type: summary`
-- 推送远程须用户明确要求
+- 公开仓库 `git@github.com:altmanlib/preact-kit.git`, 默认分支 `main`; agent 可自行 commit, `type: summary`
+- push 与发版须用户明确要求
+- 发版: 改 `package.json` 的 `version` 与 `CHANGELOG.md` → `bun run ci` → 提交 `chore: release vX.Y.Z` → `git tag vX.Y.Z` → 推送 `main` 与 tag → `gh release create vX.Y.Z --title vX.Y.Z --notes-file <该版本的 CHANGELOG 段落>`
+- 版本号遵循 SemVer; 1.0 之前, 新增组件升次版本, 修复升修订版本, 不兼容改动写进 CHANGELOG
