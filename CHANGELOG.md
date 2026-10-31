@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+## 0.5.0 - 2026-10-31
+
 - 新增 `LinkButton`(按钮外观的链接, 用于跳转或下载), 与 `Button` 同在 `primitives/button`
 - 新增 `QueryStatus`(读取未完成时显示骨架或带重试的错误, 有数据后不画); `QueryTable` 改用它
 
