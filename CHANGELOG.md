@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- 新增 `LinkButton`(按钮外观的链接, 用于跳转或下载), 与 `Button` 同在 `primitives/button`
+- 新增 `QueryStatus`(读取未完成时显示骨架或带重试的错误, 有数据后不画); `QueryTable` 改用它
+
 ## 0.4.0 - 2026-10-31
 
 - 新增 `TopNav`(顶栏标签, 一条指示线滑向当前页)与 `isCurrentPath`; `kitText` 新增 `mainNavigation`

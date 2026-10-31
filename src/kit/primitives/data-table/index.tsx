@@ -3,8 +3,7 @@ import "./data-table.css";
 import type { ComponentChildren } from "preact";
 
 import { Empty } from "../empty/index.tsx";
-import { ErrorNote } from "../note/index.tsx";
-import { Skeleton } from "../skeleton/index.tsx";
+import { QueryStatus } from "../query-status/index.tsx";
 
 export type Column<T> = {
   key: string;
@@ -87,8 +86,7 @@ export function QueryTable<T>({
 }) {
   return (
     <>
-      {query.isPending ? <Skeleton kind="table" cols={columns.length} rows={skeletonRows} /> : null}
-      {!query.isPending && query.error ? <ErrorNote error={query.error} onRetry={() => query.refetch()} /> : null}
+      <QueryStatus query={query} loading={{ kind: "table", cols: columns.length, rows: skeletonRows }} />
       {query.data !== undefined && rows.length === 0 ? <Empty>{empty}</Empty> : null}
       {rows.length > 0 ? <DataTable columns={columns} rows={rows} rowKey={rowKey} rowAttrs={rowAttrs} busy={query.isPlaceholderData} /> : null}
     </>

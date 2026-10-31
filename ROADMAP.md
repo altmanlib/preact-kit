@@ -5,7 +5,7 @@
 - 骨架: 目录, 展示站(自动收集 demo, 明暗/跟随系统切换), token(`light-dark()`), 边界检查
 - primitives: `Button` `Badge` `Note`/`ErrorNote` `Empty` `Skeleton` `Tile`/`Tiles` `Fact`/`Facts` `PageHead`/`Section` `Chips` `SubNav` `Pager` `GlideHeight` `Field`/`TextField`/`TextAreaField`/`CheckField` `IconButton` `CopyButton`/`CopyField` `ConfirmButton` `DataTable`/`QueryTable` `Modal` `Drawer` `DialogProvider`/`useDialog` `Switch` `Tabs` `Dropdown` `Select` `Tooltip` `Toast`/`Toaster` `RadioGroup` `NumberField` `Alert` `Spinner` `Progress` `Tag` `Avatar` `Card` `Breadcrumb` `Accordion` `Stack`/`Grid`
 - lib: `errors`(`ApiError`/`setErrorTexts`), `http`(`request`/`query`), `signals`(`useFields`/`useOpen`/`set`), `paging`(`usePagedList`, 依赖 `@tanstack/preact-query`), `leaving-dialog`(Modal 与 Drawer 共用的进出场逻辑), `roving`(列表键盘焦点与首字母定位), `anchor`(弹层与触发器的锚点命名), `toasts`(`showToast` 与队列), `number`(数字文本的解析/步进/修正)
-- primitives 另有 `TopNav`(顶栏标签与滑动指示条); `DataTable`/`QueryTable` 的 `rowAttrs`, `Section` 与 `Tile` 的 `class` 及透传属性; lib 另有 `format`(`formatTime`)
+- primitives 另有 `LinkButton`, `QueryStatus`, `TopNav`(顶栏标签与滑动指示条); `DataTable`/`QueryTable` 的 `rowAttrs`, `Section` 与 `Tile` 的 `class` 及透传属性; lib 另有 `format`(`formatTime`)
 - patterns: `ListPage`
 - `ConfirmButton` 用 `Modal` 弹出确认框, `onConfirm` 可返回 Promise
 - 固定文案集中在 `kit/texts.ts`, 应用用 `setKitText` 改写; API 错误码文案用 `setErrorTexts` 注册
