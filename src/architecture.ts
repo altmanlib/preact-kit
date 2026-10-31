@@ -43,6 +43,13 @@ export const ZONES: Zone[] = [
     browser: true,
   },
   {
+    name: "kit/patterns",
+    paths: ["kit/patterns"],
+    why: "page shapes built from primitives and lib; what is the page's own (texts, columns, fetching) comes in as props",
+    uses: ["kit/demo.ts", "kit/texts.ts", "kit/lib", "kit/primitives"],
+    browser: true,
+  },
+  {
     name: "gallery",
     paths: ["gallery"],
     why: "the showcase app; it reads the kit, and the kit never reads it",

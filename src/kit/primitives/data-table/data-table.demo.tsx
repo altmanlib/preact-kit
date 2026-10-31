@@ -15,17 +15,13 @@ const ROWS: Row[] = [
 const TONES: Record<Row["status"], Tone> = { Paid: "ok", Pending: "warn", Failed: "bad" };
 
 const COLUMNS: Column<Row>[] = [
-  { key: "id", header: "Order", cellClass: "mono" },
+  { key: "id", header: "Order", cellClass: "mono", cell: (row) => row.id },
   { key: "customer", header: "Customer", cell: (row) => row.customer },
   { key: "amount", header: "Amount", class: "num", cellClass: "mono", cell: (row) => row.amount },
   { key: "status", header: "Status", cell: (row) => <Badge tone={TONES[row.status]}>{row.status}</Badge> },
   { key: "at", header: "Time", cellClass: "mono muted", cell: (row) => row.at },
-  {
-    key: "actions",
-    class: "actions",
-    cell: () => <Button variant="quiet">View</Button>,
-  },
-].map((column) => ({ cell: (row: Row) => (row as unknown as Record<string, string>)[column.key], ...column }));
+  { key: "actions", class: "actions", cell: () => <Button variant="quiet">View</Button> },
+];
 
 const query = (patch: Partial<QueryLike>): QueryLike => ({ isPending: false, error: null, refetch: () => undefined, data: ROWS, ...patch });
 
@@ -36,7 +32,7 @@ export default defineDemo({
   examples: [
     {
       title: "DataTable",
-      note: "Row actions go in the last column with `class: \"actions\"`; `num` right-aligns figures.",
+      note: 'Row actions go in the last column with `class: "actions"`; `num` right-aligns figures.',
       render: () => (
         <div class="demo-stack">
           <DataTable columns={COLUMNS} rows={ROWS} rowKey={(row) => row.id} />

@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@preact/signals": "^2.11.4",
+    "@tanstack/preact-query": "^5.105.0",
     "lucide-preact": "^1.63.0",
     "preact": "^11.1.0"
   },
