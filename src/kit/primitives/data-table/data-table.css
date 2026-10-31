@@ -1,0 +1,71 @@
+.table-wrap {
+  background: var(--card-shell);
+  border-radius: var(--radius);
+  overflow: hidden;
+  overflow-x: auto;
+  transition: opacity var(--duration-enter) var(--ease-out);
+}
+/* Rows kept from the previous filter while the next ones load. */
+.table-wrap[aria-busy="true"] {
+  opacity: 0.55;
+}
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-4);
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: var(--hairline) solid var(--line);
+}
+.table th {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.table td .btn {
+  padding: 0 var(--space-2);
+  height: var(--control-sm);
+  font-size: var(--text-xs);
+}
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.table tbody tr:hover td {
+  background: var(--surface-hover);
+}
+.table td {
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+.table th.num,
+.table td.num {
+  text-align: right;
+}
+.table th.actions,
+.table td.actions {
+  text-align: right;
+  white-space: nowrap;
+}
+.table td.actions .btn + .btn {
+  margin-left: var(--space-1);
+}
+/* Ids and timestamps keep one line; the wrapper scrolls on narrow screens. */
+.table .mono {
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .table {
+    min-width: var(--table-min);
+  }
+  /* Rows keep one line on a narrow screen; only a cell marked `wrap` may break. */
+  .table td {
+    white-space: nowrap;
+  }
+  .table td .wrap {
+    white-space: normal;
+  }
+}

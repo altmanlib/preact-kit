@@ -1,0 +1,67 @@
+.field {
+  display: grid;
+  gap: var(--space-1);
+  align-content: start;
+}
+.field > span {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+.field small {
+  color: var(--muted);
+  font-size: var(--text-2xs);
+  line-height: var(--leading-body);
+}
+.field small.field-bad {
+  color: var(--bad);
+}
+
+/* The shared look of a text input, a textarea and a native select. */
+.input {
+  width: 100%;
+  height: var(--control-md);
+  padding: 0 var(--space-2);
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--text);
+  background: var(--card-inner);
+  border: var(--hairline) solid var(--line-strong);
+  border-radius: var(--radius);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+textarea.input {
+  height: auto;
+  min-height: calc(var(--control-md) * 2);
+  padding: var(--space-2);
+  line-height: var(--leading-body);
+}
+.input:hover:not(:disabled) {
+  border-color: var(--line-hover);
+}
+.input:focus-visible {
+  outline: 0;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 var(--space-1) color-mix(in srgb, var(--ink) 14%, transparent);
+}
+.input::placeholder {
+  color: var(--disabled-ink);
+}
+.input:disabled {
+  color: var(--muted);
+  background: var(--surface-sunken);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+
+.check {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.check input {
+  accent-color: var(--ink);
+}

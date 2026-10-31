@@ -1,0 +1,17 @@
+/* The copy button sits inside the right edge of a read-only field. */
+.copy-field {
+  position: relative;
+  width: 100%;
+}
+.copy-field .input {
+  padding-right: calc(var(--control-icon) + var(--space-1));
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-overflow: ellipsis;
+}
+.copy-field .btn-icon {
+  position: absolute;
+  top: 50%;
+  right: 1px;
+  transform: translateY(-50%);
+}

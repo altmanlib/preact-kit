@@ -1,0 +1,32 @@
+.btn-icon {
+  display: inline-grid;
+  place-items: center;
+  width: var(--control-icon);
+  height: var(--control-icon);
+  padding: 0;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+.btn-icon:hover {
+  color: var(--text);
+  background: var(--idle-soft);
+}
+.btn-icon-ok {
+  color: var(--ok);
+  background: var(--ok-soft);
+}
+.btn-icon-bad {
+  color: var(--bad);
+  background: var(--bad-soft);
+}
+.btn-icon svg {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+  stroke-width: var(--icon-stroke);
+}
