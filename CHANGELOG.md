@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+## 0.4.0 - 2026-10-31
+
 - 新增 `TopNav`(顶栏标签, 一条指示线滑向当前页)与 `isCurrentPath`; `kitText` 新增 `mainNavigation`
 - 新增 `lib/format`: `formatTime`(本地时间 `YYYY-MM-DD HH:mm:ss`)
 - `DataTable` 与 `QueryTable` 新增 `rowAttrs`(给行加 `data-*` 等属性)
