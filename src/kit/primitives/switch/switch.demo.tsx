@@ -1,4 +1,5 @@
 import { useSignal } from "@preact/signals";
+import { useState } from "preact/hooks";
 
 import { defineDemo } from "../../demo.ts";
 import { Switch } from "./index.tsx";
@@ -15,9 +16,22 @@ function SwitchDemo() {
   );
 }
 
+function PlainSwitch() {
+  const [on, setOn] = useState(false);
+  return (
+    <div class="demo-stack">
+      <Switch label="Dark sidebar" hint="Plain state: value and onValue." value={on} onValue={setOn} />
+      <p class="muted">State: {String(on)}</p>
+    </div>
+  );
+}
+
 export default defineDemo({
   name: "Switch",
   kind: "primitive",
   summary: "An on/off switch for a setting that applies at once.",
-  examples: [{ title: "States", note: "Use CheckField for a choice that is submitted with a form.", render: () => <SwitchDemo /> }],
+  examples: [
+    { title: "States", note: "Use CheckField for a choice that is submitted with a form.", render: () => <SwitchDemo /> },
+    { title: "Without signals", note: "`value` and `onValue` replace `field` when the state lives elsewhere.", render: () => <PlainSwitch /> },
+  ],
 });

@@ -1,6 +1,22 @@
 import { type Signal, signal, useSignal } from "@preact/signals";
 import { useMemo } from "preact/hooks";
 
+/**
+ * How a control gets its value: either follows a `field` signal, or is plain controlled with `value` and `onValue`.
+ * Exactly one mode is allowed; the `never` members make a mix a type error.
+ */
+export type Bound<T> = { field: Signal<T>; value?: never; onValue?: never } | { value: T; onValue: (value: T) => void; field?: never };
+
+/**
+ * Resolves a control's props to its current `value` and a `set` that writes it, in whichever mode the caller chose, and
+ * hands back the remaining props `P` (name it explicitly: `bound<string, Own>(props)`) as `rest`. Call it in render: reading a signal's value there subscribes the component.
+ */
+export function bound<T, P extends object>(props: Bound<T> & P): { value: T; set: (value: T) => void; rest: P } {
+  const { field, value, onValue, ...rest } = props as Bound<T> & Record<string, unknown>;
+  if (field) return { value: field.value, set: (next) => (field.value = next), rest: rest as P };
+  return { value: value as T, set: onValue as (value: T) => void, rest: rest as P };
+}
+
 /** An event handler that sets `field` to `value`: `onClick={set(shown, true)}`. */
 export function set<T>(field: Signal<T>, value: T) {
   return () => {

@@ -1,4 +1,5 @@
 import { computed } from "@preact/signals";
+import { useState } from "preact/hooks";
 
 import { defineDemo } from "../../demo.ts";
 import { parseNumber } from "../../lib/number.ts";
@@ -23,9 +24,22 @@ function NumberDemo() {
   );
 }
 
+function PlainNumber() {
+  const [amount, setAmount] = useState("5");
+  return (
+    <div class="demo-stack">
+      <NumberField label="Amount" hint="Plain state: value and onValue." value={amount} onValue={setAmount} min={0} max={10} />
+      <p class="muted">Text: {JSON.stringify(amount)}</p>
+    </div>
+  );
+}
+
 export default defineDemo({
   name: "NumberField",
   kind: "primitive",
   summary: "A number input with steppers that holds its text, so empty and half-typed values are representable.",
-  examples: [{ title: "Limits, step, error and disabled", render: () => <NumberDemo /> }],
+  examples: [
+    { title: "Limits, step, error and disabled", render: () => <NumberDemo /> },
+    { title: "Without signals", note: "`value` and `onValue` carry the text, just as `field` does.", render: () => <PlainNumber /> },
+  ],
 });

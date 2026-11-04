@@ -1,43 +1,40 @@
 import "../field/field.css";
 import "./number-field.css";
 
-import type { Signal } from "@preact/signals";
 import { Minus, Plus } from "lucide-preact";
 import type { ComponentProps } from "preact";
 import { useId } from "preact/hooks";
 
 import { normalizeNumber, parseNumber, stepNumber } from "../../lib/number.ts";
+import { type Bound, bound } from "../../lib/signals.ts";
 import { kitText } from "../../texts.ts";
 import { IconButton } from "../icon-button/index.tsx";
 
-/**
- * A labelled number input that follows `field` (the text, so an empty or half-typed value can be held) with − and + steppers.
- * ArrowUp and ArrowDown step too; leaving the field pulls a readable number into `min`/`max`. Read the number with
- * `parseNumber(field.value)`; unreadable text is for the caller to report through `error`.
- */
-export function NumberField({
-  label,
-  hint,
-  error,
-  field,
-  min,
-  max,
-  step = 1,
-  disabled = false,
-  ...input
-}: {
+/** The props of `NumberField`: either a `field` signal or `value` with `onValue` (never both); both carry the text, not the number. */
+export type NumberFieldProps = NumberFieldOwn & Bound<string>;
+
+type NumberFieldOwn = {
   label: string;
   hint?: string;
   error?: string;
-  field: Signal<string>;
   min?: number;
   max?: number;
   step?: number;
-} & Omit<ComponentProps<"input">, "value" | "onInput" | "type" | "min" | "max" | "step" | "label">) {
+} & Omit<ComponentProps<"input">, "value" | "onInput" | "type" | "min" | "max" | "step" | "label">;
+
+/**
+ * A labelled number input that follows `field` (the text, so an empty or half-typed value can be held), or is plain
+ * controlled with `value` and `onValue`, with − and + steppers.
+ * ArrowUp and ArrowDown step too; leaving the field pulls a readable number into `min`/`max`. Read the number with
+ * `parseNumber(text)`; unreadable text is for the caller to report through `error`.
+ */
+export function NumberField(props: NumberFieldProps) {
+  const { value: text, set, rest } = bound<string, NumberFieldOwn>(props);
+  const { label, hint, error, min, max, step = 1, disabled = false, ...input } = rest;
   const labelId = useId();
-  const current = parseNumber(field.value);
+  const current = parseNumber(text);
   const stepBy = (direction: 1 | -1) => {
-    field.value = stepNumber({ text: field.value, direction, step, min, max });
+    set(stepNumber({ text, direction, step, min, max }));
   };
 
   return (
@@ -59,9 +56,9 @@ export function NumberField({
           aria-valuenow={current}
           aria-invalid={error ? true : undefined}
           disabled={disabled}
-          value={field.value}
-          onInput={(event) => (field.value = event.currentTarget.value)}
-          onBlur={() => (field.value = normalizeNumber(field.value, { min, max }))}
+          value={text}
+          onInput={(event) => set(event.currentTarget.value)}
+          onBlur={() => set(normalizeNumber(text, { min, max }))}
           onKeyDown={(event) => {
             if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
             event.preventDefault();

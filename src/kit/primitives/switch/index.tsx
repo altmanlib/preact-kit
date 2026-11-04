@@ -1,21 +1,17 @@
 import "./switch.css";
 
-import type { Signal } from "@preact/signals";
+import { type Bound, bound } from "../../lib/signals.ts";
 
-/** A on/off switch that follows a signal, with an optional hint beneath. Use it for a setting that applies at once; use CheckField for a choice that is submitted. */
-export function Switch({
-  label,
-  hint,
-  field,
-  name,
-  disabled = false,
-}: {
-  label: string;
-  hint?: string;
-  field: Signal<boolean>;
-  name?: string;
-  disabled?: boolean;
-}) {
+/** The props of `Switch`: either a `field` signal or `value` with `onValue` (never both). */
+export type SwitchProps = { label: string; hint?: string; name?: string; disabled?: boolean } & Bound<boolean>;
+
+/**
+ * An on/off switch with an optional hint beneath; it follows a signal or is plain controlled with `value` and `onValue`.
+ * Use it for a setting that applies at once; use CheckField for a choice that is submitted.
+ */
+export function Switch(props: SwitchProps) {
+  const { value, set, rest } = bound<boolean, { label: string; hint?: string; name?: string; disabled?: boolean }>(props);
+  const { label, hint, name, disabled = false } = rest;
   return (
     <div class="field">
       <label class={disabled ? "switch switch-disabled" : "switch"}>
@@ -24,10 +20,10 @@ export function Switch({
           type="checkbox"
           role="switch"
           name={name}
-          checked={field.value}
+          checked={value}
           disabled={disabled}
           onChange={(event) => {
-            field.value = event.currentTarget.checked;
+            set(event.currentTarget.checked);
           }}
         />
         <span class="switch-track" aria-hidden="true">
