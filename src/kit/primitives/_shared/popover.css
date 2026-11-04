@@ -2,6 +2,7 @@
  * The surface shared by everything that opens next to a trigger (Dropdown, Select, Tooltip). The browser puts a
  * `popover` element in the top layer and handles light dismiss and Esc; here it is placed against the trigger with CSS
  * anchor positioning. The trigger sets `anchor-name`, the popover sets `position-anchor` (both inline, per instance).
+ * It fades and lifts in and out with transitions: `display` and `overlay` are discrete, so the exit runs before it leaves the top layer.
  */
 .pop {
   position: fixed;
@@ -23,13 +24,28 @@
     flip-block,
     flip-inline,
     flip-block flip-inline;
+  opacity: 0;
+  transform: translateY(var(--enter-lift));
+  transition:
+    opacity var(--duration-fast) var(--ease-in),
+    transform var(--duration-fast) var(--ease-in),
+    display var(--duration-fast) allow-discrete,
+    overlay var(--duration-fast) allow-discrete;
 }
 .pop.pop-end {
   left: auto;
   right: anchor(right);
 }
 .pop:popover-open {
-  animation: view-in var(--duration-fast) var(--ease-out) both;
+  opacity: 1;
+  transform: none;
+  transition-timing-function: var(--ease-out);
+}
+@starting-style {
+  .pop:popover-open {
+    opacity: 0;
+    transform: translateY(var(--enter-lift));
+  }
 }
 
 /* A row in a menu or a list: a bare button that fills the row. */

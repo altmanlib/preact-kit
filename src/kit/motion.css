@@ -5,6 +5,7 @@
  *   hover, press, colour changes   --duration-fast  --ease-out
  *   something arriving or swapping --duration-enter --ease-out   (.enter, or `animation: view-in ...`)
  *   something leaving              --duration-enter --ease-in    (view-out, scrim-out, drawer-out)
+ *   a popover in and out           --duration-fast  --ease-out in, --ease-in out   (transition, see _shared/popover.css)
  *   a size change or a panel move  --duration-slide --ease-out
  *   a spinner turning              --duration-spin  --ease-linear
  *   a looping sweep or shimmer     --duration-loop  --ease-in-out (bounded sweep) or --ease-linear (endless shimmer)

@@ -4,6 +4,7 @@
 
 ## Unreleased
 
+- 弹层(`Dropdown`/`Select`/`Tooltip`)关闭时有退出过渡(淡出加下沉, `--ease-in`), 进入与退出都改用 transition(`@starting-style`); `TopNav` 的 hover 颜色与底色块由 `--duration-enter` 改为 `--duration-fast`
 - 动效 token 统一: 新增 `--ease-in`(退出动画用, `Modal` 与 `Drawer` 的退出由 `--ease-out` 改为它), `--ease-linear`, `--duration-spin`(800ms), `--duration-loop`(1200ms); `Spinner`, `Skeleton`, `Progress` 的循环动画改用 token, `Skeleton` 的闪烁周期由 1.4s 变为 1.2s
 
 ## 0.6.0 - 2026-11-04
