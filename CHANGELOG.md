@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- 新增 `Suggest`: 包住一个 `<input>`/`<textarea>`, 光标紧跟触发字符(如 `@`, `#`)时在其下方列出候选; 焦点留在输入框, 方向键移动高亮, Enter/Tab 选择, Esc 关闭, 列表打开时这几个键不会到达输入框自己的处理(Enter 不会同时提交), 输入法组字期间不拦截; 选择后经 `onPick` 交回新值与光标位置, 组件负责把光标放回去; 输入框自动带上 combobox 的 ARIA 属性
+- 新增 `lib/suggest`(`findTrigger`, `applyPick`, `suggestAction`): 触发判定(邮箱 `a@b` 与 `@@` 不算, `你好@` 算; 规则可由 `notAfter` 替换), 应用选择, 按键含义, 均为纯函数并有测试
+
 ## 0.7.0 - 2026-11-04
 
 - `Toast` 有进出场动画: 进场淡入上浮, 退场淡出并收起高度(其余 toast 不跳位); `dismissToast(id)` 改为只标记 `leaving`, 由 `Toaster` 在退场动画结束后用新增的 `removeToast(id)` 移除, 所以 `toasts` 里的项在退场期间仍在列表中(**不兼容**: 直接读 `toasts` 判断是否已关闭的调用方需改看 `leaving`)
