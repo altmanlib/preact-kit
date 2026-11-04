@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+## 0.6.0 - 2026-11-04
+
 - 新增 `NavList`(竖排可选项列表): 每项有标题, 可选次要文字, 可选 `leading`/`trailing` 插槽; 有 `href` 的是链接, 没有的是按钮(`onSelect(key)`), 选中项带 `aria-current`; 方向键, Home, End 移动焦点(跳过禁用项); 过长文字省略
 - 新增 `lib/theme`(`Theme`, `theme` 信号, `applyTheme(options)`): 把主题写到 `<html data-theme>`(`system` 时移除属性), 存 localStorage(`storageKey` 可注入, 默认 `preact-kit:theme`); 没有 `localStorage` 或 `document` 时不报错; 新增 `ThemeSwitch`(系统/浅色/深色三档的单选组, `showLabels` 显示文字); `kitText` 新增 `theme`/`themeSystem`/`themeLight`/`themeDark`; 展示站改用它, 删除 `gallery/theme.ts`
 - `Note` 新增 `action`(行尾操作, 通常是 `Button`); `ErrorNote` 的重试改为用它和 `Button` 的 `text` 变体, 位置从文字后面移到行尾, 删除 `.note-retry`
