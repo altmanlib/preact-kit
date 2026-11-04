@@ -33,7 +33,7 @@ docs/                                    # guide/ 操作指南, record/ 调研�
 
 ```bash
 bun add github:altmanlib/preact-kit#v<版本>
-bun add preact @preact/signals    # peer 依赖; 用 lib/paging 或 ListPage 时另加 @tanstack/preact-query
+bun add preact @preact/signals    # peer 依赖; 用 lib/paging 或 ListPage 时另加 @tanstack/preact-query, 用 MentionInput 时另加 prosemirror-state prosemirror-view prosemirror-model prosemirror-history prosemirror-keymap prosemirror-commands
 ```
 
 ```tsx
@@ -48,7 +48,7 @@ import { setKitText } from "@altmanlib/preact-kit/texts";
 - `tsconfig.json` 的 `types` 加上 `@altmanlib/preact-kit/assets`(样式文件的导入声明)
 - 升级: 改 tag 并 `bun add`, 跑自己的 `ci`; 1.0 之前次版本号可含不兼容改动, 见 [CHANGELOG.md](CHANGELOG.md)
 - 依赖: `lucide-preact` 随包安装
-- 弹层类组件(`Dropdown`, `Select`, `Tooltip`, `Toast`)依赖 Popover API 与 CSS anchor positioning, 颜色依赖 `light-dark()`; 目前只在 Chromium 上验证过
+- 弹层类组件(`Dropdown`, `Select`, `Suggest`, `MentionInput`, `Tooltip`, `Toast`)依赖 Popover API 与 CSS anchor positioning, 颜色依赖 `light-dark()`; 目前只在 Chromium 上验证过
 
 ## 文档
 

@@ -1,23 +1,12 @@
-import "../_shared/popover.css";
-import "./suggest.css";
-
 import { useSignal } from "@preact/signals";
 import type { ComponentChildren } from "preact";
 import { useEffect, useRef } from "preact/hooks";
 
 import { useAnchor } from "../../lib/anchor.ts";
 import { applyPick, findTrigger, suggestAction, type TriggerMatch } from "../../lib/suggest.ts";
+import { optionIdOf, type SuggestItem, SuggestList, useManualPopover } from "./list.tsx";
 
-export type SuggestItem = {
-  key: string;
-  label: string;
-  /** Quiet text at the row's end. */
-  hint?: string;
-  /** Shown before the label, such as an avatar. */
-  leading?: ComponentChildren;
-  /** What replaces the trigger and the typed text when this row is chosen; the trigger plus the label and a space by default. */
-  insert?: string;
-};
+export type { SuggestItem } from "./list.tsx";
 
 export type SuggestPick = {
   item: SuggestItem;
@@ -57,7 +46,6 @@ export function Suggest({
 }) {
   const { id, anchor } = useAnchor();
   const box = useRef<HTMLDivElement>(null);
-  const list = useRef<HTMLDivElement>(null);
   const match = useSignal<TriggerMatch | undefined>(undefined);
   const active = useSignal(0);
   // The trigger index the user closed the list at; typing on at the same trigger keeps it closed.
@@ -66,7 +54,6 @@ export function Suggest({
   const rows = match.value ? items(match.value) : [];
   const shown = match.value !== undefined && rows.length > 0 && dismissed.value !== match.value.start;
   const activeIndex = Math.min(active.value, Math.max(rows.length - 1, 0));
-  const optionId = (index: number) => `${id}-${index}`;
 
   const field = () => box.current?.querySelector<HTMLInputElement | HTMLTextAreaElement>("textarea, input") ?? undefined;
 
@@ -99,13 +86,7 @@ export function Suggest({
     });
   }
 
-  // The popover is `manual`: the input keeps focus and the key handling below closes it.
-  useEffect(() => {
-    const popover = list.current;
-    if (!popover) return;
-    if (shown && !popover.matches(":popover-open")) popover.showPopover();
-    else if (!shown && popover.matches(":popover-open")) popover.hidePopover();
-  }, [shown]);
+  const list = useManualPopover(shown);
 
   // The input is the combobox; the wrapper cannot pass props to a child it does not render, so the attributes go on it here.
   useEffect(() => {
@@ -116,7 +97,7 @@ export function Suggest({
     el.setAttribute("aria-haspopup", "listbox");
     el.setAttribute("aria-controls", id);
     el.setAttribute("aria-expanded", String(shown));
-    if (shown) el.setAttribute("aria-activedescendant", optionId(activeIndex));
+    if (shown) el.setAttribute("aria-activedescendant", optionIdOf(id, activeIndex));
     else el.removeAttribute("aria-activedescendant");
   }, [shown, activeIndex, id]);
 
@@ -142,33 +123,16 @@ export function Suggest({
       }}
     >
       {children}
-      <div
-        ref={list}
+      <SuggestList
         id={id}
-        popover="manual"
-        role="listbox"
-        aria-label={label}
-        class="pop suggest-list"
-        style={`position-anchor: ${anchor}`}
-        // A press on the list must not take focus from the input, or the blur would close the list before the click lands.
-        onPointerDown={(event) => event.preventDefault()}
-      >
-        {rows.map((row, index) => (
-          <div
-            key={row.key}
-            id={optionId(index)}
-            role="option"
-            class="pop-item suggest-item"
-            aria-selected={index === activeIndex}
-            onPointerMove={() => (active.value = index)}
-            onClick={() => pick(index)}
-          >
-            {row.leading}
-            <span class="suggest-label">{row.label}</span>
-            {row.hint ? <span class="suggest-hint">{row.hint}</span> : null}
-          </div>
-        ))}
-      </div>
+        anchor={anchor}
+        label={label}
+        rows={rows}
+        active={activeIndex}
+        listRef={list}
+        onHover={(index) => (active.value = index)}
+        onPick={pick}
+      />
     </div>
   );
 }

@@ -28,8 +28,8 @@ Preact 组件库 `@altmanlib/preact-kit`: 一套带设计 token(含暗色)的通
 - 对外可见的改动(新增/改动/删除组件, 属性变化, token 变化)在提交时写进 `CHANGELOG.md` 的 `## Unreleased`; 不兼容改动标明
 - 本仓是公开仓库: 文档, 代码, demo 数据与提交信息里不出现用户的业务项目信息(项目名, 业务词汇, 域名), 示例数据用通用内容
 - 对外入口是 `package.json` 的 `exports`(按子路径: `primitives/*` `patterns/*` `lib/*` `texts`, 三个 CSS 与 `assets`); 新增顶层目录或入口文件名不同的单元时同步 `exports`; `sideEffects` 保持 `["**/*.css"]`
-- `preact` 与 `@preact/signals` 是 peer 依赖(同时在 devDependencies), `@tanstack/preact-query` 是可选 peer; 新增运行时依赖时先判断放 `dependencies` 还是 peer
-- 新增依赖用 `bun add`; 现有运行时依赖只有 `lucide-preact`, 以及 peer 的 `preact`, `@preact/signals` 与 `@tanstack/preact-query`(仅 `lib/paging` 与 `ListPage` 用)
+- `preact` 与 `@preact/signals` 是 peer 依赖(同时在 devDependencies), `@tanstack/preact-query` 与 `prosemirror-*` 是可选 peer; 新增运行时依赖时先判断放 `dependencies` 还是 peer
+- 新增依赖用 `bun add`; 现有运行时依赖只有 `lucide-preact`, 以及 peer 的 `preact`, `@preact/signals`, `@tanstack/preact-query`(仅 `lib/paging` 与 `ListPage` 用)和 `prosemirror-state`, `-view`, `-model`, `-history`, `-keymap`, `-commands`(仅 `MentionInput` 用; ProseMirror 要求同一棵依赖树里 model/state/view 各只有一份, 所以放 peer)
 - 不依赖 `preact/compat`: 不引入内部引用它的库(如 Zag.js 的 Preact 适配器); 复杂交互组件在 Popover API 之上自写
 - 弹层(`popover`)的类名样式写成 `.pop.<名>` 以压过共用的 `.pop`, 不依赖样式表的打包顺序
 - 交互类组件(键盘, 焦点, 弹层, 对话框)除 `bun run ci` 外, 要在浏览器里实测, 明暗两套都看; 纯逻辑放在 `lib/` 或组件目录的 `.ts` 里并写测试

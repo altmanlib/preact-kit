@@ -4,6 +4,10 @@
 
 ## Unreleased
 
+- 新增 `MentionInput`: 提及显示为行内标签(chip)的输入框. 输入触发字符(如 `@`)后列出候选, 选中后把已输入的文字换成一个 chip, chip 整块选中与删除; 输入框里的内容始终是纯文本(`onChange`/`onSubmit` 得到字符串, chip 即其文字, 换行为 `\n`), 粘贴与拖入只保留文本, 不产生标记. Enter 提交, Shift+Enter 换行, 候选列表打开时 Enter/Tab 选择, Esc 关闭; 清空与聚焦经 `handle`. 基于 ProseMirror(组字输入, 撤销, 光标交给它处理), 不依赖 `preact/compat`
+- **新增可选 peer 依赖**: `prosemirror-state`, `prosemirror-view`, `prosemirror-model`, `prosemirror-history`, `prosemirror-keymap`, `prosemirror-commands`, 只有用 `MentionInput` 时才需要安装
+- `Suggest` 的候选列表抽成内部的 `SuggestList` 与 `useManualPopover`, 与 `MentionInput` 共用; `Suggest` 的对外接口不变
+
 ## 0.8.0 - 2026-11-04
 
 - 新增 `Suggest`: 包住一个 `<input>`/`<textarea>`, 光标紧跟触发字符(如 `@`, `#`)时在其下方列出候选; 焦点留在输入框, 方向键移动高亮, Enter/Tab 选择, Esc 关闭, 列表打开时这几个键不会到达输入框自己的处理(Enter 不会同时提交), 输入法组字期间不拦截; 选择后经 `onPick` 交回新值与光标位置, 组件负责把光标放回去; 输入框自动带上 combobox 的 ARIA 属性
