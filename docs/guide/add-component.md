@@ -2,7 +2,7 @@
 title: 新增组件
 type: guide
 status: published
-updated: 2026-10-31
+updated: 2026-11-04
 ---
 
 # 新增组件
@@ -55,9 +55,10 @@ updated: 2026-10-31
 - 定位用 CSS anchor positioning: `useAnchor()`(`kit/lib/anchor.ts`)给出弹层 `id` 与锚点名, 触发器写 `style="anchor-name: …"`, 弹层写 `style="position-anchor: …"`, 样式用 `_shared/popover.css` 的 `.pop`(菜单项与列表项用 `.pop-item`)
 - 列表里的方向键, Home, End, 跳过禁用项与首字母定位用 `kit/lib/roving.ts`
 - 弹层在顶层渲染, 不会被 `Modal`/`Drawer` 压住
+- 焦点留在输入框的候选列表(`Suggest`, `MentionInput`)用 `primitives/suggest/list.tsx` 的 `SuggestList` 与 `useManualPopover`: 弹层是 `popover="manual"`, 在列表上按下不抢走输入框焦点, 按键在输入框一侧处理, 输入法组字期间(`isComposing`, `keyCode 229`)不拦截按键
 
 ## 6. 验证与提交
 
 - `bun run ci`(格式, 类型, 文档, 测试)
-- 交互类组件(键盘, 焦点, 弹层, 对话框)在展示站里实测: 键盘操作, 明暗两套, 打开与关闭后的焦点位置; 目前没有自动化的浏览器测试
+- 交互类组件(键盘, 焦点, 弹层, 对话框)在展示站里实测: 键盘操作, 明暗两套, 打开与关闭后的焦点位置; 目前没有自动化的浏览器测试; 输入法组字这类行为无法在无头浏览器里模拟, 需要在真机上用输入法试一次
 - 对外可见的改动在 `CHANGELOG.md` 的 `## Unreleased` 加一条; 提交到 `dev`, 发版流程见 `AGENTS.md`
