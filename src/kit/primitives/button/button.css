@@ -57,6 +57,21 @@
   color: var(--text);
   background: var(--idle-soft);
 }
+/* Link-like: no fill at any state, the brand colour as the only cue; hover underlines. Lighter than quiet. */
+.btn-text {
+  padding: 0 var(--space-1);
+  color: var(--ink);
+  background: transparent;
+}
+.btn-text:hover:not(:disabled) {
+  color: var(--ink-hover);
+  text-decoration: underline;
+  text-underline-offset: var(--underline-offset);
+  background: transparent;
+}
+.btn-text:disabled {
+  background: transparent;
+}
 .btn-danger {
   color: var(--bad);
   background: var(--bad-soft);

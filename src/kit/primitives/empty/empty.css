@@ -13,3 +13,9 @@
   width: 6.5rem;
   height: 5.5rem;
 }
+/* Inside a list or panel: the host provides the surface, so only the line of text remains. */
+.empty-compact {
+  padding: var(--space-3) var(--space-2);
+  font-size: var(--text-xs);
+  background: transparent;
+}

@@ -42,11 +42,14 @@ function EmptyArt() {
   );
 }
 
-/** A faint block with a small illustration above the line of text; the stock sentence when `children` is omitted. */
-export function Empty({ children }: { children?: ComponentChildren }) {
+/**
+ * A faint block with a small illustration above the line of text; the stock sentence when `children` is omitted.
+ * `compact` drops the illustration, the fill and most of the padding, for a spot inside a list or a panel.
+ */
+export function Empty({ compact = false, children }: { compact?: boolean; children?: ComponentChildren }) {
   return (
-    <div class="empty">
-      <EmptyArt />
+    <div class={compact ? "empty empty-compact" : "empty"}>
+      {compact ? null : <EmptyArt />}
       <p>{children ?? kitText.empty}</p>
     </div>
   );

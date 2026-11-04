@@ -3,8 +3,8 @@ import "./button.css";
 import type { ComponentProps } from "preact";
 
 type Look = {
-  /** `default` is the neutral fill; `primary` is the one main action of a view. */
-  variant?: "default" | "primary" | "quiet" | "danger";
+  /** `default` is the neutral fill; `primary` is the one main action of a view; `quiet` has no fill until hovered; `text` is link-like, with no fill at all. */
+  variant?: "default" | "primary" | "quiet" | "text" | "danger";
   size?: "sm" | "md" | "lg";
 };
 

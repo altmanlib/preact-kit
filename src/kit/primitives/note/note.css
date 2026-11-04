@@ -15,13 +15,21 @@
   background: var(--ok-soft);
   color: var(--ok);
 }
-.note-retry {
-  margin-left: var(--space-2);
-  padding: 0;
-  font: inherit;
+/* With an action the line splits: the text takes the room and wraps, the action stays at the trailing edge. */
+.note-split {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+}
+.note-text {
+  min-width: 0;
+}
+.note-action {
+  flex: none;
+}
+/* A text button inside a note takes the note's tone instead of the brand colour. */
+.note .btn-text,
+.note .btn-text:hover:not(:disabled) {
   color: inherit;
-  text-decoration: underline;
-  background: none;
-  border: 0;
-  cursor: pointer;
 }
