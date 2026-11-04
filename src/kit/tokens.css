@@ -112,10 +112,14 @@
   --duration-fast: 120ms;
   --duration-enter: 240ms;
   --duration-slide: 320ms;
+  --duration-spin: 800ms;
+  --duration-loop: 1200ms;
   --skeleton-delay: 200ms;
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --enter-lift: 6px;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-linear: linear;
+  --enter-lift: 6px;
 }
 
 :root[data-theme="light"] {

@@ -1,10 +1,13 @@
 /*
- * Motion base. The timings and the easing are tokens (tokens.css: --duration-fast / --duration-enter / --duration-slide,
- * --ease-out / --ease-in-out); this sheet holds what is built on them. Use a token, never a literal time or curve.
+ * Motion base. The timings and the easing are tokens (tokens.css: --duration-*, --ease-*); this sheet holds what is
+ * built on them. Use a token, never a literal time or curve.
  *
  *   hover, press, colour changes   --duration-fast  --ease-out
  *   something arriving or swapping --duration-enter --ease-out   (.enter, or `animation: view-in ...`)
+ *   something leaving              --duration-enter --ease-in    (view-out, scrim-out, drawer-out)
  *   a size change or a panel move  --duration-slide --ease-out
+ *   a spinner turning              --duration-spin  --ease-linear
+ *   a looping sweep or shimmer     --duration-loop  --ease-in-out (bounded sweep) or --ease-linear (endless shimmer)
  *
  * Reduced motion is handled once, at the end: every animation and transition collapses to an instant jump, so
  * a component never needs its own reduced-motion rule. Animations still end (and fire `animationend`), they are not removed.

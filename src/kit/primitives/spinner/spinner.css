@@ -6,7 +6,7 @@
   border: var(--rule) solid var(--line-strong);
   border-top-color: var(--ink);
   border-radius: var(--radius-pill);
-  animation: spinner-turn 0.8s linear infinite;
+  animation: spinner-turn var(--duration-spin) var(--ease-linear) infinite;
 }
 .spinner-sm {
   width: var(--space-3);

@@ -19,7 +19,7 @@
   animation: scrim-in var(--duration-enter) var(--ease-out) both;
 }
 .drawer.leaving::backdrop {
-  animation: scrim-out var(--duration-enter) var(--ease-out) both;
+  animation: scrim-out var(--duration-enter) var(--ease-in) both;
 }
 .drawer-panel {
   position: absolute;
@@ -34,7 +34,7 @@
   animation: drawer-in var(--duration-enter) var(--ease-out) both;
 }
 .drawer-panel.leaving {
-  animation: drawer-out var(--duration-enter) var(--ease-out) both;
+  animation: drawer-out var(--duration-enter) var(--ease-in) both;
 }
 .drawer-form {
   display: flex;

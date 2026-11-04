@@ -25,7 +25,7 @@
 }
 .progress-indeterminate .progress-bar {
   width: 40%;
-  animation: progress-slide 1.2s var(--ease-in-out) infinite;
+  animation: progress-slide var(--duration-loop) var(--ease-in-out) infinite;
 }
 
 @keyframes progress-slide {

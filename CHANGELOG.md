@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- 动效 token 统一: 新增 `--ease-in`(退出动画用, `Modal` 与 `Drawer` 的退出由 `--ease-out` 改为它), `--ease-linear`, `--duration-spin`(800ms), `--duration-loop`(1200ms); `Spinner`, `Skeleton`, `Progress` 的循环动画改用 token, `Skeleton` 的闪烁周期由 1.4s 变为 1.2s
+
 ## 0.6.0 - 2026-11-04
 
 - 新增 `NavList`(竖排可选项列表): 每项有标题, 可选次要文字, 可选 `leading`/`trailing` 插槽; 有 `href` 的是链接, 没有的是按钮(`onSelect(key)`), 选中项带 `aria-current`; 方向键, Home, End 移动焦点(跳过禁用项); 过长文字省略

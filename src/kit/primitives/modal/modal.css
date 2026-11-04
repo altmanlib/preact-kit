@@ -13,14 +13,14 @@
   animation: view-in var(--duration-enter) var(--ease-out) both;
 }
 .modal.leaving {
-  animation: view-out var(--duration-enter) var(--ease-out) both;
+  animation: view-out var(--duration-enter) var(--ease-in) both;
 }
 .modal::backdrop {
   background: var(--backdrop);
   animation: scrim-in var(--duration-enter) var(--ease-out) both;
 }
 .modal.leaving::backdrop {
-  animation: scrim-out var(--duration-enter) var(--ease-out) both;
+  animation: scrim-out var(--duration-enter) var(--ease-in) both;
 }
 .modal-form {
   display: flex;
