@@ -4,6 +4,12 @@
 
 ## Unreleased
 
+- `Toast` 有进出场动画: 进场淡入上浮, 退场淡出并收起高度(其余 toast 不跳位); `dismissToast(id)` 改为只标记 `leaving`, 由 `Toaster` 在退场动画结束后用新增的 `removeToast(id)` 移除, 所以 `toasts` 里的项在退场期间仍在列表中(**不兼容**: 直接读 `toasts` 判断是否已关闭的调用方需改看 `leaving`)
+- 新增 `lib/leave`(`afterLeave(element, done)`: 退场动画结束后回调一次, 带超时兜底), `Modal`/`Drawer`/`Toast` 共用
+- `Accordion` 展开与收起有高度过渡(`::details-content` 加 `interpolate-size`, 仅 Chromium; 其他浏览器仍是瞬时)
+- 新增 token `--press-scale`(0.97): `Button`(`text` 变体除外), `IconButton`, `Chips` 按下时轻微缩小; `Button` 的 hover 过渡补上文字颜色; 弹层列表项(`.pop-item`)的 hover 补上过渡
+- 新增 `src/kit/motion.test.ts`: 扫描全部样式表, 除 `tokens.css` 外出现字面时长或曲线即失败; 展示站新增 Motion 页, 并排演示时长与缓动 token
+
 - 弹层(`Dropdown`/`Select`/`Tooltip`)关闭时有退出过渡(淡出加下沉, `--ease-in`), 进入与退出都改用 transition(`@starting-style`); `TopNav` 的 hover 颜色与底色块由 `--duration-enter` 改为 `--duration-fast`
 - 动效 token 统一: 新增 `--ease-in`(退出动画用, `Modal` 与 `Drawer` 的退出由 `--ease-out` 改为它), `--ease-linear`, `--duration-spin`(800ms), `--duration-loop`(1200ms); `Spinner`, `Skeleton`, `Progress` 的循环动画改用 token, `Skeleton` 的闪烁周期由 1.4s 变为 1.2s
 

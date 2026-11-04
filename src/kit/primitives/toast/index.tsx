@@ -3,7 +3,8 @@ import "./toast.css";
 import { CircleAlert, CircleCheck, Info, TriangleAlert, X } from "lucide-preact";
 import { useEffect, useRef } from "preact/hooks";
 
-import { dismissToast, type ToastItem, toasts } from "../../lib/toasts.ts";
+import { afterLeave } from "../../lib/leave.ts";
+import { dismissToast, removeToast, type ToastItem, toasts } from "../../lib/toasts.ts";
 import { kitText } from "../../texts.ts";
 import { IconButton } from "../icon-button/index.tsx";
 
@@ -11,19 +12,20 @@ const ICONS = { info: Info, ok: CircleCheck, warn: TriangleAlert, bad: CircleAle
 
 function ToastView({ item }: { item: ToastItem }) {
   const Icon = ICONS[item.tone];
+  const element = useRef<HTMLDivElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const left = useRef(item.duration);
   const startedAt = useRef(0);
 
   const start = () => {
-    if (item.duration === 0) return;
+    if (item.duration === 0 || item.leaving) return;
     clearTimeout(timer.current);
     startedAt.current = Date.now();
     timer.current = setTimeout(() => dismissToast(item.id), left.current);
   };
   // Hovering or focusing a toast pauses its countdown; leaving resumes with the time that was left.
   const pause = () => {
-    if (item.duration === 0) return;
+    if (item.duration === 0 || item.leaving) return;
     clearTimeout(timer.current);
     left.current = Math.max(left.current - (Date.now() - startedAt.current), 1000);
   };
@@ -31,10 +33,17 @@ function ToastView({ item }: { item: ToastItem }) {
     start();
     return () => clearTimeout(timer.current);
   }, []);
+  // Once dismissed, stop the countdown and take the toast off the list when its exit animation ends.
+  useEffect(() => {
+    if (!item.leaving || !element.current) return;
+    clearTimeout(timer.current);
+    return afterLeave(element.current, () => removeToast(item.id));
+  }, [item.leaving]);
 
   return (
     <div
-      class={`toast toast-${item.tone} enter`}
+      ref={element}
+      class={`toast toast-${item.tone} ${item.leaving ? "leaving" : "enter"}`}
       role={item.tone === "bad" ? "alert" : "status"}
       onMouseEnter={pause}
       onMouseLeave={start}

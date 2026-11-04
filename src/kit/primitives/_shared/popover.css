@@ -66,6 +66,9 @@
   border: 0;
   border-radius: var(--radius-sm);
   cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
 }
 .pop-item:hover:not(:disabled),
 .pop-item:focus-visible {

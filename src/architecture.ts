@@ -23,7 +23,7 @@ export type Import = { from: string; specifier: string };
 export const ZONES: Zone[] = [
   {
     name: "kit-core",
-    paths: ["kit/demo.ts", "kit/texts.ts", "kit/texts.test.ts"],
+    paths: ["kit/demo.ts", "kit/texts.ts", "kit/texts.test.ts", "kit/motion.demo.tsx", "kit/motion.test.ts"],
     why: "the demo contract and the kit's fixed sentences; they know nothing else",
     uses: [],
     browser: true,

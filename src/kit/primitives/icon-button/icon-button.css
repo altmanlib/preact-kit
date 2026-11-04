@@ -11,7 +11,11 @@
   cursor: pointer;
   transition:
     color var(--duration-fast) var(--ease-out),
-    background-color var(--duration-fast) var(--ease-out);
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+.btn-icon:active:not(:disabled) {
+  transform: scale(var(--press-scale));
 }
 .btn-icon:hover {
   color: var(--text);

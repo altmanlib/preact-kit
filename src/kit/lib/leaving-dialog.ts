@@ -1,6 +1,8 @@
 import { useSignal, useSignalEffect } from "@preact/signals";
 import { useEffect, useRef } from "preact/hooks";
 
+import { afterLeave } from "./leave.ts";
+
 /**
  * The life of a native `<dialog>` that is shown as a modal and leaves with an exit animation: it opens on mount, keeps
  * the page behind it from scrolling, and calls `onClose` only once the exit animation has ended. `leave()` starts the
@@ -50,23 +52,7 @@ export function useLeavingDialog({ onClose, animate, focusFirst }: { onClose: ()
     if (!leaving.value) return;
     const element: HTMLElement | null = animate === "panel" ? panel.current : dialog.current;
     if (!element) return;
-    let done = false;
-    const end = () => {
-      if (done) return;
-      done = true;
-      element.removeEventListener("animationend", onEnd);
-      clearTimeout(timer);
-      finish();
-    };
-    const onEnd = (event: AnimationEvent) => {
-      if (event.target === element) end();
-    };
-    element.addEventListener("animationend", onEnd);
-    const timer = setTimeout(end, 400);
-    return () => {
-      clearTimeout(timer);
-      element.removeEventListener("animationend", onEnd);
-    };
+    return afterLeave(element, finish);
   });
 
   return { dialog, panel, leaving: leaving.value, leave, finish };

@@ -15,11 +15,18 @@
   border: 0;
   border-radius: var(--radius);
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-out);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
 }
 .btn:hover:not(:disabled) {
   background: var(--surface-press);
 }
+.btn:active:not(:disabled) {
+  transform: scale(var(--press-scale));
+}
+
 .btn:disabled {
   color: var(--disabled-ink);
   background: var(--surface-sunken);
@@ -68,6 +75,9 @@
   text-decoration: underline;
   text-underline-offset: var(--underline-offset);
   background: transparent;
+}
+.btn-text:active:not(:disabled) {
+  transform: none;
 }
 .btn-text:disabled {
   background: transparent;

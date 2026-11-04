@@ -7,6 +7,7 @@
  *   something leaving              --duration-enter --ease-in    (view-out, scrim-out, drawer-out)
  *   a popover in and out           --duration-fast  --ease-out in, --ease-in out   (transition, see _shared/popover.css)
  *   a size change or a panel move  --duration-slide --ease-out
+ *   pressing a button or chip      --duration-fast  --ease-out   (transform: scale(var(--press-scale)))
  *   a spinner turning              --duration-spin  --ease-linear
  *   a looping sweep or shimmer     --duration-loop  --ease-in-out (bounded sweep) or --ease-linear (endless shimmer)
  *

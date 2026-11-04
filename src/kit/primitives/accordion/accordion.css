@@ -4,6 +4,19 @@
 }
 .accordion-item {
   border-bottom: var(--hairline) solid var(--line);
+  /* Lets the details content animate to and from `height: auto`. */
+  interpolate-size: allow-keywords;
+}
+.accordion-item::details-content {
+  height: 0;
+  overflow: clip;
+  transition:
+    height var(--duration-slide) var(--ease-in),
+    content-visibility var(--duration-slide) allow-discrete;
+}
+.accordion-item[open]::details-content {
+  height: auto;
+  transition-timing-function: var(--ease-out);
 }
 .accordion-item:last-child {
   border-bottom: 0;

@@ -1,7 +1,8 @@
 /* A stack in the bottom-right corner; the popover is only shown while there is something in it. */
 .toaster {
   position: fixed;
-  inset: auto var(--gutter) var(--gutter) auto;
+  /* Each toast carries its own bottom margin (so a leaving one can collapse it); the stack's inset makes up for the last one. */
+  inset: auto var(--gutter) calc(var(--gutter) - var(--space-2)) auto;
   width: min(24rem, calc(100vw - var(--gutter) * 2));
   margin: 0;
   padding: 0;
@@ -11,7 +12,6 @@
 }
 .toaster:popover-open {
   display: grid;
-  gap: var(--space-2);
 }
 .toast {
   display: grid;
@@ -25,6 +25,25 @@
   border-left: var(--rule-strong) solid var(--muted);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  margin-block-end: var(--space-2);
+  /* Lets a leaving toast animate its height to 0. */
+  interpolate-size: allow-keywords;
+}
+/* Fades out and collapses, so the toasts above it glide down instead of jumping. */
+.toast.leaving {
+  overflow: clip;
+  pointer-events: none;
+  animation: toast-out var(--duration-enter) var(--ease-in) both;
+}
+@keyframes toast-out {
+  to {
+    height: 0;
+    padding-block: 0;
+    margin-block-end: 0;
+    border-block-width: 0;
+    opacity: 0;
+    transform: translateY(var(--enter-lift));
+  }
 }
 .toast-message {
   font-size: var(--text-sm);
