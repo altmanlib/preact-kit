@@ -20,6 +20,9 @@
         "@tanstack/preact-query": "^5.105.0",
         "preact": "^11.1.0",
       },
+      "optionalPeers": [
+        "@tanstack/preact-query",
+      ],
     },
   },
   "packages": {
