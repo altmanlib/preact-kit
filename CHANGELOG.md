@@ -4,6 +4,13 @@
 
 ## Unreleased
 
+- 新增 `NavList`(竖排可选项列表): 每项有标题, 可选次要文字, 可选 `leading`/`trailing` 插槽; 有 `href` 的是链接, 没有的是按钮(`onSelect(key)`), 选中项带 `aria-current`; 方向键, Home, End 移动焦点(跳过禁用项); 过长文字省略
+- 新增 `lib/theme`(`Theme`, `theme` 信号, `applyTheme(options)`): 把主题写到 `<html data-theme>`(`system` 时移除属性), 存 localStorage(`storageKey` 可注入, 默认 `preact-kit:theme`); 没有 `localStorage` 或 `document` 时不报错; 新增 `ThemeSwitch`(系统/浅色/深色三档的单选组, `showLabels` 显示文字); `kitText` 新增 `theme`/`themeSystem`/`themeLight`/`themeDark`; 展示站改用它, 删除 `gallery/theme.ts`
+- `Note` 新增 `action`(行尾操作, 通常是 `Button`); `ErrorNote` 的重试改为用它和 `Button` 的 `text` 变体, 位置从文字后面移到行尾, 删除 `.note-retry`
+- `Empty` 新增 `compact`(无插图, 无底色, 间距更小, 用于列表或面板里)
+- `Button` 与 `LinkButton` 新增 `variant="text"`(链接式, 任何状态都没有底色, 比 `quiet` 更轻)
+- `TextField`, `TextAreaField`, `CheckField`, `NumberField`, `Switch` 可以不用信号: 传 `value` 与 `onValue` 代替 `field`, 二选一(类型上互斥); 新增 `lib/signals` 的 `Bound` 与 `bound`; `TextField` 与 `TextAreaField` 的 `onInput` 由组件自己管理, 传入的会被忽略
+
 ## 0.5.0 - 2026-10-31
 
 - 新增 `LinkButton`(按钮外观的链接, 用于跳转或下载), 与 `Button` 同在 `primitives/button`

@@ -6,6 +6,9 @@
 - primitives: `Button` `Badge` `Note`/`ErrorNote` `Empty` `Skeleton` `Tile`/`Tiles` `Fact`/`Facts` `PageHead`/`Section` `Chips` `SubNav` `Pager` `GlideHeight` `Field`/`TextField`/`TextAreaField`/`CheckField` `IconButton` `CopyButton`/`CopyField` `ConfirmButton` `DataTable`/`QueryTable` `Modal` `Drawer` `DialogProvider`/`useDialog` `Switch` `Tabs` `Dropdown` `Select` `Tooltip` `Toast`/`Toaster` `RadioGroup` `NumberField` `Alert` `Spinner` `Progress` `Tag` `Avatar` `Card` `Breadcrumb` `Accordion` `Stack`/`Grid`
 - lib: `errors`(`ApiError`/`setErrorTexts`), `http`(`request`/`query`), `signals`(`useFields`/`useOpen`/`set`), `paging`(`usePagedList`, 依赖 `@tanstack/preact-query`), `leaving-dialog`(Modal 与 Drawer 共用的进出场逻辑), `roving`(列表键盘焦点与首字母定位), `anchor`(弹层与触发器的锚点命名), `toasts`(`showToast` 与队列), `number`(数字文本的解析/步进/修正)
 - primitives 另有 `LinkButton`, `QueryStatus`, `TopNav`(顶栏标签与滑动指示条); `DataTable`/`QueryTable` 的 `rowAttrs`, `Section` 与 `Tile` 的 `class` 及透传属性; lib 另有 `format`(`formatTime`)
+- primitives 另有 `NavList`(竖排可选项列表: 标题, 次要文字, 前后插槽, `aria-current`, 方向键/Home/End), `ThemeSwitch`(系统/浅色/深色三档, 绑定 `lib/theme` 的 `theme`); lib 另有 `theme`(`theme` 信号, `applyTheme`: 写 `<html data-theme>`, `system` 时移除, 存 localStorage, key 可注入, 无 `localStorage`/`document` 时降级); 展示站的主题切换用的就是它
+- `Note` 的 `action`(行尾操作, `ErrorNote` 的重试基于它), `Empty` 的 `compact`, `Button`/`LinkButton` 的 `text` 变体
+- `TextField`/`TextAreaField`/`CheckField`/`NumberField`/`Switch` 两种取值方式二选一: `field` 信号, 或普通受控的 `value` + `onValue`(`lib/signals` 的 `Bound`/`bound`); `Select`/`RadioGroup` 本来就是 `value` + `onChange`
 - patterns: `ListPage`
 - `ConfirmButton` 用 `Modal` 弹出确认框, `onConfirm` 可返回 Promise
 - 固定文案集中在 `kit/texts.ts`, 应用用 `setKitText` 改写; API 错误码文案用 `setErrorTexts` 注册
