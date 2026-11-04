@@ -1,0 +1,63 @@
+.nav-list ul {
+  display: grid;
+  gap: var(--space-0);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* One row: leading slot, text column, trailing slot. The text column is the only one that shrinks. */
+.nav-item {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  width: 100%;
+  min-height: var(--control-lg);
+  padding: var(--space-1) var(--space-2);
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--text);
+  text-align: start;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+.nav-item:hover:not(:disabled, [aria-disabled]) {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+.nav-item[aria-current],
+.nav-item[aria-current]:hover:not(:disabled, [aria-disabled]) {
+  background: var(--accent-soft);
+}
+.nav-item[aria-current] .nav-item-title {
+  font-weight: var(--weight-semibold);
+}
+.nav-item:disabled,
+.nav-item[aria-disabled] {
+  color: var(--disabled-ink);
+  cursor: not-allowed;
+}
+.nav-item-lead,
+.nav-item-trail {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+.nav-item-text {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+.nav-item-title,
+.nav-item-secondary {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.nav-item-secondary {
+  font-size: var(--text-2xs);
+  color: var(--muted);
+}
