@@ -24,7 +24,7 @@ src/
 ├─ architecture.ts                       # 谁可以引用谁, architecture.test.ts 强制
 └─ server.ts                             # 开发服务
 scripts/                                 # demo 清单生成, 文档检查, 发版与合并脚本
-docs/                                    # guide/ 操作指南, record/ 调研与决策记录
+docs/                                    # guide/ 操作指南, design/ 功能设计, record/ 调研与决策记录
 ```
 
 ## 使用方式
@@ -53,6 +53,7 @@ import { setKitText } from "@altmanlib/preact-kit/texts";
 ## 文档
 
 - [docs/guide/add-component.md](docs/guide/add-component.md): 新增组件
+- [docs/design/2026-11-04-01-mention-input.md](docs/design/2026-11-04-01-mention-input.md): 提及输入框与候选列表的设计
 - [docs/record/2026-10-31-headless-library-survey.md](docs/record/2026-10-31-headless-library-survey.md): 无样式库调研
 - [docs/record/2026-10-31-package-distribution.md](docs/record/2026-10-31-package-distribution.md): 作为依赖包分发的决策
 - [ROADMAP.md](ROADMAP.md): 组件清单与进度

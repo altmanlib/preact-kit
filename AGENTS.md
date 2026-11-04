@@ -5,6 +5,7 @@ Preact 组件库 `@altmanlib/preact-kit`: 一套带设计 token(含暗色)的通
 ## 文档索引
 
 - @docs/guide/add-component.md: 新增组件(目录, 文件, 样式与代码约定, 弹层与验证)
+- @docs/design/2026-11-04-01-mention-input.md: 提及输入框与候选列表(`Suggest`, `MentionInput`)的方案与取舍
 - @docs/record/2026-10-31-headless-library-survey.md: 无样式库调研, 结论: 不引入 Zag.js 等依赖 `preact/compat` 的库
 - @docs/record/2026-10-31-package-distribution.md: 作为 GitHub 依赖包分发的决策与已验证事实
 - @ROADMAP.md: 已完成, 暂缓, 待办, 待决策与近期建议
@@ -17,6 +18,8 @@ Preact 组件库 `@altmanlib/preact-kit`: 一套带设计 token(含暗色)的通
 - 新增组件前先读 @docs/guide/add-component.md
 - 能直接解决的小问题顺手处理, 不登记成任务
 - 新能力先登记进 ROADMAP
+- 大功能先写设计文档, 再动手. 满足任一条算大功能: 新增或替换依赖(含可选 peer); 改公开接口的约定(契约, 序列化形式); 涉及键盘, 焦点, 输入法等交互约定的新组件; 有被否决的备选需要留痕; 预计不止一个任务. 设计放 `docs/design/YYYY-MM-DD-NN-slug.md`, `status: draft`, 骨架: 目标与范围/现状与约束/方案/明确不做/开放项, 只写方案与取舍, 不写实施细节, 经用户确认后才开工. 实施中方案变了先改文档再改代码; 完成后在同一提交里修订: 删去实施细节(文件, 函数, 样式变量, 像素等代码里看得出的内容), 只留核心决策, 理由, 否决项, 触发条件与已知取舍, 改 `published`. 普通新增组件与小改动不写设计文档, 按 `docs/guide/add-component.md` 做
+- 设计文档按功能拆文件, 不回流成一份总览
 
 ## 开发约定
 

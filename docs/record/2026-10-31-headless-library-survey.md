@@ -62,4 +62,4 @@ updated: 2026-11-04
 
 复杂组件(`Combobox`, `DatePicker`/`DateRangePicker`, 多选标签输入, `Slider`)在 Popover API 与 CSS anchor positioning 之上自写, 复用 `lib/roving`, `lib/anchor` 与 `lib/suggest`; `Suggest` 已按此实现
 
-例外: 需要富文本编辑能力的 `MentionInput`(提及显示为 chip)基于 ProseMirror 的 `prosemirror-*` 包, 它们是纯 JS, 不绑定任何框架, 打包产物里没有 `preact/compat` 的引用. 作为可选 peer 依赖, 只有用该组件的应用才安装. 代价: 一个只含 Preact, signals 与该编辑器的页面, 打包压缩后约 74 KB, 其中约 65 KB 来自 ProseMirror
+例外: `MentionInput`(提及显示为 chip)基于 ProseMirror 的 `prosemirror-*` 包, 它们是纯 JS, 不绑定任何框架, 不经 `preact/compat`; 选型与取舍见 [2026-11-04-01-mention-input.md](../design/2026-11-04-01-mention-input.md)
