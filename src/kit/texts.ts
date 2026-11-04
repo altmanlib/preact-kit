@@ -19,6 +19,10 @@ export const defaultText = {
   remove: "Remove",
   breadcrumb: "Breadcrumb",
   mainNavigation: "Main navigation",
+  theme: "Theme",
+  themeSystem: "System",
+  themeLight: "Light",
+  themeDark: "Dark",
   unknownError: "Something went wrong. Please try again.",
 };
 

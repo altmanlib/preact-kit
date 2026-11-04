@@ -1,20 +1,14 @@
-import { Monitor, Moon, Sun } from "lucide-preact";
-
 import type { Demo } from "../kit/demo.ts";
-import { Button } from "../kit/primitives/button/index.tsx";
+import { ThemeSwitch } from "../kit/primitives/theme-switch/index.tsx";
 import { demos } from "./demos.gen.ts";
 import { current, demoPath } from "./route.ts";
-import { cycleTheme, theme } from "./theme.ts";
 
 const KINDS: { kind: Demo["kind"]; title: string }[] = [
   { kind: "primitive", title: "Primitives" },
   { kind: "pattern", title: "Patterns" },
 ];
 
-const THEME_ICON = { system: Monitor, light: Sun, dark: Moon };
-
 function Sidebar() {
-  const Icon = THEME_ICON[theme.value];
   return (
     <nav class="g-side" aria-label="Components">
       <a class="g-brand" href="#/">
@@ -41,9 +35,9 @@ function Sidebar() {
           </section>
         );
       })}
-      <Button class="g-theme" variant="quiet" size="sm" onClick={cycleTheme} title="Switch theme">
-        <Icon size={16} aria-hidden="true" /> Theme: {theme.value}
-      </Button>
+      <div class="g-theme">
+        <ThemeSwitch />
+      </div>
     </nav>
   );
 }

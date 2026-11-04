@@ -1,0 +1,21 @@
+/* The track and the chosen option come from the shared segmented look in chips.css; this adds what radios need. */
+.theme-switch {
+  display: inline-flex;
+}
+.theme-option {
+  position: relative;
+  gap: var(--space-1);
+  padding: 0 var(--space-2);
+}
+/* The radio is the control but not the picture: it stays focusable and clickable, the label draws the option. */
+.theme-input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.theme-option:has(:focus-visible) {
+  outline: var(--focus-ring) solid var(--focus);
+  outline-offset: var(--focus-offset);
+}

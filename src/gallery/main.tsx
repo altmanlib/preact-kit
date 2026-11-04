@@ -1,7 +1,7 @@
 import { render } from "preact";
 
+import { applyTheme } from "../kit/lib/theme.ts";
 import { App } from "./app.tsx";
-import { applyTheme } from "./theme.ts";
 
 applyTheme();
 const root = document.getElementById("app");

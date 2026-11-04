@@ -1,10 +1,12 @@
 /*
- * A segmented control, shared by the filter chips, the route tabs (SubNav) and the panel tabs (Tabs): a gray shell as
- * the track, the chosen option as an inner block. Chips and Tabs are buttons, SubNav is links; the rules below are what they have in common.
+ * A segmented control, shared by the filter chips, the route tabs (SubNav), the panel tabs (Tabs) and the theme switch
+ * (ThemeSwitch): a gray shell as the track, the chosen option as an inner block. Chips and Tabs are buttons, SubNav is
+ * links, ThemeSwitch is radios; the rules below are what they have in common.
  */
 .chips,
 .subnav,
-.tabs {
+.tabs,
+.theme-switch {
   display: inline-flex;
   justify-self: start;
   max-width: 100%;
@@ -17,7 +19,8 @@
 }
 .chip,
 .tab,
-.subnav a {
+.subnav a,
+.theme-option {
   display: inline-flex;
   align-items: center;
   height: var(--control-chip);
@@ -37,7 +40,8 @@
 }
 .chip:hover:not(:disabled),
 .tab:hover:not(:disabled),
-.subnav a:hover {
+.subnav a:hover,
+.theme-option:hover {
   color: var(--text);
 }
 .tab:disabled {
@@ -50,7 +54,8 @@
 .chip-on,
 .chip-on:hover,
 .tab[aria-selected="true"],
-.subnav a[aria-current="page"] {
+.subnav a[aria-current="page"],
+.theme-option:has(:checked) {
   color: var(--text);
   font-weight: var(--weight-semibold);
   background: var(--card-inner);
