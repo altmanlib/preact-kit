@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- `Modal` 新增可选的 `footerStart`: 放在表单底栏起始侧, 与取消/确认相对
+
 ## 0.9.0 - 2026-11-04
 
 - 新增 `MentionInput`: 提及显示为行内标签(chip)的输入框. 输入触发字符(如 `@`)后列出候选, 选中后把已输入的文字换成一个 chip, chip 整块选中与删除; 输入框里的内容始终是纯文本(`onChange`/`onSubmit` 得到字符串, chip 即其文字, 换行为 `\n`), 粘贴与拖入只保留文本, 不产生标记. Enter 提交, Shift+Enter 换行, 候选列表打开时 Enter/Tab 选择, Esc 关闭; 清空与聚焦经 `handle`. 基于 ProseMirror(组字输入, 撤销, 光标交给它处理), 不依赖 `preact/compat`

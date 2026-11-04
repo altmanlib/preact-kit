@@ -49,7 +49,12 @@
 .modal-foot {
   display: flex;
   flex: none;
-  justify-content: flex-end;
+  align-items: center;
   gap: var(--space-2);
   padding: 0 var(--space-5) var(--space-5);
+}
+.modal-foot-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-inline-start: auto;
 }

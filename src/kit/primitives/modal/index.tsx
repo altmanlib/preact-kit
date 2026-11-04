@@ -21,6 +21,7 @@ export function Modal({
   submitLabel = kitText.confirm,
   submitVariant = "primary",
   submitDisabled = false,
+  footerStart,
   error,
   children,
 }: {
@@ -32,6 +33,8 @@ export function Modal({
   /** `danger` for a dialog that confirms a destructive action. */
   submitVariant?: "primary" | "danger";
   submitDisabled?: boolean;
+  /** Optional content at the start of the form footer (opposite the cancel/confirm actions). */
+  footerStart?: ComponentChildren;
   /** A failed submit, shown at the end of the form. */
   error?: unknown;
   children: ComponentChildren;
@@ -81,12 +84,15 @@ export function Modal({
             <ErrorNote error={error} />
           </div>
           <footer class="modal-foot">
-            <Button variant="quiet" onClick={leave}>
-              {kitText.cancel}
-            </Button>
-            <Button type="submit" variant={submitVariant} disabled={submitDisabled}>
-              {submitLabel}
-            </Button>
+            {footerStart}
+            <div class="modal-foot-actions">
+              <Button variant="quiet" onClick={leave}>
+                {kitText.cancel}
+              </Button>
+              <Button type="submit" variant={submitVariant} disabled={submitDisabled}>
+                {submitLabel}
+              </Button>
+            </div>
           </footer>
         </form>
       ) : (

@@ -47,6 +47,31 @@ function FormDemo() {
   );
 }
 
+function FooterStartDemo() {
+  const open = useSignal(false);
+  const seed = useSignal(1);
+  return (
+    <>
+      <Button onClick={() => (open.value = true)}>Pick a colour</Button>
+      {open.value ? (
+        <Modal
+          title="Accent colour"
+          onClose={() => (open.value = false)}
+          onSubmit={() => undefined}
+          submitLabel="Save"
+          footerStart={
+            <Button variant="quiet" size="sm" onClick={() => (seed.value += 1)}>
+              Shuffle
+            </Button>
+          }
+        >
+          <p>Current seed: {seed.value}. `footerStart` sits opposite cancel/confirm.</p>
+        </Modal>
+      ) : null}
+    </>
+  );
+}
+
 export default defineDemo({
   name: "Modal",
   kind: "primitive",
@@ -57,6 +82,11 @@ export default defineDemo({
       title: "Short form",
       note: "`onSubmit` may return a promise: the dialog leaves when it resolves and stays open, showing `error`, when it throws.",
       render: () => <FormDemo />,
+    },
+    {
+      title: "Footer start",
+      note: "`footerStart` places extra actions at the start of the form footer, opposite cancel/confirm.",
+      render: () => <FooterStartDemo />,
     },
   ],
 });
