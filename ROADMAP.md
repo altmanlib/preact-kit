@@ -12,17 +12,17 @@
 - patterns: `ListPage`
 - `ConfirmButton` 用 `Modal` 弹出确认框, `onConfirm` 可返回 Promise
 - 固定文案集中在 `kit/texts.ts`, 应用用 `setKitText` 改写; API 错误码文案用 `setErrorTexts` 注册
-- 弹层(`Dropdown`/`Select`/`Suggest`/`Tooltip`/`Toast`)基于 Popover API 与 CSS anchor positioning, 共用样式在 `primitives/_shared/popover.css`; `Suggest` 是焦点留在输入框的候选列表(`popover="manual"`), 没有引入 Zag.js
+- 弹层(`Dropdown`/`Select`/`Suggest`/`Tooltip`/`Toast`)基于 Popover API 与 CSS anchor positioning, 共用样式在 `primitives/_shared/popover.css`; `Suggest` 是焦点留在输入框的候选列表(`popover="manual"`), 不依赖 Zag.js 等需要 `preact/compat` 的库
 
 ## 近期建议(接着做时从这里选)
 
 - 弹层与对话框键盘行为的 e2e 冒烟测试(`bun run ci` 目前不覆盖浏览器行为)
 - 迁入原有的通用单元: `SecretMask`/`SecretReveal`, `downloadFile`(见待办)
-- 决定是否引入 Zag.js(见待决策); 决定后再做 `Combobox`/`DatePicker`
+- 自写 `Combobox`(基于 `lib/suggest` 与 `Select` 的弹层写法)与 `DatePicker`
 
 ## 暂缓(较重, 等用户启动)
 
-- `Combobox`, `DatePicker`/`DateRangePicker`, 多选标签输入, `Slider`: 先决定是否引入 Zag.js, 见待决策
+- `Combobox`, `DatePicker`/`DateRangePicker`, 多选标签输入, `Slider`: 自写, 不引入 Zag.js(见 [docs/record/2026-10-31-headless-library-survey.md](docs/record/2026-10-31-headless-library-survey.md))
 - `CommandPalette`, `ContextMenu`, `Tree`, 虚拟列表, 表格排序/多选/列显隐/固定列, 图表(折线/柱/饼), `Sidebar` 布局
 
 ## 待办(无顺序)
@@ -40,5 +40,4 @@
 
 ## 待决策
 
-- `Combobox`/`DatePicker` 这类定位与焦点管理更复杂的组件: 是否引入 Zag.js(候选对比、验证与取舍见 [docs/record/2026-10-31-headless-library-survey.md](docs/record/2026-10-31-headless-library-survey.md)); 若引入, 先做 `Combobox` 还是 `DatePicker`
 - 浏览器下限: 弹层依赖 Popover API 与 CSS anchor positioning, 只在 Chromium 上验证过; 需要覆盖其他或更老的浏览器时再验证并加回退

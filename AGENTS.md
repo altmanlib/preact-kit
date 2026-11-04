@@ -5,7 +5,7 @@ Preact 组件库 `@altmanlib/preact-kit`: 一套带设计 token(含暗色)的通
 ## 文档索引
 
 - @docs/guide/add-component.md: 新增组件(目录, 文件, 样式与代码约定, 弹层与验证)
-- @docs/record/2026-10-31-headless-library-survey.md: 无样式库调研, 待决策是否引入 Zag.js
+- @docs/record/2026-10-31-headless-library-survey.md: 无样式库调研, 结论: 不引入 Zag.js 等依赖 `preact/compat` 的库
 - @docs/record/2026-10-31-package-distribution.md: 作为 GitHub 依赖包分发的决策与已验证事实
 - @ROADMAP.md: 已完成, 暂缓, 待办, 待决策与近期建议
 - @CHANGELOG.md: 版本记录, `## Unreleased` 记录下个版本的内容
@@ -30,6 +30,7 @@ Preact 组件库 `@altmanlib/preact-kit`: 一套带设计 token(含暗色)的通
 - 对外入口是 `package.json` 的 `exports`(按子路径: `primitives/*` `patterns/*` `lib/*` `texts`, 三个 CSS 与 `assets`); 新增顶层目录或入口文件名不同的单元时同步 `exports`; `sideEffects` 保持 `["**/*.css"]`
 - `preact` 与 `@preact/signals` 是 peer 依赖(同时在 devDependencies), `@tanstack/preact-query` 是可选 peer; 新增运行时依赖时先判断放 `dependencies` 还是 peer
 - 新增依赖用 `bun add`; 现有运行时依赖只有 `lucide-preact`, 以及 peer 的 `preact`, `@preact/signals` 与 `@tanstack/preact-query`(仅 `lib/paging` 与 `ListPage` 用)
+- 不依赖 `preact/compat`: 不引入内部引用它的库(如 Zag.js 的 Preact 适配器); 复杂交互组件在 Popover API 之上自写
 - 弹层(`popover`)的类名样式写成 `.pop.<名>` 以压过共用的 `.pop`, 不依赖样式表的打包顺序
 - 交互类组件(键盘, 焦点, 弹层, 对话框)除 `bun run ci` 外, 要在浏览器里实测, 明暗两套都看; 纯逻辑放在 `lib/` 或组件目录的 `.ts` 里并写测试
 - 写文件与 `git commit` 不要在同一批并行执行, 先写完再 `bun run format` 与 `bun run ci`, 再提交

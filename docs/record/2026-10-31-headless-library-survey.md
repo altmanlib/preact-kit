@@ -2,16 +2,16 @@
 title: 无样式组件库调研
 type: record
 status: published
-updated: 2026-10-31
+updated: 2026-11-04
 ---
 
 # 无样式组件库调研
 
-为 `Combobox`, `DatePicker`/`DateRangePicker`, 多选标签输入, `Slider` 这类定位与焦点管理复杂的组件, 评估是否引入无样式(headless)库, 以及引入哪一个. 结论待决策, 见 §5
+为 `Combobox`, `DatePicker`/`DateRangePicker`, 多选标签输入, `Slider` 这类定位与焦点管理复杂的组件, 评估是否引入无样式(headless)库, 以及引入哪一个. 结论见 §5
 
 ## 1. 评估口径
 
-- 能在 Preact 11 下使用, 最好有官方适配器而不是靠 `preact/compat` 别名
+- 能在 Preact 11 下使用, 且不依赖 `preact/compat`(含库内部对它的引用)
 - 只提供行为与可访问性, 样式由本项目 token 提供
 - 按组件拆包, 不用的组件不进打包
 - 覆盖 ROADMAP 里待做的复杂组件, 不只是 Combobox
@@ -56,15 +56,8 @@ updated: 2026-10-31
 - Zag 的定位是 JS(`@zag-js/popper`), 与本项目现有弹层的 CSS anchor 定位并存
 - API 是状态机加 `connect`, 与本项目基于 signal 的组件风格不同, 需要封装一层
 
-## 5. 倾向与待决策
+## 5. 结论
 
-倾向:
+不引入 Zag.js, 也不引入其他候选. 原因: 本项目不接受依赖 `preact/compat`; Zag 的 Preact 适配器内部引用它(§3), 其余候选只有 React 绑定, 在 Preact 里同样要经 compat
 
-- 对外保持现有风格: `Combobox` 与 `Select` 的属性一致(`options`, `value`, `onChange`, `label`, `error`), Zag 只在内部使用
-- 已有的 `Select`/`Dropdown`/`Tooltip` 不迁移
-- 依赖只在用到这些组件时才引入, README 说明哪些组件依赖 Zag
-
-待决策(登记在 ROADMAP):
-
-- 是否引入 Zag, 还是 Combobox 自写、只在做 `DatePicker` 时引入
-- 若引入, 先做 `Combobox` 还是 `DatePicker`
+复杂组件(`Combobox`, `DatePicker`/`DateRangePicker`, 多选标签输入, `Slider`)在 Popover API 与 CSS anchor positioning 之上自写, 复用 `lib/roving`, `lib/anchor` 与 `lib/suggest`; `Suggest` 已按此实现
