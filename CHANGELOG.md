@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+## 0.7.0 - 2026-11-04
+
 - `Toast` 有进出场动画: 进场淡入上浮, 退场淡出并收起高度(其余 toast 不跳位); `dismissToast(id)` 改为只标记 `leaving`, 由 `Toaster` 在退场动画结束后用新增的 `removeToast(id)` 移除, 所以 `toasts` 里的项在退场期间仍在列表中(**不兼容**: 直接读 `toasts` 判断是否已关闭的调用方需改看 `leaving`)
 - 新增 `lib/leave`(`afterLeave(element, done)`: 退场动画结束后回调一次, 带超时兜底), `Modal`/`Drawer`/`Toast` 共用
 - `Accordion` 展开与收起有高度过渡(`::details-content` 加 `interpolate-size`, 仅 Chromium; 其他浏览器仍是瞬时)
