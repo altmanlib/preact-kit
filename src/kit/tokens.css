@@ -40,6 +40,10 @@
   --bad-soft: light-dark(#f6e2df, #3a1b19);
   --bad-soft-hover: light-dark(#f1d3ce, #4a2220);
   --idle-soft: light-dark(#f1f0f6, #24232f);
+  /* toast fills: livelier than the -soft ones, which are tuned for small badges rather than a whole bar */
+  --toast-ok: light-dark(#d4f3e2, #14442b);
+  --toast-warn: light-dark(#ffecb8, #4a3808);
+  --toast-bad: light-dark(#fddad5, #571f1b);
   --disabled-ink: light-dark(#a5a3b6, #6a6880);
   --backdrop: light-dark(rgb(18 16 32 / 42%), rgb(0 0 0 / 60%));
   /* shadows are built from one color so they work in both schemes */

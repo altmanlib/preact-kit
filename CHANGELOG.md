@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- `Toaster` 的默认位置由右下角改为靠近底部居中(**不兼容**: 依赖右下角位置的调用方需自行覆盖 `.toaster` 的定位)
+- `Toast` 去掉边框, 按类型换成对应的底色(`--idle-soft` 与新增 token `--toast-ok`/`--toast-warn`/`--toast-bad`, 比 `-soft` 系列饱和, 明暗两套); 进场动画更柔和(更长, 上浮更远, 带轻微缩放)
+
 ## 0.9.1 - 2026-11-04
 
 - `Modal` 新增可选的 `footerStart`: 放在表单底栏起始侧, 与取消/确认相对
