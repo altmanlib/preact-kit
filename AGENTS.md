@@ -13,7 +13,7 @@ Preact 组件库 `@altmanlib/preact-kit`: 一套带设计 token(含暗色)的通
 
 ## 开工流程
 
-- 动手前先在仓根 `git fetch` 后 `git status -sb` 看是否 `behind`, 有则先 `git pull --ff-only`; 无法快进时停下来告知用户, 不擅自 merge / rebase. 同一会话内已拉取过的, 不必重复拉取
+- 动手前先在仓根 `git fetch` 后 `git status -sb` 看是否 `behind`, 有则先 `git pull --ff-only`; 分叉则 `git rebase @{u}`, 无冲突后 `git push --force-with-lease`; rebase 冲突则停下告知用户(可 `git rebase --abort`), 不擅自继续. 同一会话内已同步过的, 不必重复
 - 先读 @ROADMAP.md; 有「待决策」且阻塞当前任务时先向用户确认
 - 新增组件前先读 @docs/guide/add-component.md
 - 能直接解决的小问题顺手处理, 不登记成任务
