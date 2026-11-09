@@ -1,3 +1,4 @@
+/* The narrow breakpoint of the kit's layouts is 760px; the other components that reflow use the same one. */
 .stack {
   display: flex;
   flex-direction: column;
@@ -7,11 +8,58 @@
 }
 .stack-row {
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: var(--wrap, wrap);
   align-items: var(--align, center);
+}
+.layout-spacer {
+  flex: 1;
 }
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min, 14rem), 100%), 1fr));
   gap: var(--gap, var(--space-3));
+}
+.grid > * {
+  min-width: 0;
+}
+.layout-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--side, 18rem);
+  gap: var(--gap, var(--space-4));
+  align-items: start;
+}
+.layout-split-first {
+  grid-template-columns: var(--side, 18rem) minmax(0, 1fr);
+}
+.layout-container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.layout-container-sm {
+  max-width: calc(var(--container-sm) + var(--gutter) * 2);
+}
+.layout-container-md {
+  max-width: calc(var(--container-md) + var(--gutter) * 2);
+}
+.layout-container-lg {
+  max-width: calc(var(--container-lg) + var(--gutter) * 2);
+}
+.layout-page {
+  display: grid;
+  gap: var(--space-5);
+  align-content: start;
+}
+@media (max-width: 760px) {
+  .grid {
+    gap: min(var(--gap, var(--space-3)), var(--space-3));
+  }
+  /* Stacked, the side column follows the main area whichever side it sat on. */
+  .layout-split,
+  .layout-split-first {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .layout-split-first > .layout-split-side {
+    order: 1;
+  }
 }

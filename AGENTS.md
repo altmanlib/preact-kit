@@ -35,7 +35,7 @@ Preact 组件库 `@altmanlib/preact-kit`: 一套带设计 token(含暗色)的通
 - `preact` 与 `@preact/signals` 是 peer 依赖(同时在 devDependencies), `@tanstack/preact-query` 与 `prosemirror-*` 是可选 peer; 新增运行时依赖时先判断放 `dependencies` 还是 peer
 - 新增依赖用 `bun add`; 现有运行时依赖有 `lucide-preact` 与 `@zag-js/*`, 以及 peer 的 `preact`, `@preact/signals`, `@tanstack/preact-query`(仅 `lib/paging` 与 `ListPage` 用)和 `prosemirror-state`, `-view`, `-model`, `-history`, `-keymap`, `-commands`(仅 `MentionInput` 用; ProseMirror 要求同一棵依赖树里 model/state/view 各只有一份, 所以放 peer)
 - 复杂交互组件(弹层, 对话框, 选择, 日期, 滑块等)用 Zag.js(`@zag-js/preact` + 各组件包, 在 `dependencies`, 版本精确锁定为同一个); 允许依赖 `preact/compat`; 对外只暴露 `value`/`onChange` 或 signals 的组件, 不暴露 `useMachine`/`connect`; 样式用 `data-part`/`data-state` 选择器, 并以组件类名为前缀; 无对应 Zag 机器的组件与 `Suggest`/`MentionInput` 保持自写
-- 弹层(`popover`)的类名样式写成 `.pop.<名>` 以压过共用的 `.pop`, 不依赖样式表的打包顺序
+- 弹层的类名样式写成 `.popup.<名>`(Zag 弹层)或 `.pop.<名>`(`Suggest`/`MentionInput` 的 popover)以压过共用的类, 不依赖样式表的打包顺序
 - 交互类组件(键盘, 焦点, 弹层, 对话框)除 `bun run ci` 外, 要在浏览器里实测, 明暗两套都看; 纯逻辑放在 `lib/` 或组件目录的 `.ts` 里并写测试
 - 写文件与 `git commit` 不要在同一批并行执行, 先写完再 `bun run format` 与 `bun run ci`, 再提交
 - 代码注释用英文; 文档用中文, 只写现行事实

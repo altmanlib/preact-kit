@@ -10,6 +10,8 @@
 - `Toaster`/`showToast` 改由 Zag toast 驱动: 堆叠, 进出场与暂停由它处理, 堆叠在所有层之上. `showToast` 返回的 id 由 `number` 改为 `string`; `lib/toasts` 的 `toasts` 信号, `removeToast` 移除, 新增 `toaster`(Zag store)与 `toneOf`(**不兼容**)
 - `Tabs` 改由 Zag tabs 驱动, 属性不变
 - 新增 `Combobox`(输入过滤的单选), `Popover`(通用弹层), `Slider`/`RangeSlider`, `TagsInput`(标签输入: 回车或分隔符添加, 退格删除, 粘贴拆分, 失焦提交, 忽略大小写的去重), `FileUpload`(点击或拖入选文件, 类型/大小/数量限制, 只选不传), `DatePicker`/`DateRangePicker`(值始终是 `YYYY-MM-DD`, 可键入或用日历选, 月与年视图, `min`/`max`, `locale`)
+- 新增 `CommandPalette`(搜索并执行的对话框: 焦点留在输入框, 方向键移动高亮, Enter 执行, 分组标题, 可由调用方自己过滤), `SearchInput`(工具栏紧凑过滤框, Esc 清空)
+- 布局: `Stack` 新增 `wrap`, 新增 `Spacer` `Split` `Container` `Page`; `Grid` 窄屏收紧间距; 新增 token `--container-sm/md/lg` `--z-dialog`
 - **新增运行时依赖** `@internationalized/date`(`DatePicker` 的日期解析); `lib/format` 新增 `formatBytes`; `kit/texts` 新增 `noResults` `showOptions` `today` `fileInvalidType` `fileTooLarge` `fileTooSmall` `tooManyFiles` `fileRejected`
 
 ## 0.10.0 - 2026-11-05

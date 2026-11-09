@@ -47,15 +47,17 @@ updated: 2026-11-04
 - 在展示站里需要整列宽度的 demo 用 `<div class="demo-stack">` 包起来
 - 注释用英文, 每个导出的组件写一行用途注释
 
-## 5. 弹层类组件
+## 5. 交互类组件(Zag)
 
-`Dropdown`, `Select`, `Tooltip`, `Toast` 的做法, 新增同类组件照此:
+弹层, 对话框, 选择, 日期, 滑块这类组件用 Zag.js 提供行为与可访问性, 样式仍是本库的; 新增同类组件照此:
 
-- 用浏览器的 Popover API: 元素带 `popover="auto"`(点外面与 Esc 关闭)或 `"manual"`(自己控制), 触发按钮用 `popovertarget`, 状态变化在 `onToggle` 里读 `event.newState`; 这些属性的类型由 Preact 自带
-- 定位用 CSS anchor positioning: `useAnchor()`(`kit/lib/anchor.ts`)给出弹层 `id` 与锚点名, 触发器写 `style="anchor-name: …"`, 弹层写 `style="position-anchor: …"`, 样式用 `_shared/popover.css` 的 `.pop`(菜单项与列表项用 `.pop-item`)
-- 列表里的方向键, Home, End, 跳过禁用项与首字母定位用 `kit/lib/roving.ts`
-- 弹层在顶层渲染, 不会被 `Modal`/`Drawer` 压住
-- 焦点留在输入框的候选列表(`Suggest`, `MentionInput`)用 `primitives/suggest/list.tsx` 的 `SuggestList` 与 `useManualPopover`: 弹层是 `popover="manual"`, 在列表上按下不抢走输入框焦点, 按键在输入框一侧处理, 输入法组字期间(`isComposing`, `keyCode 229`)不拦截按键
+- 机器包用 `bun add --exact @zag-js/<组件>`, 版本与已有的 `@zag-js/*` 保持一致; 组件里 `useMachine(machine, props)` 加 `connect(service, normalizeProps)`(`@zag-js/preact`), 把 `api.get<部件>Props()` 展开到对应元素上; 对外只给 `value`/`onChange`, 不暴露机器
+- 弹层的定位交给 Zag popper: `positioning: { placement, gutter: 4, strategy: "fixed" }`(`fixed` 让它不被滚动祖先裁剪); 渲染成 `<div class="popup-positioner" {...api.getPositionerProps()}><div class="popup" {...api.getContentProps()}>`, 样式用 `_shared/popover.css` 的 `.popup`(菜单项与列表项用 `.pop-item`, 高亮与禁用看 `data-highlighted`/`data-disabled`)
+- 用 `data-part`/`data-state` 属性选择状态, 选择器以组件类名为前缀; 弹层只有进场动画
+- 对话类(`Modal`, `Drawer`, `CommandPalette`)用 `lib/leaving-dialog` 的 `useLeavingDialog`: 组件挂载即打开, 退场动画挂在 `data-state="closed"` 上, 结束后才调 `onClose`; 层用 `_shared/dialog.css`, 在 `createPortal` 里渲染到 `document.body`
+- Zag 对 `input` 的 `role` 类型比 Preact 宽, 展开 `getInputProps()` 时转成 `Record<string, unknown>`
+- 当没有对应的原生控件能给出同等的键盘与读屏行为时才用 Zag; 原生 `<input type="checkbox">`, `<input type="radio">`, `<details>` 已经足够的保持原生
+- 焦点留在输入框的候选列表(`Suggest`, `MentionInput`)不用 Zag, 基于 Popover API 与 CSS anchor positioning, 用 `primitives/suggest/list.tsx` 的 `SuggestList` 与 `useManualPopover`: 弹层是 `popover="manual"`, 在列表上按下不抢走输入框焦点, 按键在输入框一侧处理, 输入法组字期间(`isComposing`, `keyCode 229`)不拦截按键
 
 ## 6. 验证与提交
 

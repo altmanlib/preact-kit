@@ -12,32 +12,31 @@
 - patterns: `ListPage`
 - `ConfirmButton` 用 `Modal` 弹出确认框, `onConfirm` 可返回 Promise
 - 固定文案集中在 `kit/texts.ts`, 应用用 `setKitText` 改写; API 错误码文案用 `setErrorTexts` 注册
-- 弹层(`Dropdown`/`Select`/`Suggest`/`MentionInput`/`Tooltip`/`Toast`)基于 Popover API 与 CSS anchor positioning, 共用样式在 `primitives/_shared/popover.css`; `Suggest` 是焦点留在输入框的候选列表(`popover="manual"`), 不依赖 Zag.js 等需要 `preact/compat` 的库
+- 接入 Zag.js(设计见 [docs/design/2026-11-10-01-zag-adoption.md](docs/design/2026-11-10-01-zag-adoption.md)): `Select` `Dropdown` `Tooltip` `Toast` `Modal` `Drawer` `Tabs` 由 Zag 驱动, 新增 `Combobox` `Popover` `Slider`/`RangeSlider` `TagsInput` `FileUpload` `DatePicker`/`DateRangePicker` `CommandPalette` `SearchInput`; 弹层共用样式在 `primitives/_shared/popover.css`(`.popup`), 对话框的层在 `_shared/dialog.css`
+- `Suggest`/`MentionInput` 是焦点留在输入框的候选列表(`popover="manual"`, Popover API 与 CSS anchor positioning), 不迁移
+- 布局: `primitives/layout` 含 `Stack`(`wrap`) `Spacer` `Grid` `Split` `Container` `Page`; 窄屏断点 760px
 
 ## 近期建议(接着做时从这里选)
 
 - 弹层与对话框键盘行为的 e2e 冒烟测试(`bun run ci` 目前不覆盖浏览器行为)
 - 迁入原有的通用单元: `SecretMask`/`SecretReveal`, `downloadFile`(见待办)
-- 自写 `Combobox`(基于 `lib/suggest` 与 `Select` 的弹层写法)与 `DatePicker`
+- skills-hub 改用 preact-kit 的 `Select`/`Dropdown`/`Tooltip`/`Toast`/`Modal`/`Tabs`/`TagsInput`/`FileUpload`/`SearchInput`/`CommandPalette`, 删除它自带的重复实现
 
 ## 暂缓(较重, 等用户启动)
 
-- `Combobox`, `DatePicker`/`DateRangePicker`, 多选标签输入, `Slider`: 自写, 不引入 Zag.js(见 [docs/record/2026-10-31-headless-library-survey.md](docs/record/2026-10-31-headless-library-survey.md))
-- `CommandPalette`, `ContextMenu`, `Tree`, 虚拟列表, 表格排序/多选/列显隐/固定列, 图表(折线/柱/饼), `Sidebar` 布局
+- `ContextMenu`, `Tree`, 虚拟列表, 表格排序/多选/列显隐/固定列, 图表(折线/柱/饼), `Sidebar` 布局
 
 ## 待办(无顺序)
 
 - 依赖包分发的迁移(决策见 [docs/record/2026-10-31-package-distribution.md](docs/record/2026-10-31-package-distribution.md)): 包改造已完成, 待发版后让使用方改依赖并删除本地重复单元
-- 待迁入或新增的通用单元: `SecretMask`/`SecretReveal`, `PictureDropzone`(通用文件上传的基础), `Login` 与 `useCodeSender`, `PageRoot`/`SessionGate`(会话外壳), `downloadFile`
+- 待迁入或新增的通用单元: `SecretMask`/`SecretReveal`, `PictureDropzone`(基于 `FileUpload` 的图片预览), `Login` 与 `useCodeSender`, `PageRoot`/`SessionGate`(会话外壳), `downloadFile`
 - 表单: 表单校验范式
-- 浮层: `Popover`(通用)
 - 导航: 页码版 `Pagination`, `Stepper`
 - 数据展示: `Timeline`
-- 布局: `Container`, 响应式断点约定
-- 动效: JS 层的交互缓动(拖拽/手势的惯性与回弹, 数值滚动过渡, 弹簧动画); 目前只有 CSS 的时长与曲线 token(`tokens.css`, `motion.css`). 触发条件: 出现需要 `Slider`、可拖拽排序或计数展示的组件时, 先确定方案再做
+- 动效: JS 层的交互缓动(拖拽/手势的惯性与回弹, 数值滚动过渡, 弹簧动画); 目前只有 CSS 的时长与曲线 token(`tokens.css`, `motion.css`). 触发条件: 出现需要可拖拽排序或计数展示的组件时, 先确定方案再做
 - 基础: i18n, 图标规范, 可访问性检查(焦点陷阱, 键盘导航), 展示站里的 e2e 冒烟(目前弹层的键盘行为只做过手工验证)
 - patterns: 设置页, 登录页, 成员管理
 
 ## 待决策
 
-- 浏览器下限: 弹层依赖 Popover API 与 CSS anchor positioning, 只在 Chromium 上验证过; 需要覆盖其他或更老的浏览器时再验证并加回退
+- 浏览器下限: Zag 组件用 JS 定位, 只在 Chromium 上验证过; `Suggest`/`MentionInput` 还依赖 Popover API 与 CSS anchor positioning. 需要覆盖其他或更老的浏览器时再验证并加回退

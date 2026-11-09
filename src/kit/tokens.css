@@ -102,6 +102,9 @@
   --bar-h: 52px;
   --drawer-width: 380px;
   --modal-width: 400px;
+  --container-sm: 40rem;
+  --container-md: 60rem;
+  --container-lg: 80rem;
   --table-min: 720px;
   --facts-label: 8.5em;
 

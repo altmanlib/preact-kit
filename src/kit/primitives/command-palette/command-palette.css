@@ -1,0 +1,81 @@
+/* Sits near the top of the window rather than its centre, so the list can grow downwards without the box moving. */
+.dialog-positioner.palette-positioner {
+  place-items: start center;
+  padding: 15vh var(--gutter) 0;
+}
+.palette {
+  display: flex;
+  flex-direction: column;
+  width: min(36rem, 100%);
+  max-height: min(28rem, 100%);
+  overflow: hidden;
+  color: var(--text);
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lift);
+  animation: view-in var(--duration-enter) var(--ease-out) both;
+}
+.palette[data-state="closed"] {
+  animation: view-out var(--duration-enter) var(--ease-in) both;
+}
+.palette:focus-visible {
+  outline: none;
+}
+.palette-input {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-4);
+  color: var(--muted);
+  border-bottom: var(--hairline) solid var(--line);
+}
+.palette-input input {
+  flex: 1;
+  min-width: 0;
+  height: calc(var(--control-md) * 1.5);
+  padding: 0;
+  font: inherit;
+  font-size: var(--text-md);
+  color: var(--text);
+  background: none;
+  border: 0;
+  outline: 0;
+}
+.palette-input input:focus-visible {
+  outline: 0;
+}
+.palette-input input::placeholder {
+  color: var(--disabled-ink);
+}
+.palette-list {
+  padding: var(--space-1);
+  overflow-y: auto;
+}
+.palette-group {
+  padding: var(--space-2) var(--space-2) var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--muted);
+}
+.palette-item {
+  justify-content: flex-start;
+  white-space: normal;
+}
+.palette-label {
+  flex: none;
+}
+.palette-hint {
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--text-xs);
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.palette-empty {
+  padding: var(--space-4) var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--muted);
+  text-align: center;
+}
