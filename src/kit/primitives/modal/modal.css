@@ -2,25 +2,18 @@
 .modal {
   width: min(var(--modal-width), calc(100% - var(--gutter) * 2));
   max-height: calc(100% - var(--gutter) * 2);
-  margin: auto;
-  padding: 0;
   overflow: hidden;
-  border: 0;
   border-radius: var(--radius);
   background: var(--surface);
-  color: inherit;
+  color: var(--text);
   box-shadow: var(--shadow-lift);
   animation: view-in var(--duration-enter) var(--ease-out) both;
 }
-.modal.leaving {
+.modal[data-state="closed"] {
   animation: view-out var(--duration-enter) var(--ease-in) both;
 }
-.modal::backdrop {
-  background: var(--backdrop);
-  animation: scrim-in var(--duration-enter) var(--ease-out) both;
-}
-.modal.leaving::backdrop {
-  animation: scrim-out var(--duration-enter) var(--ease-in) both;
+.modal:focus-visible {
+  outline: none;
 }
 .modal-form {
   display: flex;

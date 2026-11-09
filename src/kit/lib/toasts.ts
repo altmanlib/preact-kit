@@ -1,43 +1,43 @@
-import { signal } from "@preact/signals";
+import * as zag from "@zag-js/toast";
 
 export type ToastTone = "info" | "ok" | "warn" | "bad";
 
-export type ToastItem = {
-  id: number;
-  message: string;
-  tone: ToastTone;
-  /** Milliseconds before it leaves by itself; 0 keeps it until dismissed. */ duration: number;
-  /** Set by `dismissToast`: the toast is playing its exit and the `Toaster` removes it when that ends. */
-  leaving?: boolean;
-};
-
-/** The most toasts on screen at once; a new one beyond it pushes the oldest out. */
+/** The most toasts on screen at once; the rest wait their turn. */
 export const MAX_TOASTS = 5;
 export const DEFAULT_DURATION_MS = 5000;
 
-export const toasts = signal<ToastItem[]>([]);
+/** How long a dismissed toast stays mounted so its exit transition can play; matches `--duration-slide` (320ms). */
+const EXIT_MS = 320;
 
-let lastId = 0;
+const TYPES: Record<ToastTone, zag.Type> = { info: "info", ok: "success", warn: "warning", bad: "error" };
 
-/** Show a toast from anywhere (a click handler, a mutation callback); a `Toaster` must be mounted once to draw it. Returns its id. */
-export function showToast(input: { message: string; tone?: ToastTone; duration?: number }): number {
-  lastId += 1;
-  const item: ToastItem = { id: lastId, message: input.message, tone: input.tone ?? "info", duration: input.duration ?? DEFAULT_DURATION_MS };
-  toasts.value = [...toasts.value, item].slice(-MAX_TOASTS);
-  return item.id;
+/** The Zag toast store behind `showToast`; the `Toaster` component draws it. */
+export const toaster = zag.createStore({
+  placement: "bottom",
+  overlap: false,
+  gap: 8,
+  max: MAX_TOASTS,
+  removeDelay: EXIT_MS,
+  offsets: "1rem",
+});
+
+/** The tone a toast was raised with (its Zag `type` mapped back). */
+export function toneOf(type: zag.Type | undefined): ToastTone {
+  return (Object.keys(TYPES) as ToastTone[]).find((tone) => TYPES[tone] === type) ?? "info";
 }
 
-/** Start a toast's exit; the `Toaster` calls `removeToast` once it has played. Does nothing for an unknown or already leaving toast. */
-export function dismissToast(id: number): void {
-  if (!toasts.value.some((item) => item.id === id && !item.leaving)) return;
-  toasts.value = toasts.value.map((item) => (item.id === id ? { ...item, leaving: true } : item));
+/** Show a toast from anywhere (a click handler, a mutation callback); a `Toaster` must be mounted once to draw it. `duration: 0` keeps it until dismissed. Returns its id. */
+export function showToast(input: { message: string; tone?: ToastTone; duration?: number }): string {
+  const duration = input.duration ?? DEFAULT_DURATION_MS;
+  return toaster.create({ title: input.message, type: TYPES[input.tone ?? "info"], duration: duration === 0 ? Number.POSITIVE_INFINITY : duration });
 }
 
-/** Take a toast off the list at once, without an exit. */
-export function removeToast(id: number): void {
-  toasts.value = toasts.value.filter((item) => item.id !== id);
+/** Start a toast's exit; it leaves the list once the exit has played. Does nothing for an unknown toast. */
+export function dismissToast(id: string): void {
+  toaster.dismiss(id);
 }
 
+/** Take every toast off at once, without an exit. */
 export function clearToasts(): void {
-  toasts.value = [];
+  toaster.remove();
 }

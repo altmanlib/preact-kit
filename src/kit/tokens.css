@@ -111,6 +111,7 @@
   --focus-offset: 2px;
   --z-sticky: 10;
   --z-overlay: 100;
+  --z-dialog: 200;
 
   /* ---- motion: short, out-eased moves; the drawer is the only thing that travels far ---- */
   --duration-fast: 120ms;

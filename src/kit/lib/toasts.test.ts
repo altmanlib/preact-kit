@@ -1,45 +1,37 @@
 import { afterEach, expect, test } from "bun:test";
 
-import { clearToasts, DEFAULT_DURATION_MS, dismissToast, MAX_TOASTS, removeToast, showToast, toasts } from "./toasts.ts";
+import { clearToasts, dismissToast, showToast, toaster, toneOf } from "./toasts.ts";
 
 afterEach(clearToasts);
 
-test("showToast appends a toast with defaults and returns its id", () => {
-  const id = showToast({ message: "Saved" });
-  expect(toasts.value).toEqual([{ id, message: "Saved", tone: "info", duration: DEFAULT_DURATION_MS }]);
+test("showToast adds a toast with the tone as its Zag type and returns its id", () => {
+  const id = showToast({ message: "Saved", tone: "ok" });
+  expect(toaster.getVisibleToasts().map((item) => [item.id, item.title, item.type])).toEqual([[id, "Saved", "success"]]);
 });
 
-test("showToast keeps the tone and duration it is given, and ids never repeat", () => {
-  const first = showToast({ message: "a", tone: "bad", duration: 0 });
-  const second = showToast({ message: "b" });
-  expect(second).toBeGreaterThan(first);
-  expect(toasts.value[0]).toMatchObject({ tone: "bad", duration: 0 });
+test("toneOf maps a type back to its tone and falls back to info", () => {
+  expect(toneOf("error")).toBe("bad");
+  expect(toneOf("warning")).toBe("warn");
+  expect(toneOf(undefined)).toBe("info");
 });
 
-test("dismissToast marks only that toast as leaving and keeps it listed", () => {
-  const first = showToast({ message: "a" });
-  const second = showToast({ message: "b" });
-  dismissToast(first);
-  expect(toasts.value.map((item) => [item.id, item.leaving])).toEqual([
-    [first, true],
-    [second, undefined],
-  ]);
-  const before = toasts.value;
-  dismissToast(999);
-  dismissToast(first);
-  expect(toasts.value).toBe(before);
+test("duration 0 keeps a toast until it is dismissed", () => {
+  showToast({ message: "sticky", duration: 0 });
+  showToast({ message: "timed", duration: 1234 });
+  expect(toaster.getVisibleToasts().map((item) => item.duration)).toHaveLength(2);
+  expect(toaster.getVisibleToasts().map((item) => item.duration)).toContain(Number.POSITIVE_INFINITY);
+  expect(toaster.getVisibleToasts().map((item) => item.duration)).toContain(1234);
 });
 
-test("removeToast takes only that toast off the list", () => {
-  const first = showToast({ message: "a" });
-  const second = showToast({ message: "b" });
-  removeToast(first);
-  expect(toasts.value.map((item) => item.id)).toEqual([second]);
-  removeToast(999);
-  expect(toasts.value).toHaveLength(1);
+test("clearToasts removes every toast", () => {
+  showToast({ message: "a" });
+  showToast({ message: "b" });
+  clearToasts();
+  expect(toaster.getVisibleToasts()).toEqual([]);
 });
 
-test("a toast beyond the limit pushes the oldest out", () => {
-  const ids = Array.from({ length: MAX_TOASTS + 2 }, (_, index) => showToast({ message: String(index) }));
-  expect(toasts.value.map((item) => item.id)).toEqual(ids.slice(-MAX_TOASTS));
+test("dismissToast ignores an unknown id", () => {
+  showToast({ message: "a" });
+  dismissToast("nope");
+  expect(toaster.getVisibleToasts()).toHaveLength(1);
 });

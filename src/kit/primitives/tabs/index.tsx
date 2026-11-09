@@ -1,16 +1,16 @@
 import "../chips/chips.css";
 
+import { normalizeProps, useMachine } from "@zag-js/preact";
+import * as zag from "@zag-js/tabs";
 import type { ComponentChildren } from "preact";
-import { useId, useRef } from "preact/hooks";
-
-import { nextIndex } from "../../lib/roving.ts";
+import { useId } from "preact/hooks";
 
 export type TabItem = { key: string; label: string; disabled?: boolean };
 
 /**
  * Tabs that switch a panel without changing the address: `value` is the key of the standing tab, `children` is its
- * panel. Arrow keys, Home and End move between tabs (the tab list is one tab stop). For parts that each have their own
- * address use SubNav.
+ * panel. Arrow keys, Home and End move between tabs and select them (the tab list is one tab stop); the tab list and
+ * panel semantics come from the Zag tabs machine. For parts that each have their own address use SubNav.
  */
 export function Tabs({
   label,
@@ -25,51 +25,24 @@ export function Tabs({
   onChange: (key: string) => void;
   children: ComponentChildren;
 }) {
-  const id = useId();
-  const list = useRef<HTMLDivElement>(null);
-  const tabId = (key: string) => `${id}-tab-${key}`;
-  const current = items.findIndex((item) => item.key === value);
+  const service = useMachine(zag.machine, {
+    id: useId(),
+    value,
+    activationMode: "automatic",
+    onValueChange: (details) => onChange(details.value),
+  });
+  const api = zag.connect(service, normalizeProps);
 
   return (
-    <div>
-      <div
-        ref={list}
-        class="tabs"
-        role="tablist"
-        aria-label={label}
-        onKeyDown={(event) => {
-          const next = nextIndex({
-            current,
-            count: items.length,
-            key: event.key,
-            orientation: "horizontal",
-            isDisabled: (index) => items[index]?.disabled === true,
-          });
-          const item = next === undefined ? undefined : items[next];
-          if (!item) return;
-          event.preventDefault();
-          onChange(item.key);
-          list.current?.querySelector<HTMLElement>(`[id="${tabId(item.key)}"]`)?.focus();
-        }}
-      >
+    <div {...api.getRootProps()}>
+      <div class="tabs" {...api.getListProps()} aria-label={label}>
         {items.map((item) => (
-          <button
-            key={item.key}
-            id={tabId(item.key)}
-            type="button"
-            role="tab"
-            class="tab"
-            aria-selected={item.key === value}
-            aria-controls={`${id}-panel`}
-            tabIndex={item.key === value ? 0 : -1}
-            disabled={item.disabled}
-            onClick={() => onChange(item.key)}
-          >
+          <button key={item.key} type="button" class="tab" {...api.getTriggerProps({ value: item.key, disabled: item.disabled })}>
             {item.label}
           </button>
         ))}
       </div>
-      <div id={`${id}-panel`} class="tab-panel" role="tabpanel" aria-labelledby={tabId(value)} tabIndex={0}>
+      <div class="tab-panel" {...api.getContentProps({ value })}>
         {children}
       </div>
     </div>

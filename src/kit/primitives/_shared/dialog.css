@@ -1,0 +1,22 @@
+/*
+ * The layers of a Zag dialog (Modal, Drawer): a dimmed scrim, and a full-viewport positioner that holds the content.
+ * A click on the positioner but outside the content is a click on the dimmed page, which the machine treats as outside
+ * interaction. Both keep `data-state="closed"` rendered while the exit animation plays.
+ */
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dialog);
+  background: var(--backdrop);
+  animation: scrim-in var(--duration-enter) var(--ease-out) both;
+}
+.dialog-backdrop[data-state="closed"] {
+  animation: scrim-out var(--duration-enter) var(--ease-in) both;
+}
+.dialog-positioner {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dialog);
+  display: grid;
+  place-items: center;
+}

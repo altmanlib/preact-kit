@@ -1,60 +1,30 @@
-/* A stack at the bottom center; the popover is only shown while there is something in it. */
-.toaster {
-  position: fixed;
-  /* Each toast carries its own bottom margin (so a leaving one can collapse it); the stack's inset makes up for the last one. */
-  inset: auto 0 calc(var(--gutter) - var(--space-2)) 0;
-  width: min(24rem, calc(100vw - var(--gutter) * 2));
-  margin: 0 auto;
-  padding: 0;
-  overflow: visible;
-  background: transparent;
-  border: 0;
-}
-.toaster:popover-open {
-  display: grid;
-}
+/* The stack is placed (bottom centre, above everything) by the Zag group; each toast is moved by the --x/--y/--scale/--opacity it publishes. */
 .toast {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: var(--space-2);
   align-items: center;
+  width: min(24rem, calc(100vw - var(--gutter) * 2));
   padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
   color: var(--text);
   background: var(--idle-soft);
   border-radius: var(--radius);
   box-shadow: var(--shadow-bar);
-  margin-block-end: var(--space-2);
-  /* Lets a leaving toast animate its height to 0. */
-  interpolate-size: allow-keywords;
+  translate: var(--x, 0) var(--y, 0);
+  scale: var(--scale, 1);
+  opacity: var(--opacity, 1);
+  height: var(--height, auto);
+  z-index: var(--z-index);
+  /* Enter, exit and restacking are all the same transition on what the group publishes. */
+  transition:
+    translate var(--duration-slide) var(--ease-out),
+    scale var(--duration-slide) var(--ease-out),
+    opacity var(--duration-slide) var(--ease-out),
+    height var(--duration-slide) var(--ease-out);
 }
-/* Arrives with a longer, softer rise than the generic .enter: slides up from below while easing in from slightly smaller. */
-.toast.enter {
-  animation: toast-in var(--duration-slide) var(--ease-out) both;
-}
-@keyframes toast-in {
-  from {
-    opacity: 0;
-    transform: translateY(calc(var(--enter-lift) * 4)) scale(var(--press-scale));
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-/* Fades out and collapses, so the toasts above it glide down instead of jumping. */
-.toast.leaving {
-  overflow: clip;
+.toast[data-state="closed"] {
   pointer-events: none;
-  animation: toast-out var(--duration-enter) var(--ease-in) both;
-}
-@keyframes toast-out {
-  to {
-    height: 0;
-    padding-block: 0;
-    margin-block-end: 0;
-    opacity: 0;
-    transform: translateY(var(--enter-lift));
-  }
+  transition-timing-function: var(--ease-in);
 }
 .toast-message {
   font-size: var(--text-sm);
