@@ -1,12 +1,8 @@
 import type { Demo } from "../kit/demo.ts";
 import { ThemeSwitch } from "../kit/primitives/theme-switch/index.tsx";
 import { demos } from "./demos.gen.ts";
+import { groupDemos } from "./groups.ts";
 import { current, demoPath } from "./route.ts";
-
-const KINDS: { kind: Demo["kind"]; title: string }[] = [
-  { kind: "primitive", title: "Primitives" },
-  { kind: "pattern", title: "Patterns" },
-];
 
 function Sidebar() {
   return (
@@ -14,11 +10,9 @@ function Sidebar() {
       <a class="g-brand" href="#/">
         preact-kit
       </a>
-      {KINDS.map(({ kind, title }) => {
-        const items = demos.filter((demo) => demo.kind === kind).sort((a, b) => a.name.localeCompare(b.name));
-        if (items.length === 0) return null;
+      {groupDemos(demos).map(({ title, demos: items }) => {
         return (
-          <section key={kind}>
+          <section key={title}>
             <h3 class="g-side-title">{title}</h3>
             <ul>
               {items.map((demo) => {
