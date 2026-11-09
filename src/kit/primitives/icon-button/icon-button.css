@@ -11,15 +11,16 @@
   cursor: pointer;
   transition:
     color var(--duration-fast) var(--ease-out),
-    background-color var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out);
-}
-.btn-icon:active:not(:disabled) {
-  transform: scale(var(--press-scale));
+    background-color var(--duration-fast) var(--ease-out);
 }
 .btn-icon:hover {
   color: var(--text);
   background: var(--idle-soft);
+}
+/* Pressing only deepens the fill; the icon button does not shrink. */
+.btn-icon:active:not(:disabled) {
+  color: var(--text);
+  background: var(--surface-press);
 }
 .btn-icon-ok {
   color: var(--ok);

@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- `IconButton`(含 `CopyButton`/`CopyField` 里的复制图标)按下时不再缩小, 改为填充色略微加深
+
 - **接入 Zag.js**(设计见 `docs/design/2026-11-10-01-zag-adoption.md`): `@zag-js/preact` 与各组件包成为运行时依赖(`dependencies`, 版本精确锁定同一个), 本库允许依赖 `preact/compat`
 - `Select`, `Dropdown`, `Tooltip` 改由 Zag 驱动, 属性不变; 弹层由 Zag popper 用 JS 定位(`position: fixed`, 不被滚动祖先裁剪), 不再依赖 CSS anchor positioning; 弹层只有进场动画, 没有退场动画. `Tooltip` 的 `children` 由单个元素放宽为任意内容(**不兼容**: 此前给子元素加的 `aria-describedby` 现在加在外层的 `span` 上)
 - `Modal`, `Drawer` 改由 Zag dialog 驱动(焦点陷阱, 滚动锁定, 关闭后焦点归还), 不再用原生 `<dialog>`, 渲染在 `document.body` 的传送门里; 属性不变. 移除 `html.dialog-open` 类. `lib/leaving-dialog` 的 `useLeavingDialog` 改为返回 `{ api, exiting, leave, leaving }`(**不兼容**: 直接使用它的调用方需要调整)
