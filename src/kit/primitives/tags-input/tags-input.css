@@ -1,0 +1,54 @@
+/* Looks like `.input`, but grows with its tags. */
+.tags-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--control-md);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+  background: var(--card-inner);
+  border: var(--hairline) solid var(--line-strong);
+  border-radius: var(--radius);
+  cursor: text;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+.tags-control:hover:not([data-disabled]) {
+  border-color: var(--line-hover);
+}
+.tags-control:focus-within {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 var(--space-1) color-mix(in srgb, var(--ink) 14%, transparent);
+}
+.tags-control[data-invalid] {
+  border-color: var(--bad);
+}
+.tags-control[data-disabled] {
+  color: var(--muted);
+  background: var(--surface-sunken);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+.tags-control .tag[data-highlighted] {
+  color: var(--ink);
+  background: var(--accent-soft);
+}
+.tags-field {
+  flex: 1 1 6rem;
+  min-width: 4rem;
+  height: var(--control-chip);
+  padding: 0;
+  font: inherit;
+  color: var(--text);
+  background: none;
+  border: 0;
+  outline: 0;
+}
+.tags-field:focus-visible {
+  outline: 0;
+}
+.tags-field::placeholder {
+  color: var(--disabled-ink);
+}

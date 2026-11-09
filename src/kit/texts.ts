@@ -23,6 +23,14 @@ export const defaultText = {
   themeSystem: "System",
   themeLight: "Light",
   themeDark: "Dark",
+  today: "Today",
+  noResults: "No matches",
+  showOptions: "Show options",
+  fileInvalidType: "This file type is not allowed",
+  fileTooLarge: "The file is too large",
+  fileTooSmall: "The file is too small",
+  tooManyFiles: "Too many files",
+  fileRejected: "This file cannot be used",
   unknownError: "Something went wrong. Please try again.",
 };
 

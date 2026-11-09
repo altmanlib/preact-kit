@@ -43,6 +43,7 @@
     "merge-main": "bash scripts/merge-main.sh"
   },
   "dependencies": {
+    "@internationalized/date": "3.12.4",
     "@zag-js/accordion": "1.47.0",
     "@zag-js/combobox": "1.47.0",
     "@zag-js/date-picker": "1.47.0",

@@ -3,7 +3,8 @@
   gap: var(--space-1);
   align-content: start;
 }
-.field > span {
+.field > span,
+.field > label {
   font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
 }

@@ -9,6 +9,8 @@
 - `Modal`, `Drawer` 改由 Zag dialog 驱动(焦点陷阱, 滚动锁定, 关闭后焦点归还), 不再用原生 `<dialog>`, 渲染在 `document.body` 的传送门里; 属性不变. 移除 `html.dialog-open` 类. `lib/leaving-dialog` 的 `useLeavingDialog` 改为返回 `{ api, exiting, leave, leaving }`(**不兼容**: 直接使用它的调用方需要调整)
 - `Toaster`/`showToast` 改由 Zag toast 驱动: 堆叠, 进出场与暂停由它处理, 堆叠在所有层之上. `showToast` 返回的 id 由 `number` 改为 `string`; `lib/toasts` 的 `toasts` 信号, `removeToast` 移除, 新增 `toaster`(Zag store)与 `toneOf`(**不兼容**)
 - `Tabs` 改由 Zag tabs 驱动, 属性不变
+- 新增 `Combobox`(输入过滤的单选), `Popover`(通用弹层), `Slider`/`RangeSlider`, `TagsInput`(标签输入: 回车或分隔符添加, 退格删除, 粘贴拆分, 失焦提交, 忽略大小写的去重), `FileUpload`(点击或拖入选文件, 类型/大小/数量限制, 只选不传), `DatePicker`/`DateRangePicker`(值始终是 `YYYY-MM-DD`, 可键入或用日历选, 月与年视图, `min`/`max`, `locale`)
+- **新增运行时依赖** `@internationalized/date`(`DatePicker` 的日期解析); `lib/format` 新增 `formatBytes`; `kit/texts` 新增 `noResults` `showOptions` `today` `fileInvalidType` `fileTooLarge` `fileTooSmall` `tooManyFiles` `fileRejected`
 
 ## 0.10.0 - 2026-11-05
 
