@@ -112,6 +112,7 @@
   --focus: var(--ink);
   --focus-ring: 2px;
   --focus-offset: 2px;
+  --focus-glow: 0 0 0 var(--space-1) color-mix(in srgb, var(--ink) 14%, transparent);
   --z-sticky: 10;
   --z-overlay: 100;
   --z-dialog: 200;

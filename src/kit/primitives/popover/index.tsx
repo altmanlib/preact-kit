@@ -7,6 +7,7 @@ import { X } from "lucide-preact";
 import type { ComponentChildren } from "preact";
 import { useId } from "preact/hooks";
 
+import { popupPositioning } from "../../lib/zag.ts";
 import { kitText } from "../../texts.ts";
 import { Button, type ButtonProps } from "../button/index.tsx";
 import { IconButton } from "../icon-button/index.tsx";
@@ -36,7 +37,7 @@ export function Popover({
 }) {
   const service = useMachine(zag.machine, {
     id: useId(),
-    positioning: { placement: align === "end" ? "bottom-end" : "bottom-start", gutter: 4, strategy: "fixed" },
+    positioning: popupPositioning(align === "end" ? "bottom-end" : "bottom-start"),
   });
   const api = zag.connect(service, normalizeProps);
 

@@ -8,7 +8,9 @@ import { normalizeProps, useMachine } from "@zag-js/preact";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-preact";
 import { useId, useState } from "preact/hooks";
 
+import { inputProps, popupPositioning } from "../../lib/zag.ts";
 import { kitText } from "../../texts.ts";
+import { FieldNotes, isInvalid } from "../field/index.tsx";
 
 type PickerBase = {
   label: string;
@@ -145,22 +147,22 @@ function Picker({
     onOpenChange: (details) => {
       if (!details.open) setDraft(undefined);
     },
-    positioning: { placement: "bottom-start", gutter: 4, strategy: "fixed" },
+    positioning: popupPositioning("bottom-start"),
   });
   const api = zag.connect(service, normalizeProps);
-  const invalid = error !== undefined && error !== "";
+  const invalid = isInvalid(error);
 
   return (
     <div class="field" {...api.getRootProps()}>
       <label {...api.getLabelProps()}>{label}</label>
-      <div class="date-control" data-invalid={invalid ? "" : undefined} {...api.getControlProps()}>
-        <input class="date-input" {...(api.getInputProps({ index: 0 }) as Record<string, unknown>)} />
+      <div class="control-box date-control" data-invalid={invalid ? "" : undefined} {...api.getControlProps()}>
+        <input class="date-input" {...inputProps(api.getInputProps({ index: 0 }))} />
         {range ? (
           <>
             <span class="date-sep" aria-hidden="true">
               –
             </span>
-            <input class="date-input" {...(api.getInputProps({ index: 1 }) as Record<string, unknown>)} />
+            <input class="date-input" {...inputProps(api.getInputProps({ index: 1 }))} />
           </>
         ) : null}
         <button type="button" class="date-trigger" {...api.getTriggerProps()}>
@@ -184,8 +186,7 @@ function Picker({
           )}
         </div>
       </div>
-      {hint ? <small>{hint}</small> : null}
-      {invalid ? <small class="field-bad">{error}</small> : null}
+      <FieldNotes hint={hint} error={error} />
     </div>
   );
 }

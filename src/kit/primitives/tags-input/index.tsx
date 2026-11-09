@@ -7,7 +7,9 @@ import * as zag from "@zag-js/tags-input";
 import { X } from "lucide-preact";
 import { useId } from "preact/hooks";
 
+import { inputProps } from "../../lib/zag.ts";
 import { kitText } from "../../texts.ts";
+import { FieldNotes, isInvalid } from "../field/index.tsx";
 
 /**
  * A box that turns what you type into removable tags: Enter or a delimiter (a comma by default) adds one, Backspace on
@@ -48,7 +50,7 @@ export function TagsInput({
     max,
     name,
     disabled,
-    invalid: error !== undefined && error !== "",
+    invalid: isInvalid(error),
     editable: false,
     addOnPaste: true,
     blurBehavior: "add",
@@ -60,7 +62,7 @@ export function TagsInput({
   return (
     <div class="field" {...api.getRootProps()}>
       <label {...api.getLabelProps()}>{label}</label>
-      <div class="tags-control" {...api.getControlProps()}>
+      <div class="control-box tags-control" {...api.getControlProps()}>
         {value.map((tag, index) => (
           <span key={tag} class="tag" {...api.getItemProps({ index, value: tag })}>
             <span {...api.getItemPreviewProps({ index, value: tag })}>
@@ -71,11 +73,10 @@ export function TagsInput({
             </button>
           </span>
         ))}
-        <input class="tags-field" placeholder={value.length === 0 ? placeholder : undefined} {...(api.getInputProps() as Record<string, unknown>)} />
+        <input class="tags-field" placeholder={value.length === 0 ? placeholder : undefined} {...inputProps(api.getInputProps())} />
       </div>
-      <input {...(api.getHiddenInputProps() as Record<string, unknown>)} />
-      {hint ? <small>{hint}</small> : null}
-      {error ? <small class="field-bad">{error}</small> : null}
+      <input {...inputProps(api.getHiddenInputProps())} />
+      <FieldNotes hint={hint} error={error} />
     </div>
   );
 }

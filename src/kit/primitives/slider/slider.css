@@ -47,7 +47,7 @@
   outline-offset: var(--focus-offset);
 }
 .slider-thumb[data-dragging] {
-  box-shadow: 0 0 0 var(--space-1) color-mix(in srgb, var(--ink) 14%, transparent);
+  box-shadow: var(--focus-glow);
 }
 .slider[data-disabled] .slider-control {
   cursor: not-allowed;

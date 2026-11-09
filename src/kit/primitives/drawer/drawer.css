@@ -29,25 +29,9 @@
   flex-direction: column;
   min-height: 0;
 }
-.drawer-head {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-5);
-  border-bottom: var(--hairline) solid var(--line);
-}
-.drawer-head h2 {
-  flex: 1;
-  font-size: var(--text-md);
-}
 /* The body only takes the room its content needs, so the footer follows it; a long body shrinks and scrolls above the footer. */
 .drawer-body {
-  display: grid;
   flex: 0 1 auto;
-  gap: var(--space-3);
-  align-content: start;
-  overflow: auto;
-  padding: var(--space-4) var(--space-5) var(--space-5);
 }
 .drawer-foot {
   display: flex;

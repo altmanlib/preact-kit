@@ -1,4 +1,4 @@
-/* The box looks like `.input`; the typed dates and the calendar button sit inside it. */
+/* A `.control-box`: the typed dates and the calendar button sit inside it. */
 .date-control {
   display: flex;
   align-items: center;
@@ -6,43 +6,11 @@
   height: var(--control-md);
   padding: 0 var(--space-1) 0 var(--space-2);
   font-size: var(--text-sm);
-  background: var(--card-inner);
-  border: var(--hairline) solid var(--line-strong);
-  border-radius: var(--radius);
-  transition:
-    border-color var(--duration-fast) var(--ease-out),
-    background-color var(--duration-fast) var(--ease-out);
-}
-.date-control:hover:not([data-disabled]) {
-  border-color: var(--line-hover);
-}
-.date-control:focus-within {
-  border-color: var(--ink);
-  box-shadow: 0 0 0 var(--space-1) color-mix(in srgb, var(--ink) 14%, transparent);
-}
-.date-control[data-invalid] {
-  border-color: var(--bad);
-}
-.date-control[data-disabled] {
-  color: var(--muted);
-  background: var(--surface-sunken);
-  border-color: var(--line);
 }
 .date-input {
   flex: 1;
   min-width: 0;
   padding: 0;
-  font: inherit;
-  color: var(--text);
-  background: none;
-  border: 0;
-  outline: 0;
-}
-.date-input:focus-visible {
-  outline: 0;
-}
-.date-input::placeholder {
-  color: var(--disabled-ink);
 }
 .date-sep {
   color: var(--muted);

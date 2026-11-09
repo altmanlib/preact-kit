@@ -4,6 +4,10 @@
 
 ## Unreleased
 
+- 提取共用部件: `field` 新增 `FieldNotes` 与 `isInvalid`, `select` 新增 `OptionList`(`Select`/`Combobox` 共用), 新增 `lib/zag`(`popupPositioning`, `inputProps`), 对话框共用内部的 `DialogLayer`/`DialogHead`; 新增 `.control-box` 类与 token `--focus-glow`(`TagsInput`, `DatePicker`, `SearchInput` 的输入框外观收并到这里)
+- `Modal`/`Drawer` 的内部类名 `.modal-head` `.modal-body` `.drawer-head` 合并为 `.dialog-head` `.dialog-body`(**不兼容**: 依赖这些类名覆盖样式的调用方需要调整)
+- `FileUpload` 的提示行顺序改为先 hint 后拒绝原因, 与其他控件一致; 修复 `CommandPalette` 的 `aria-label` 没有写到对话框上
+
 - `IconButton`(含 `CopyButton`/`CopyField` 里的复制图标)按下时不再缩小, 改为填充色略微加深
 
 - **接入 Zag.js**(设计见 `docs/design/2026-11-10-01-zag-adoption.md`): `@zag-js/preact` 与各组件包成为运行时依赖(`dependencies`, 版本精确锁定同一个), 本库允许依赖 `preact/compat`

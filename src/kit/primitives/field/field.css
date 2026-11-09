@@ -44,7 +44,7 @@ textarea.input {
 .input:focus-visible {
   outline: 0;
   border-color: var(--ink);
-  box-shadow: 0 0 0 var(--space-1) color-mix(in srgb, var(--ink) 14%, transparent);
+  box-shadow: var(--focus-glow);
 }
 .input::placeholder {
   color: var(--disabled-ink);
@@ -54,6 +54,50 @@ textarea.input {
   background: var(--surface-sunken);
   border-color: var(--line);
   cursor: not-allowed;
+}
+
+/*
+ * The box of a control that holds more than one element (tags and their input, typed dates and a button, an icon and an
+ * input): it looks like `.input`, with the focus ring on the box when anything inside has focus. The inner input is
+ * bare, and the control adds its own layout.
+ */
+.control-box {
+  background: var(--card-inner);
+  border: var(--hairline) solid var(--line-strong);
+  border-radius: var(--radius);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+.control-box:hover:not([data-disabled]) {
+  border-color: var(--line-hover);
+}
+.control-box:focus-within {
+  border-color: var(--ink);
+  box-shadow: var(--focus-glow);
+}
+.control-box[data-invalid] {
+  border-color: var(--bad);
+}
+.control-box[data-disabled] {
+  color: var(--muted);
+  background: var(--surface-sunken);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+/* The inner input of a control box has no box of its own. */
+.control-box input {
+  font: inherit;
+  color: var(--text);
+  background: none;
+  border: 0;
+  outline: 0;
+}
+.control-box input:focus-visible {
+  outline: 0;
+}
+.control-box input::placeholder {
+  color: var(--disabled-ink);
 }
 
 .check {

@@ -15,7 +15,8 @@ updated: 2026-11-04
 | pattern | `src/kit/patterns/<name>/` | 由 primitive 与 lib 组合出的页面范式; 文案/列定义/取数通过属性注入 |
 | lib | `src/kit/lib/` | 没有自己标记的 hook 与工具; 只依赖 `kit/texts.ts` |
 
-- `src/kit/primitives/_shared/` 放几个组件共用的样式(目前是弹层的 `popover.css`), 不是组件, 没有 demo
+- `src/kit/primitives/_shared/` 放几个组件共用的样式与内部部件(弹层的 `popover.css`, 对话框的 `dialog.css` 与 `dialog-layer.tsx`), 不对外导出, 没有 demo
+- 表单控件的提示行用 `field` 的 `FieldNotes`, 无效状态用 `isInvalid`; 不是原生 `<input>` 、由多个元素组成的输入框加 `control-box` 类(边框, 悬停, 聚焦光晕, 无效与禁用的外观, 子元素 `<input>` 自动变素), 组件自己只写布局
 - 新增顶层目录时在 `src/architecture.ts` 加对应 zone
 
 ## 2. 一个组件的文件
@@ -52,10 +53,10 @@ updated: 2026-11-04
 弹层, 对话框, 选择, 日期, 滑块这类组件用 Zag.js 提供行为与可访问性, 样式仍是本库的; 新增同类组件照此:
 
 - 机器包用 `bun add --exact @zag-js/<组件>`, 版本与已有的 `@zag-js/*` 保持一致; 组件里 `useMachine(machine, props)` 加 `connect(service, normalizeProps)`(`@zag-js/preact`), 把 `api.get<部件>Props()` 展开到对应元素上; 对外只给 `value`/`onChange`, 不暴露机器
-- 弹层的定位交给 Zag popper: `positioning: { placement, gutter: 4, strategy: "fixed" }`(`fixed` 让它不被滚动祖先裁剪); 渲染成 `<div class="popup-positioner" {...api.getPositionerProps()}><div class="popup" {...api.getContentProps()}>`, 样式用 `_shared/popover.css` 的 `.popup`(菜单项与列表项用 `.pop-item`, 高亮与禁用看 `data-highlighted`/`data-disabled`)
+- 弹层的定位交给 Zag popper: `positioning: popupPositioning(placement)`(`lib/zag.ts`, `fixed` 让它不被滚动祖先裁剪); 选项列表用 `select/option-list.tsx` 的 `OptionList`, 渲染成 `<div class="popup-positioner" {...api.getPositionerProps()}><div class="popup" {...api.getContentProps()}>`, 样式用 `_shared/popover.css` 的 `.popup`(菜单项与列表项用 `.pop-item`, 高亮与禁用看 `data-highlighted`/`data-disabled`)
 - 用 `data-part`/`data-state` 属性选择状态, 选择器以组件类名为前缀; 弹层只有进场动画
-- 对话类(`Modal`, `Drawer`, `CommandPalette`)用 `lib/leaving-dialog` 的 `useLeavingDialog`: 组件挂载即打开, 退场动画挂在 `data-state="closed"` 上, 结束后才调 `onClose`; 层用 `_shared/dialog.css`, 在 `createPortal` 里渲染到 `document.body`
-- Zag 对 `input` 的 `role` 类型比 Preact 宽, 展开 `getInputProps()` 时转成 `Record<string, unknown>`
+- 对话类(`Modal`, `Drawer`, `CommandPalette`)用 `lib/leaving-dialog` 的 `useLeavingDialog`: 组件挂载即打开, 退场动画挂在 `data-state="closed"` 上, 结束后才调 `onClose`; 层、标题行与正文用 `_shared/dialog-layer.tsx` 的 `DialogLayer`/`DialogHead` 与 `.dialog-body`(内部用 `createPortal` 渲染到 `document.body`)
+- Zag 对 `input` 的 `role` 类型比 Preact 宽, 展开 `getInputProps()` 时用 `lib/zag.ts` 的 `inputProps()`
 - 当没有对应的原生控件能给出同等的键盘与读屏行为时才用 Zag; 原生 `<input type="checkbox">`, `<input type="radio">`, `<details>` 已经足够的保持原生
 - 焦点留在输入框的候选列表(`Suggest`, `MentionInput`)不用 Zag, 基于 Popover API 与 CSS anchor positioning, 用 `primitives/suggest/list.tsx` 的 `SuggestList` 与 `useManualPopover`: 弹层是 `popover="manual"`, 在列表上按下不抢走输入框焦点, 按键在输入框一侧处理, 输入法组字期间(`isComposing`, `keyCode 229`)不拦截按键
 

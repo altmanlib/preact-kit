@@ -8,6 +8,7 @@ import { useId } from "preact/hooks";
 import { normalizeNumber, parseNumber, stepNumber } from "../../lib/number.ts";
 import { type Bound, bound } from "../../lib/signals.ts";
 import { kitText } from "../../texts.ts";
+import { FieldNotes } from "../field/index.tsx";
 import { IconButton } from "../icon-button/index.tsx";
 
 /** The props of `NumberField`: either a `field` signal or `value` with `onValue` (never both); both carry the text, not the number. */
@@ -69,8 +70,7 @@ export function NumberField(props: NumberFieldProps) {
           <Plus aria-hidden="true" />
         </IconButton>
       </div>
-      {hint ? <small>{hint}</small> : null}
-      {error ? <small class="field-bad">{error}</small> : null}
+      <FieldNotes hint={hint} error={error} />
     </div>
   );
 }

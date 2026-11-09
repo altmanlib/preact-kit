@@ -7,7 +7,9 @@ import { File as FileIcon, UploadCloud, X } from "lucide-preact";
 import { useId } from "preact/hooks";
 
 import { formatBytes } from "../../lib/format.ts";
+import { inputProps } from "../../lib/zag.ts";
 import { kitText } from "../../texts.ts";
+import { FieldNotes } from "../field/index.tsx";
 
 const REJECT_TEXT: Record<string, () => string> = {
   FILE_INVALID_TYPE: () => kitText.fileInvalidType,
@@ -65,7 +67,7 @@ export function FileUpload({
       <label {...api.getLabelProps()}>{label}</label>
       <div class={rejected === undefined ? "dropzone" : "dropzone dropzone-bad"} {...api.getDropzoneProps()}>
         {/* Zag types the hidden input role more loosely than Preact accepts */}
-        <input {...(api.getHiddenInputProps() as Record<string, unknown>)} />
+        <input {...inputProps(api.getHiddenInputProps())} />
         <UploadCloud size={20} aria-hidden="true" />
         <span class="dropzone-text">{prompt}</span>
       </div>
@@ -87,8 +89,7 @@ export function FileUpload({
           ))}
         </ul>
       ) : null}
-      {rejected !== undefined ? <small class="field-bad">{(REJECT_TEXT[rejected] ?? (() => kitText.fileRejected))()}</small> : null}
-      {hint ? <small>{hint}</small> : null}
+      <FieldNotes hint={hint} error={rejected === undefined ? undefined : (REJECT_TEXT[rejected] ?? (() => kitText.fileRejected))()} />
     </div>
   );
 }

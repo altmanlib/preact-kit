@@ -4,10 +4,14 @@ import "./select.css";
 
 import { normalizeProps, useMachine } from "@zag-js/preact";
 import * as zag from "@zag-js/select";
-import { Check, ChevronDown } from "lucide-preact";
+import { ChevronDown } from "lucide-preact";
 import { useId, useMemo } from "preact/hooks";
 
-export type SelectOption = { value: string; label: string; disabled?: boolean };
+import { popupPositioning } from "../../lib/zag.ts";
+import { FieldNotes, isInvalid } from "../field/index.tsx";
+import { OptionList, type SelectOption } from "./option-list.tsx";
+
+export type { SelectOption };
 
 /**
  * A labelled list box for choosing one value from a short list. `value` is the chosen option (`undefined` shows
@@ -51,12 +55,12 @@ export function Select({
     collection,
     value: value === undefined ? [] : [value],
     disabled,
-    invalid: error !== undefined && error !== "",
+    invalid: isInvalid(error),
     onValueChange: (details) => {
       const picked = details.value[0];
       if (picked !== undefined) onChange(picked);
     },
-    positioning: { placement: "bottom-start", gutter: 4, sameWidth: true, strategy: "fixed" },
+    positioning: popupPositioning("bottom-start", { sameWidth: true }),
   });
   const api = zag.connect(service, normalizeProps);
   const selected = options.find((option) => option.value === value);
@@ -71,20 +75,8 @@ export function Select({
         </button>
       </div>
       {name ? <input type="hidden" name={name} value={value ?? ""} /> : null}
-      <div class="popup-positioner" {...api.getPositionerProps()}>
-        <div class="popup select-list" {...api.getContentProps()}>
-          {options.map((option) => (
-            <div key={option.value} class="pop-item" {...api.getItemProps({ item: option })}>
-              <span {...api.getItemTextProps({ item: option })}>{option.label}</span>
-              <span {...api.getItemIndicatorProps({ item: option })}>
-                <Check size={16} aria-hidden="true" />
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-      {hint ? <small>{hint}</small> : null}
-      {error ? <small class="field-bad">{error}</small> : null}
+      <OptionList api={api} options={options} />
+      <FieldNotes hint={hint} error={error} />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import "../field/field.css";
 import "./search-input.css";
 
 import { Search } from "lucide-preact";
@@ -14,7 +15,7 @@ export type SearchInputProps = { label: string; placeholder?: string } & Bound<s
 export function SearchInput(props: SearchInputProps) {
   const { value, set, rest } = bound<string, { label: string; placeholder?: string }>(props);
   return (
-    <label class="search-input">
+    <label class="control-box search-input">
       <Search size={16} aria-hidden="true" />
       <input
         type="search"

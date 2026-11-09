@@ -1,6 +1,7 @@
 import "./switch.css";
 
 import { type Bound, bound } from "../../lib/signals.ts";
+import { FieldNotes } from "../field/index.tsx";
 
 /** The props of `Switch`: either a `field` signal or `value` with `onValue` (never both). */
 export type SwitchProps = { label: string; hint?: string; name?: string; disabled?: boolean } & Bound<boolean>;
@@ -31,7 +32,7 @@ export function Switch(props: SwitchProps) {
         </span>
         <span class="switch-label">{label}</span>
       </label>
-      {hint ? <small>{hint}</small> : null}
+      <FieldNotes hint={hint} />
     </div>
   );
 }

@@ -4,14 +4,28 @@ import type { ComponentChildren, ComponentProps } from "preact";
 
 import { type Bound, bound } from "../../lib/signals.ts";
 
+/** Whether an `error` prop means the control is invalid: any non-empty text. */
+export function isInvalid(error: string | undefined): boolean {
+  return error !== undefined && error !== "";
+}
+
+/** The lines under a form control: its hint, then its error. The one place the kit draws them, so every control looks the same. */
+export function FieldNotes({ hint, error }: { hint?: string; error?: string }) {
+  return (
+    <>
+      {hint ? <small>{hint}</small> : null}
+      {error ? <small class="field-bad">{error}</small> : null}
+    </>
+  );
+}
+
 /** A labelled form control with an optional hint and an optional error line beneath it. Put native controls inside with `class="input"`. */
 export function Field({ label, hint, error, children }: { label: string; hint?: string; error?: string; children: ComponentChildren }) {
   return (
     <label class="field">
       <span>{label}</span>
       {children}
-      {hint ? <small>{hint}</small> : null}
-      {error ? <small class="field-bad">{error}</small> : null}
+      <FieldNotes hint={hint} error={error} />
     </label>
   );
 }
@@ -71,7 +85,7 @@ export function CheckField(props: CheckFieldProps) {
         />
         {label}
       </label>
-      {hint ? <small>{hint}</small> : null}
+      <FieldNotes hint={hint} />
     </div>
   );
 }

@@ -5,6 +5,9 @@ import { normalizeProps, useMachine } from "@zag-js/preact";
 import * as zag from "@zag-js/slider";
 import { useId } from "preact/hooks";
 
+import { inputProps } from "../../lib/zag.ts";
+import { FieldNotes } from "../field/index.tsx";
+
 type SliderBase = {
   label: string;
   hint?: string;
@@ -56,11 +59,11 @@ function Track({
         </div>
         {values.map((_, index) => (
           <div key={index} class="slider-thumb" {...api.getThumbProps({ index })}>
-            <input {...(api.getHiddenInputProps({ index }) as Record<string, unknown>)} />
+            <input {...inputProps(api.getHiddenInputProps({ index }))} />
           </div>
         ))}
       </div>
-      {hint ? <small>{hint}</small> : null}
+      <FieldNotes hint={hint} />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { ChevronDown } from "lucide-preact";
 import type { ComponentChildren } from "preact";
 import { useId } from "preact/hooks";
 
+import { popupPositioning } from "../../lib/zag.ts";
 import { Button, type ButtonProps } from "../button/index.tsx";
 
 export type MenuItem = {
@@ -44,7 +45,7 @@ export function Dropdown({
   const service = useMachine(zag.machine, {
     id: useId(),
     "aria-label": label,
-    positioning: { placement: align === "end" ? "bottom-end" : "bottom-start", gutter: 4, strategy: "fixed" },
+    positioning: popupPositioning(align === "end" ? "bottom-end" : "bottom-start"),
     onSelect: (details) => items.find((item) => item.key === details.value)?.onSelect(),
   });
   const api = zag.connect(service, normalizeProps);
