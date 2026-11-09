@@ -16,9 +16,9 @@ updated: 2026-11-04
 ## 2. 现状与约束
 
 - 现有弹层(`Dropdown`, `Select`)由按钮触发, 打开后焦点移进菜单; 候选列表要求焦点一直留在输入框, 不能复用
-- 本库不依赖 `preact/compat`, 也不引入内部引用它的库(见 `2026-10-31-headless-library-survey.md`)
-- 弹层统一基于 Popover API 与 CSS anchor positioning
-- 运行时依赖只有 `lucide-preact`; 只有个别组件才用的依赖放可选 peer
+- 候选列表与输入框的键盘与焦点由本文自写, 不用 Zag: 焦点必须留在输入框, 与 Zag 的 `combobox` 弹层不同
+- 本文的候选列表基于 Popover API 与 CSS anchor positioning(其他弹层已改由 Zag 驱动, 见 `2026-11-10-01-zag-adoption.md`)
+- 只有个别组件才用的依赖(如 ProseMirror)放可选 peer
 
 ## 3. 原则
 
@@ -61,7 +61,7 @@ updated: 2026-11-04
 ### 4.5 选型: ProseMirror
 
 - `MentionInput` 基于 ProseMirror, 用一个极小的文档结构: 一个段落, 里面是文本, 换行和提及三种内容, 提及是原子节点. 输入法组字, 撤销重做, 光标管理交给它处理, 本库只写文档结构, 序列化, 粘贴为纯文本, Enter 提交与候选按键
-- `prosemirror-*` 是纯 JS, 不绑定任何框架, 不经 `preact/compat`
+- `prosemirror-*` 是纯 JS, 不绑定任何框架, 不引入 `preact/compat`
 - 依赖放可选 peer, 只有用这个组件的应用才安装: ProseMirror 要求同一棵依赖树里 model, state, view 各只有一份, 放在本库自己的依赖里会与应用自己用到的版本冲突
 - 体量(实测, 一个只含 Preact, signals 与该编辑器的验证页, 压缩后): 约 74 KB, 其中约 65 KB 来自 ProseMirror, Preact 与 signals 基线约 8 KB
 - 否决:

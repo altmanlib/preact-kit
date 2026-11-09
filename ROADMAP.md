@@ -4,8 +4,8 @@
 
 - 骨架: 目录, 展示站(自动收集 demo, 明暗/跟随系统切换), token(`light-dark()`), 边界检查
 - primitives: `Button` `Badge` `Note`/`ErrorNote` `Empty` `Skeleton` `Tile`/`Tiles` `Fact`/`Facts` `PageHead`/`Section` `Chips` `SubNav` `Pager` `GlideHeight` `Field`/`TextField`/`TextAreaField`/`CheckField` `IconButton` `CopyButton`/`CopyField` `ConfirmButton` `DataTable`/`QueryTable` `Modal` `Drawer` `DialogProvider`/`useDialog` `Switch` `Tabs` `Dropdown` `Select` `Suggest` `MentionInput`(设计见 [docs/design/2026-11-04-01-mention-input.md](docs/design/2026-11-04-01-mention-input.md)) `Tooltip` `Toast`/`Toaster` `RadioGroup` `NumberField` `Alert` `Spinner` `Progress` `Tag` `Avatar` `Card` `Breadcrumb` `Accordion` `Stack`/`Grid`
-- lib: `errors`(`ApiError`/`setErrorTexts`), `http`(`request`/`query`), `signals`(`useFields`/`useOpen`/`set`), `paging`(`usePagedList`, 依赖 `@tanstack/preact-query`), `leaving-dialog`(Modal 与 Drawer 共用的进出场逻辑), `roving`(列表键盘焦点与首字母定位), `anchor`(弹层与触发器的锚点命名), `toasts`(`showToast` 与队列), `number`(数字文本的解析/步进/修正), `suggest`(触发字符的判定, 应用选择与按键含义)
-- primitives 另有 `LinkButton`, `QueryStatus`, `TopNav`(顶栏标签与滑动指示条); `DataTable`/`QueryTable` 的 `rowAttrs`, `Section` 与 `Tile` 的 `class` 及透传属性; lib 另有 `format`(`formatTime`)
+- lib: `errors`(`ApiError`/`setErrorTexts`), `http`(`request`/`query`), `signals`(`useFields`/`useOpen`/`set`), `paging`(`usePagedList`, 依赖 `@tanstack/preact-query`), `leaving-dialog`(对话框共用的 Zag dialog 与退场逻辑), `roving`(列表键盘焦点与首字母定位, `NavList` 与 `Suggest` 用), `anchor`(Popover API 弹层与触发器的锚点命名, `Suggest`/`MentionInput` 用), `toasts`(`showToast`, 基于 Zag toast store), `zag`(`popupPositioning`, `inputProps`), `number`(数字文本的解析/步进/修正), `suggest`(触发字符的判定, 应用选择与按键含义)
+- primitives 另有 `LinkButton`, `QueryStatus`, `TopNav`(顶栏标签与滑动指示条); `DataTable`/`QueryTable` 的 `rowAttrs`, `Section` 与 `Tile` 的 `class` 及透传属性; lib 另有 `format`(`formatTime`, `formatBytes`)
 - primitives 另有 `NavList`(竖排可选项列表: 标题, 次要文字, 前后插槽, `aria-current`, 方向键/Home/End), `ThemeSwitch`(系统/浅色/深色三档, 绑定 `lib/theme` 的 `theme`); lib 另有 `theme`(`theme` 信号, `applyTheme`: 写 `<html data-theme>`, `system` 时移除, 存 localStorage, key 可注入, 无 `localStorage`/`document` 时降级); 展示站的主题切换用的就是它
 - `Note` 的 `action`(行尾操作, `ErrorNote` 的重试基于它), `Empty` 的 `compact`, `Button`/`LinkButton` 的 `text` 变体
 - 所有承载值的控件(`TextField` `TextAreaField` `CheckField` `NumberField` `Switch` `SearchInput` `Select` `Combobox` `RadioGroup` `Slider` `RangeSlider` `TagsInput` `DatePicker` `DateRangePicker` `FileUpload` `Tabs` `Chips` `Pager`)用同一种取值方式, 二选一: `field` 信号, 或普通受控的 `value` + `onChange`(`lib/signals` 的 `Bound`/`bound`); 包装原生元素的控件从属性类型里去掉原生的 `onChange`, `onChange` 得到的是值而不是事件
@@ -18,7 +18,8 @@
 
 ## 近期建议(接着做时从这里选)
 
-- 弹层与对话框键盘行为的 e2e 冒烟测试(`bun run ci` 目前不覆盖浏览器行为)
+- 浏览器冒烟测试: 设计草案在 [docs/design/2026-11-10-02-e2e-smoke.md](docs/design/2026-11-10-02-e2e-smoke.md)(`status: draft`), 等用户确认新增 devDependency `playwright` 与范围后才开工; 这是目前最大的质量缺口(Zag 组件的行为全靠手测)
+- `primitives/` 按类别分子目录(见待决策)
 - 迁入原有的通用单元: `SecretMask`/`SecretReveal`, `downloadFile`(见待办)
 - skills-hub 改用 preact-kit 的 `Select`/`Dropdown`/`Tooltip`/`Toast`/`Modal`/`Tabs`/`TagsInput`/`FileUpload`/`SearchInput`/`CommandPalette`, 删除它自带的重复实现
 
@@ -34,9 +35,11 @@
 - 导航: 页码版 `Pagination`, `Stepper`
 - 数据展示: `Timeline`
 - 动效: JS 层的交互缓动(拖拽/手势的惯性与回弹, 数值滚动过渡, 弹簧动画); 目前只有 CSS 的时长与曲线 token(`tokens.css`, `motion.css`). 触发条件: 出现需要可拖拽排序或计数展示的组件时, 先确定方案再做
-- 基础: i18n, 图标规范, 可访问性检查(焦点陷阱, 键盘导航), 展示站里的 e2e 冒烟(目前弹层的键盘行为只做过手工验证)
+- 基础: i18n, 图标规范, 可访问性检查(焦点陷阱, 键盘导航), 可访问性自动扫描, 跨浏览器, 输入法组字与触屏的验证(e2e 冒烟见近期建议)
 - patterns: 设置页, 登录页, 成员管理
 
 ## 待决策
+
+- `primitives/` 目前平铺 50 多个目录. 倾向按展示站侧边栏的 10 组(`src/gallery/groups.ts`)分子目录, 需要重新设计 `package.json` 的 `exports` 通配符与 `architecture.ts` 的 zone, 并改所有内部 import. 使用方只有作者自己, 不需要考虑兼容; 待确认分组方案后开工
 
 - 浏览器下限: Zag 组件用 JS 定位, 只在 Chromium 上验证过; `Suggest`/`MentionInput` 还依赖 Popover API 与 CSS anchor positioning. 需要覆盖其他或更老的浏览器时再验证并加回退

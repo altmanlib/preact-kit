@@ -38,7 +38,7 @@ updated: 2026-11-04
 - 颜色是 `light-dark()` 成对定义的, 组件无需关心明暗; 要新增颜色先在 `tokens.css` 加一对
 - 动效见 `motion.css` 头部的用法表(进入 `--ease-out`, 退出 `--ease-in`, 循环动画用 `--duration-spin`/`--duration-loop`, 按下用 `--press-scale`; 字面时长与曲线会让 `src/kit/motion.test.ts` 失败); 减少动态效果由它统一处理, 组件不再自写 `prefers-reduced-motion`
 - 类名带组件前缀(`.btn`, `.tile-…`), 不用裸标签选择器(`.input` 是表单控件共用的类, 原生 `select` 也加它)
-- 同优先级的规则谁生效取决于样式表的打包顺序, 不能依赖; 需要覆盖共用类时提高优先级(如 `.pop.tooltip`)
+- 同优先级的规则谁生效取决于样式表的打包顺序, 不能依赖; 需要覆盖共用类时提高优先级(如 `.popup.tooltip`)
 
 ## 4. 代码约定
 

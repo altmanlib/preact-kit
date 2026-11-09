@@ -7,6 +7,7 @@ Preact 组件库 `@altmanlib/preact-kit`: 一套带设计 token(含暗色)的通
 - @docs/guide/add-component.md: 新增组件(目录, 文件, 样式与代码约定, 弹层与验证)
 - @docs/design/2026-11-04-01-mention-input.md: 提及输入框与候选列表(`Suggest`, `MentionInput`)的方案与取舍
 - @docs/design/2026-11-10-01-zag-adoption.md: 接入 Zag.js 的方案: 依赖形态, 封装与样式约定, 现有组件的迁移, 布局组件
+- @docs/design/2026-11-10-02-e2e-smoke.md: 浏览器冒烟测试(`status: draft`, 待用户确认依赖与范围后才开工)
 - @docs/record/2026-10-31-headless-library-survey.md: 无样式库调研(原"不引入 Zag.js"的结论已被上一条取代)
 - @docs/record/2026-10-31-package-distribution.md: 作为 GitHub 依赖包分发的决策与已验证事实
 - @ROADMAP.md: 已完成, 暂缓, 待办, 待决策与近期建议
