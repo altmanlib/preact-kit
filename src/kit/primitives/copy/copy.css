@@ -4,7 +4,7 @@
   width: 100%;
 }
 .copy-field .input {
-  padding-right: calc(var(--control-icon) + var(--space-1));
+  padding-right: calc(var(--control-chip) + var(--space-1) * 2);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   text-overflow: ellipsis;
@@ -12,6 +12,9 @@
 .copy-field .btn-icon {
   position: absolute;
   top: 50%;
-  right: 1px;
+  right: var(--space-1);
+  width: var(--control-chip);
+  height: var(--control-chip);
+  border-radius: var(--radius-sm);
   transform: translateY(-50%);
 }
