@@ -1,4 +1,7 @@
-/* The menu's look is the shared popover surface (_shared/popover.css); this adds only what a menu needs. */
-[role="menu"].pop {
-  min-width: max(anchor-size(width), 10rem);
+/* The menu's look is the shared popup surface (_shared/popover.css); this adds only what a menu needs. */
+.popup[role="menu"] {
+  min-width: 10rem;
+}
+.popup[role="menu"]:focus-visible {
+  outline: none;
 }

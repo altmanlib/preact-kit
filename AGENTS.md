@@ -6,7 +6,8 @@ Preact 组件库 `@altmanlib/preact-kit`: 一套带设计 token(含暗色)的通
 
 - @docs/guide/add-component.md: 新增组件(目录, 文件, 样式与代码约定, 弹层与验证)
 - @docs/design/2026-11-04-01-mention-input.md: 提及输入框与候选列表(`Suggest`, `MentionInput`)的方案与取舍
-- @docs/record/2026-10-31-headless-library-survey.md: 无样式库调研, 结论: 不引入 Zag.js 等依赖 `preact/compat` 的库
+- @docs/design/2026-11-10-01-zag-adoption.md: 接入 Zag.js 的方案: 依赖形态, 封装与样式约定, 现有组件的迁移, 布局组件
+- @docs/record/2026-10-31-headless-library-survey.md: 无样式库调研(原"不引入 Zag.js"的结论已被上一条取代)
 - @docs/record/2026-10-31-package-distribution.md: 作为 GitHub 依赖包分发的决策与已验证事实
 - @ROADMAP.md: 已完成, 暂缓, 待办, 待决策与近期建议
 - @CHANGELOG.md: 版本记录, `## Unreleased` 记录下个版本的内容
@@ -32,8 +33,8 @@ Preact 组件库 `@altmanlib/preact-kit`: 一套带设计 token(含暗色)的通
 - 本仓是公开仓库: 文档, 代码, demo 数据与提交信息里不出现用户的业务项目信息(项目名, 业务词汇, 域名), 示例数据用通用内容
 - 对外入口是 `package.json` 的 `exports`(按子路径: `primitives/*` `patterns/*` `lib/*` `texts`, 三个 CSS 与 `assets`); 新增顶层目录或入口文件名不同的单元时同步 `exports`; `sideEffects` 保持 `["**/*.css"]`
 - `preact` 与 `@preact/signals` 是 peer 依赖(同时在 devDependencies), `@tanstack/preact-query` 与 `prosemirror-*` 是可选 peer; 新增运行时依赖时先判断放 `dependencies` 还是 peer
-- 新增依赖用 `bun add`; 现有运行时依赖只有 `lucide-preact`, 以及 peer 的 `preact`, `@preact/signals`, `@tanstack/preact-query`(仅 `lib/paging` 与 `ListPage` 用)和 `prosemirror-state`, `-view`, `-model`, `-history`, `-keymap`, `-commands`(仅 `MentionInput` 用; ProseMirror 要求同一棵依赖树里 model/state/view 各只有一份, 所以放 peer)
-- 不依赖 `preact/compat`: 不引入内部引用它的库(如 Zag.js 的 Preact 适配器); 复杂交互组件在 Popover API 之上自写
+- 新增依赖用 `bun add`; 现有运行时依赖有 `lucide-preact` 与 `@zag-js/*`, 以及 peer 的 `preact`, `@preact/signals`, `@tanstack/preact-query`(仅 `lib/paging` 与 `ListPage` 用)和 `prosemirror-state`, `-view`, `-model`, `-history`, `-keymap`, `-commands`(仅 `MentionInput` 用; ProseMirror 要求同一棵依赖树里 model/state/view 各只有一份, 所以放 peer)
+- 复杂交互组件(弹层, 对话框, 选择, 日期, 滑块等)用 Zag.js(`@zag-js/preact` + 各组件包, 在 `dependencies`, 版本精确锁定为同一个); 允许依赖 `preact/compat`; 对外只暴露 `value`/`onChange` 或 signals 的组件, 不暴露 `useMachine`/`connect`; 样式用 `data-part`/`data-state` 选择器, 并以组件类名为前缀; 无对应 Zag 机器的组件与 `Suggest`/`MentionInput` 保持自写
 - 弹层(`popover`)的类名样式写成 `.pop.<名>` 以压过共用的 `.pop`, 不依赖样式表的打包顺序
 - 交互类组件(键盘, 焦点, 弹层, 对话框)除 `bun run ci` 外, 要在浏览器里实测, 明暗两套都看; 纯逻辑放在 `lib/` 或组件目录的 `.ts` 里并写测试
 - 写文件与 `git commit` 不要在同一批并行执行, 先写完再 `bun run format` 与 `bun run ci`, 再提交

@@ -58,8 +58,6 @@ updated: 2026-11-04
 
 ## 5. 结论
 
-不引入 Zag.js, 也不引入其他候选. 原因: 本项目不接受依赖 `preact/compat`; Zag 的 Preact 适配器内部引用它(§3), 其余候选只有 React 绑定, 在 Preact 里同样要经 compat
-
-复杂组件(`Combobox`, `DatePicker`/`DateRangePicker`, 多选标签输入, `Slider`)在 Popover API 与 CSS anchor positioning 之上自写, 复用 `lib/roving`, `lib/anchor` 与 `lib/suggest`; `Suggest` 已按此实现
+引入 Zag.js, 不引入其他候选; 允许依赖 `preact/compat`. 方案见 [2026-11-10-01-zag-adoption.md](../design/2026-11-10-01-zag-adoption.md)
 
 例外: `MentionInput`(提及显示为 chip)基于 ProseMirror 的 `prosemirror-*` 包, 它们是纯 JS, 不绑定任何框架, 不经 `preact/compat`; 选型与取舍见 [2026-11-04-01-mention-input.md](../design/2026-11-04-01-mention-input.md)

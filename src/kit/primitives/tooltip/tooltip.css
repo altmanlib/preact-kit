@@ -1,13 +1,7 @@
 .tooltip-anchor {
   display: inline-flex;
 }
-/* Above the trigger and centred on it; it flips below when there is no room. `.pop.tooltip` outranks `.pop` whatever order the stylesheets are bundled in. */
-.pop.tooltip {
-  top: auto;
-  bottom: anchor(top);
-  left: anchor(center);
-  translate: -50% 0;
-  min-width: 0;
+.popup.tooltip {
   padding: var(--space-1) var(--space-2);
   font-size: var(--text-xs);
   white-space: nowrap;

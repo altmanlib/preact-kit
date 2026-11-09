@@ -24,6 +24,6 @@
   max-height: 16rem;
   overflow-y: auto;
 }
-.select-list .pop-item[aria-selected="true"] {
+.select-list .pop-item[data-state="checked"] {
   font-weight: var(--weight-semibold);
 }

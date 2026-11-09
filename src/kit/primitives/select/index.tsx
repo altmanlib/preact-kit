@@ -2,20 +2,18 @@ import "../_shared/popover.css";
 import "../field/field.css";
 import "./select.css";
 
-import { useSignal } from "@preact/signals";
+import { normalizeProps, useMachine } from "@zag-js/preact";
+import * as zag from "@zag-js/select";
 import { Check, ChevronDown } from "lucide-preact";
-import { useId, useRef } from "preact/hooks";
-
-import { useAnchor } from "../../lib/anchor.ts";
-import { nextIndex, typeahead } from "../../lib/roving.ts";
+import { useId, useMemo } from "preact/hooks";
 
 export type SelectOption = { value: string; label: string; disabled?: boolean };
 
 /**
  * A labelled list box for choosing one value from a short list. `value` is the chosen option (`undefined` shows
- * `placeholder`). It follows the select-only combobox pattern: the browser's popover handles light dismiss and Esc,
- * arrows, Home, End and type-ahead move between options, Enter or Space chooses. With `name` a hidden input carries the
- * value in a form. For a handful of actions use Dropdown; for a native control use `<select class="input">` inside Field.
+ * `placeholder`). Keyboard, type-ahead, focus return and the listbox semantics come from the Zag select machine; the
+ * list is placed against the trigger and as wide as it, and never clipped by a scrolling ancestor. With `name` a hidden
+ * input carries the value in a form. For a handful of actions use Dropdown.
  */
 export function Select({
   label,
@@ -38,90 +36,52 @@ export function Select({
   name?: string;
   disabled?: boolean;
 }) {
-  const { id, anchor } = useAnchor();
-  const labelId = useId();
-  const list = useRef<HTMLDivElement>(null);
-  const open = useSignal(false);
+  const collection = useMemo(
+    () =>
+      zag.collection({
+        items: options,
+        itemToValue: (item) => item.value,
+        itemToString: (item) => item.label,
+        isItemDisabled: (item) => item.disabled === true,
+      }),
+    [options],
+  );
+  const service = useMachine(zag.machine, {
+    id: useId(),
+    collection,
+    value: value === undefined ? [] : [value],
+    disabled,
+    invalid: error !== undefined && error !== "",
+    onValueChange: (details) => {
+      const picked = details.value[0];
+      if (picked !== undefined) onChange(picked);
+    },
+    positioning: { placement: "bottom-start", gutter: 4, sameWidth: true, strategy: "fixed" },
+  });
+  const api = zag.connect(service, normalizeProps);
   const selected = options.find((option) => option.value === value);
 
-  const rows = () => [...(list.current?.querySelectorAll<HTMLButtonElement>('[role="option"]') ?? [])];
-  const isDisabled = (index: number) => options[index]?.disabled === true;
-  const pick = (option: SelectOption) => {
-    onChange(option.value);
-    list.current?.hidePopover();
-  };
-
   return (
-    <div class="field">
-      <span id={labelId}>{label}</span>
-      <button
-        type="button"
-        class="input select-trigger"
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded={open.value}
-        aria-controls={id}
-        aria-labelledby={labelId}
-        aria-invalid={error ? true : undefined}
-        popovertarget={id}
-        style={`anchor-name: ${anchor}`}
-        disabled={disabled}
-        onKeyDown={(event) => {
-          if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
-          event.preventDefault();
-          list.current?.showPopover();
-        }}
-      >
-        <span class={selected ? "select-value" : "select-value select-placeholder"}>{selected?.label ?? placeholder}</span>
-        <ChevronDown size={16} aria-hidden="true" />
-      </button>
+    <div class="field" {...api.getRootProps()}>
+      <span {...api.getLabelProps()}>{label}</span>
+      <div {...api.getControlProps()}>
+        <button type="button" class="input select-trigger" {...api.getTriggerProps()}>
+          <span class={selected ? "select-value" : "select-value select-placeholder"}>{selected?.label ?? placeholder}</span>
+          <ChevronDown size={16} aria-hidden="true" />
+        </button>
+      </div>
       {name ? <input type="hidden" name={name} value={value ?? ""} /> : null}
-      <div
-        ref={list}
-        id={id}
-        popover="auto"
-        role="listbox"
-        aria-labelledby={labelId}
-        class="pop select-list"
-        style={`position-anchor: ${anchor}`}
-        onToggle={(event) => {
-          open.value = event.newState === "open";
-          if (event.newState !== "open") return;
-          const all = rows();
-          (all.find((row) => row.getAttribute("aria-selected") === "true") ?? all.find((row) => !row.disabled))?.focus();
-        }}
-        onKeyDown={(event) => {
-          if (event.key === "Tab") {
-            list.current?.hidePopover();
-            return;
-          }
-          const all = rows();
-          const current = all.indexOf(document.activeElement as HTMLButtonElement);
-          const next =
-            nextIndex({ current, count: options.length, key: event.key, orientation: "vertical", isDisabled }) ??
-            typeahead({ labels: options.map((option) => option.label), current, char: event.key, isDisabled });
-          if (next === undefined) return;
-          event.preventDefault();
-          all[next]?.focus();
-        }}
-      >
-        {options.map((option) => {
-          const chosen = option.value === value;
-          return (
-            <button
-              key={option.value}
-              type="button"
-              role="option"
-              class="pop-item"
-              aria-selected={chosen}
-              disabled={option.disabled}
-              onClick={() => pick(option)}
-            >
-              {option.label}
-              {chosen ? <Check size={16} aria-hidden="true" /> : null}
-            </button>
-          );
-        })}
+      <div class="popup-positioner" {...api.getPositionerProps()}>
+        <div class="popup select-list" {...api.getContentProps()}>
+          {options.map((option) => (
+            <div key={option.value} class="pop-item" {...api.getItemProps({ item: option })}>
+              <span {...api.getItemTextProps({ item: option })}>{option.label}</span>
+              <span {...api.getItemIndicatorProps({ item: option })}>
+                <Check size={16} aria-hidden="true" />
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
       {hint ? <small>{hint}</small> : null}
       {error ? <small class="field-bad">{error}</small> : null}

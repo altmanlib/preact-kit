@@ -1,9 +1,30 @@
 /*
- * The surface shared by everything that opens next to a trigger (Dropdown, Select, Tooltip). The browser puts a
- * `popover` element in the top layer and handles light dismiss and Esc; here it is placed against the trigger with CSS
- * anchor positioning. The trigger sets `anchor-name`, the popover sets `position-anchor` (both inline, per instance).
- * It fades and lifts in and out with transitions: `display` and `overlay` are discrete, so the exit runs before it leaves the top layer.
+ * The surface of everything that opens next to a trigger. Two ways to place it:
+ *  - `.popup`: Zag components (Dropdown, Select, Tooltip, Popover, Combobox, …). Zag's popper positions the wrapping
+ *    `.popup-positioner` in JS; the surface fades and lifts in when its `data-state` is `open`.
+ *  - `.pop`: the browser's `popover` element (Suggest, MentionInput), handling light dismiss and Esc, placed against the
+ *    trigger with CSS anchor positioning. The trigger sets `anchor-name`, the popover sets `position-anchor` (both inline,
+ *    per instance). It fades and lifts in and out with transitions: `display` and `overlay` are discrete, so the exit runs
+ *    before it leaves the top layer.
  */
+.pop,
+.popup {
+  padding: var(--space-1);
+  color: var(--text);
+  background: var(--card-inner);
+  border: var(--hairline) solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.popup-positioner {
+  z-index: var(--z-overlay);
+}
+.popup[data-state="open"] {
+  animation: view-in var(--duration-fast) var(--ease-out) both;
+}
+.popup:focus-visible {
+  outline: none;
+}
 .pop {
   position: fixed;
   inset: auto;
@@ -11,14 +32,8 @@
   left: anchor(left);
   margin: 0;
   margin-block: var(--space-1);
-  padding: var(--space-1);
   min-width: anchor-size(width);
   max-width: min(24rem, calc(100vw - var(--gutter) * 2));
-  color: var(--text);
-  background: var(--card-inner);
-  border: var(--hairline) solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
   /* Flip above the trigger, or against the other edge, when there is no room. */
   position-try-fallbacks:
     flip-block,
@@ -70,22 +85,25 @@
     background-color var(--duration-fast) var(--ease-out),
     color var(--duration-fast) var(--ease-out);
 }
-.pop-item:hover:not(:disabled),
-.pop-item:focus-visible {
+.pop-item:hover:not(:disabled):not([data-disabled]),
+.pop-item:focus-visible,
+.pop-item[data-highlighted] {
   background: var(--surface-hover);
 }
 .pop-item:focus-visible {
   outline: var(--focus-ring) solid var(--focus);
   outline-offset: calc(var(--focus-ring) * -1);
 }
-.pop-item:disabled {
+.pop-item:disabled,
+.pop-item[data-disabled] {
   color: var(--disabled-ink);
   cursor: not-allowed;
 }
 .pop-item-danger {
   color: var(--bad);
 }
-.pop-item-danger:hover:not(:disabled),
-.pop-item-danger:focus-visible {
+.pop-item-danger:hover:not(:disabled):not([data-disabled]),
+.pop-item-danger:focus-visible,
+.pop-item-danger[data-highlighted] {
   background: var(--bad-soft);
 }

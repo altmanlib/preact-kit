@@ -43,6 +43,24 @@
     "merge-main": "bash scripts/merge-main.sh"
   },
   "dependencies": {
+    "@zag-js/accordion": "1.47.0",
+    "@zag-js/combobox": "1.47.0",
+    "@zag-js/date-picker": "1.47.0",
+    "@zag-js/dialog": "1.47.0",
+    "@zag-js/file-upload": "1.47.0",
+    "@zag-js/menu": "1.47.0",
+    "@zag-js/number-input": "1.47.0",
+    "@zag-js/popover": "1.47.0",
+    "@zag-js/preact": "1.47.0",
+    "@zag-js/progress": "1.47.0",
+    "@zag-js/radio-group": "1.47.0",
+    "@zag-js/select": "1.47.0",
+    "@zag-js/slider": "1.47.0",
+    "@zag-js/switch": "1.47.0",
+    "@zag-js/tabs": "1.47.0",
+    "@zag-js/tags-input": "1.47.0",
+    "@zag-js/toast": "1.47.0",
+    "@zag-js/tooltip": "1.47.0",
     "lucide-preact": "^1.63.0"
   },
   "devDependencies": {

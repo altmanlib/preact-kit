@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- **接入 Zag.js**(设计见 `docs/design/2026-11-10-01-zag-adoption.md`): `@zag-js/preact` 与各组件包成为运行时依赖(`dependencies`, 版本精确锁定同一个), 本库允许依赖 `preact/compat`
+- `Select`, `Dropdown`, `Tooltip` 改由 Zag 驱动, 属性不变; 弹层由 Zag popper 用 JS 定位(`position: fixed`, 不被滚动祖先裁剪), 不再依赖 CSS anchor positioning; 弹层只有进场动画, 没有退场动画. `Tooltip` 的 `children` 由单个元素放宽为任意内容(**不兼容**: 此前给子元素加的 `aria-describedby` 现在加在外层的 `span` 上)
+
 ## 0.10.0 - 2026-11-05
 
 - `Toaster` 的默认位置由右下角改为靠近底部居中(**不兼容**: 依赖右下角位置的调用方需自行覆盖 `.toaster` 的定位)
