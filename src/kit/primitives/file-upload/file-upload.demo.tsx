@@ -14,8 +14,7 @@ function FileUploadDemo() {
         hint="One file, up to 5 MB. Choosing another replaces it."
         accept={{ "application/zip": [".zip"] }}
         maxFileSize={5 * 1024 * 1024}
-        files={archive.value}
-        onFiles={(files) => (archive.value = files)}
+        field={archive}
       />
       <FileUpload
         label="Images"
@@ -23,10 +22,9 @@ function FileUploadDemo() {
         hint="Up to four."
         accept={{ "image/*": [".png", ".jpg", ".webp"] }}
         maxFiles={4}
-        files={images.value}
-        onFiles={(files) => (images.value = files)}
+        field={images}
       />
-      <FileUpload label="Locked" prompt="Uploads are closed" files={[]} onFiles={() => undefined} disabled />
+      <FileUpload label="Locked" prompt="Uploads are closed" value={[]} onChange={() => undefined} disabled />
     </div>
   );
 }

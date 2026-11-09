@@ -12,11 +12,10 @@ function TagsDemo() {
         label="Topics"
         placeholder="Type and press Enter"
         hint="Enter or a comma adds; Backspace removes the last; paste splits on commas."
-        value={tags.value}
-        onChange={(value) => (tags.value = value)}
+        field={tags}
         name="topics"
       />
-      <TagsInput label="At most three" value={limited.value} max={3} onChange={(value) => (limited.value = value)} />
+      <TagsInput label="At most three" field={limited} max={3} />
       <TagsInput label="Locked" value={["read", "only"]} onChange={() => undefined} disabled />
       <TagsInput label="Required" value={[]} onChange={() => undefined} error="Add at least one tag." />
     </div>

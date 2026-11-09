@@ -8,10 +8,10 @@ function DateDemo() {
   const stay = useSignal<[string, string] | undefined>(undefined);
   return (
     <div class="demo-stack">
-      <DatePicker label="Due date" hint={`Value: ${day.value ?? "none"}`} value={day.value} onChange={(value) => (day.value = value)} name="due" />
+      <DatePicker label="Due date" hint={`Value: ${day.value ?? "none"}`} field={day} name="due" />
       <DatePicker label="Within 2026" min="2026-01-01" max="2026-12-31" value="2026-06-15" onChange={() => undefined} />
-      <DatePicker label="Chinese format" locale="zh-CN" value={day.value} onChange={(value) => (day.value = value)} />
-      <DateRangePicker label="Stay" hint={`Value: ${stay.value?.join(" → ") ?? "none"}`} value={stay.value} onChange={(value) => (stay.value = value)} />
+      <DatePicker label="Chinese format" locale="zh-CN" field={day} />
+      <DateRangePicker label="Stay" hint={`Value: ${stay.value?.join(" → ") ?? "none"}`} field={stay} />
       <DatePicker label="Locked" value="2026-01-01" onChange={() => undefined} disabled />
       <DatePicker label="Required" value={undefined} onChange={() => undefined} error="This field is required." />
     </div>

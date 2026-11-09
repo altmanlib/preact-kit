@@ -2,19 +2,20 @@ import { type Signal, signal, useSignal } from "@preact/signals";
 import { useMemo } from "preact/hooks";
 
 /**
- * How a control gets its value: either follows a `field` signal, or is plain controlled with `value` and `onValue`.
- * Exactly one mode is allowed; the `never` members make a mix a type error.
+ * How every value-carrying control of the kit gets its value: either it follows a `field` signal, or it is plain
+ * controlled with `value` and `onChange`. Exactly one mode is allowed; the `never` members make a mix a type error.
+ * A control that wraps a native element drops that element's own `onChange` from its attributes, so the name is free.
  */
-export type Bound<T> = { field: Signal<T>; value?: never; onValue?: never } | { value: T; onValue: (value: T) => void; field?: never };
+export type Bound<T> = { field: Signal<T>; value?: never; onChange?: never } | { value: T; onChange: (value: T) => void; field?: never };
 
 /**
  * Resolves a control's props to its current `value` and a `set` that writes it, in whichever mode the caller chose, and
  * hands back the remaining props `P` (name it explicitly: `bound<string, Own>(props)`) as `rest`. Call it in render: reading a signal's value there subscribes the component.
  */
 export function bound<T, P extends object>(props: Bound<T> & P): { value: T; set: (value: T) => void; rest: P } {
-  const { field, value, onValue, ...rest } = props as Bound<T> & Record<string, unknown>;
+  const { field, value, onChange, ...rest } = props as Bound<T> & Record<string, unknown>;
   if (field) return { value: field.value, set: (next) => (field.value = next), rest: rest as P };
-  return { value: value as T, set: onValue as (value: T) => void, rest: rest as P };
+  return { value: value as T, set: onChange as (value: T) => void, rest: rest as P };
 }
 
 /** An event handler that sets `field` to `value`: `onClick={set(shown, true)}`. */

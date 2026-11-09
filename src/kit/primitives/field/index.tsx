@@ -34,15 +34,20 @@ type FieldFrame = { label: string; hint?: string; error?: string };
 
 const joinClass = (...names: (string | undefined)[]) => names.filter(Boolean).join(" ");
 
-/** The props of `TextField`: the frame, then either a `field` signal or `value` with `onValue` (never both), then the input's own attributes. */
-export type TextFieldProps = FieldFrame & ComponentProps<"input"> & Bound<string>;
+// Preact's input attributes are a union keyed by `type`, so the omission has to apply to each member.
+type OmitEach<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
+type InputAttrs = OmitEach<ComponentProps<"input">, "value" | "onChange">;
+type TextAreaAttrs = OmitEach<ComponentProps<"textarea">, "value" | "onChange">;
+
+/** The props of `TextField`: the frame, then either a `field` signal or `value` with `onChange` (never both), then the input's own attributes. */
+export type TextFieldProps = FieldFrame & InputAttrs & Bound<string>;
 
 /**
- * A labelled text input. It follows `field` (a signal), or is plain controlled with `value` and `onValue`; everything
- * else (`type`, `name`, `maxLength`, …) goes to the input as it is; `onInput` is the kit's own.
+ * A labelled text input. It follows `field` (a signal), or is plain controlled with `value` and `onChange` (which gets
+ * the text, not an event); everything else (`type`, `name`, `maxLength`, …) goes to the input as it is.
  */
 export function TextField(props: TextFieldProps) {
-  const { value, set, rest } = bound<string, FieldFrame & ComponentProps<"input">>(props);
+  const { value, set, rest } = bound<string, FieldFrame & InputAttrs>(props);
   const { label, hint, error, class: className, ...input } = rest;
   return (
     <Field label={label} hint={hint} error={error}>
@@ -52,11 +57,11 @@ export function TextField(props: TextFieldProps) {
 }
 
 /** The props of `TextAreaField`; same two modes as `TextFieldProps`. */
-export type TextAreaFieldProps = FieldFrame & ComponentProps<"textarea"> & Bound<string>;
+export type TextAreaFieldProps = FieldFrame & TextAreaAttrs & Bound<string>;
 
 /** `TextField` for several lines. */
 export function TextAreaField(props: TextAreaFieldProps) {
-  const { value, set, rest } = bound<string, FieldFrame & ComponentProps<"textarea">>(props);
+  const { value, set, rest } = bound<string, FieldFrame & TextAreaAttrs>(props);
   const { label, hint, error, class: className, ...input } = rest;
   return (
     <Field label={label} hint={hint} error={error}>
@@ -65,7 +70,7 @@ export function TextAreaField(props: TextAreaFieldProps) {
   );
 }
 
-/** The props of `CheckField`: either a `field` signal or `value` with `onValue` (never both). */
+/** The props of `CheckField`: either a `field` signal or `value` with `onChange` (never both). */
 export type CheckFieldProps = { label: string; hint?: string; name?: string } & Bound<boolean>;
 
 /** A checkbox with an optional hint beneath; follows a signal or is plain controlled, like `TextField`. */

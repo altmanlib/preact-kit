@@ -43,6 +43,7 @@ updated: 2026-11-04
 ## 4. 代码约定
 
 - 其余属性透传给原生元素, 只暴露调用方真正会变的部分
+- 承载值的控件一律用 `lib/signals` 的 `Bound<T>`: 调用方二选一传 `field`(信号)或 `value` + `onChange`, 组件内用 `bound<T, Own>(props)` 拿到 `value`/`set`/`rest`; 不自己起 `onValue`/`onPage`/`files` 之类的名字. 包装原生元素时, 把原生的 `value`/`onChange` 从属性类型里去掉(Preact 的 input 属性是联合类型, 需逐个成员 `Omit`, 参见 `field/index.tsx` 的 `OmitEach`)
 - 组件自带的固定句子(取消, 确认, 关闭, 重试…)放 `kit/texts.ts`, 应用用 `setKitText` 改写; 与某个用法相关的句子通过属性传入
 - 有状态的 demo 把状态写成 demo 文件里的小组件, 不在 `render` 里直接用 hook
 - 在展示站里需要整列宽度的 demo 用 `<div class="demo-stack">` 包起来

@@ -21,9 +21,9 @@ test("bound reads and writes through a field signal and passes the other props o
   expect(field.value).toBe("b");
 });
 
-test("bound reads the plain value and writes through onValue", () => {
+test("bound reads the plain value and writes through onChange", () => {
   const seen: boolean[] = [];
-  const { value, set, rest } = bound<boolean, { label: string }>({ value: true, onValue: (next) => seen.push(next), label: "Flag" });
+  const { value, set, rest } = bound<boolean, { label: string }>({ value: true, onChange: (next) => seen.push(next), label: "Flag" });
   expect(value).toBe(true);
   expect(rest).toEqual({ label: "Flag" });
   set(false);
@@ -32,11 +32,11 @@ test("bound reads the plain value and writes through onValue", () => {
 
 test("Bound allows exactly one mode", () => {
   const field = signal("");
-  const onValue = () => undefined;
+  const onChange = () => undefined;
   const _field: Bound<string> = { field };
-  const _plain: Bound<string> = { value: "", onValue };
+  const _plain: Bound<string> = { value: "", onChange };
   // @ts-expect-error both modes at once
-  const _both: Bound<string> = { field, value: "", onValue };
+  const _both: Bound<string> = { field, value: "", onChange };
   // @ts-expect-error a value without a way to change it
   const _half: Bound<string> = { value: "" };
   // @ts-expect-error neither mode

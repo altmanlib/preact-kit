@@ -8,6 +8,7 @@ import { normalizeProps, useMachine } from "@zag-js/preact";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-preact";
 import { useId, useState } from "preact/hooks";
 
+import { type Bound, bound } from "../../lib/signals.ts";
 import { inputProps, popupPositioning } from "../../lib/zag.ts";
 import { kitText } from "../../texts.ts";
 import { FieldNotes, isInvalid } from "../field/index.tsx";
@@ -192,29 +193,27 @@ function Picker({
 }
 
 /**
- * A date field with a calendar. `value` is a `YYYY-MM-DD` string (`undefined` for none), whatever the locale shows in the
- * box, so it goes straight to a server. The date can be typed in the locale's format or picked: the month and year in
+ * A date field with a calendar. The value is a `YYYY-MM-DD` string (`undefined` for none), whatever the locale shows in the
+ * box, so it goes straight to a server; either a `field` signal or `value` with `onChange` (never both). The date can be typed in the locale's format or picked: the month and year in
  * the heading open a month or year grid, and the arrow keys, Page Up/Down, Home and End move around the calendar
  * (Zag date-picker machine). Dates outside `min`/`max` cannot be chosen.
  */
-export function DatePicker({ value, onChange, ...base }: PickerBase & { value: string | undefined; onChange: (value: string | undefined) => void }) {
-  return <Picker {...base} range={false} values={value === undefined ? [] : [value]} onValues={(values) => onChange(values[0])} />;
+export function DatePicker(props: PickerBase & Bound<string | undefined>) {
+  const { value, set, rest } = bound<string | undefined, PickerBase>(props);
+  return <Picker {...rest} range={false} values={value === undefined ? [] : [value]} onValues={(values) => set(values[0])} />;
 }
 
-/** A start date and an end date in two boxes with one calendar; `value` is `[start, end]`, `undefined` until both are chosen. */
-export function DateRangePicker({
-  value,
-  onChange,
-  ...base
-}: PickerBase & { value: [string, string] | undefined; onChange: (value: [string, string] | undefined) => void }) {
+/** A start date and an end date in two boxes with one calendar; the value is `[start, end]`, `undefined` until both are chosen. Same two modes as `DatePicker`. */
+export function DateRangePicker(props: PickerBase & Bound<[string, string] | undefined>) {
+  const { value, set, rest } = bound<[string, string] | undefined, PickerBase>(props);
   return (
     <Picker
-      {...base}
+      {...rest}
       range={true}
       values={value ?? []}
       onValues={(values) => {
         const [start, end] = values;
-        onChange(start !== undefined && end !== undefined ? [start, end] : undefined);
+        set(start !== undefined && end !== undefined ? [start, end] : undefined);
       }}
     />
   );

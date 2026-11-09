@@ -31,9 +31,9 @@ function PlainFields() {
   const [news, setNews] = useState(false);
   return (
     <div class="demo-stack">
-      <TextField label="Name" hint="Plain state: value and onValue." value={name} onValue={setName} placeholder="Ada Lovelace" maxLength={40} />
-      <TextAreaField label="About" value={about} onValue={setAbout} placeholder="A few lines…" />
-      <CheckField label="Send me release notes" value={news} onValue={setNews} />
+      <TextField label="Name" hint="Plain state: value and onChange." value={name} onChange={setName} placeholder="Ada Lovelace" maxLength={40} />
+      <TextAreaField label="About" value={about} onChange={setAbout} placeholder="A few lines…" />
+      <CheckField label="Send me release notes" value={news} onChange={setNews} />
       <p class="muted">State: {JSON.stringify({ name, about, news })}</p>
     </div>
   );
@@ -42,13 +42,13 @@ function PlainFields() {
 export default defineDemo({
   name: "Field",
   kind: "primitive",
-  summary: "Labelled form controls that follow a signal, or are plain controlled with value and onValue.",
+  summary: "Labelled form controls that follow a signal, or are plain controlled with value and onChange.",
   examples: [
     { title: "Text, email and textarea", note: "`useFields` makes one signal per key; extra attributes go to the input.", render: () => <TextFields /> },
     { title: "Checkbox", render: () => <Checks /> },
     {
       title: "Without signals",
-      note: "Pass `value` and `onValue` instead of `field` to use plain state (`useState`, a store…). Exactly one of the two modes is allowed; the same goes for CheckField, NumberField and Switch.",
+      note: "Pass `value` and `onChange` instead of `field` to use plain state (`useState`, a store…). Exactly one of the two modes is allowed; the same goes for CheckField, NumberField and Switch.",
       render: () => <PlainFields />,
     },
     {

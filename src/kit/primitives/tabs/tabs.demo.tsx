@@ -9,8 +9,7 @@ function TabsDemo() {
     <div class="demo-stack">
       <Tabs
         label="Order sections"
-        value={tab.value}
-        onChange={(key) => (tab.value = key)}
+        field={tab}
         items={[
           { key: "overview", label: "Overview" },
           { key: "history", label: "History" },

@@ -11,8 +11,7 @@ function RadioDemo() {
       <RadioGroup
         label="Delivery"
         hint="Arrow keys move within the group."
-        value={delivery.value}
-        onChange={(value) => (delivery.value = value)}
+        field={delivery}
         options={[
           { value: "standard", label: "Standard", hint: "3 to 5 days" },
           { value: "express", label: "Express", hint: "Next day" },

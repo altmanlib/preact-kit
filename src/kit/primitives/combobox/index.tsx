@@ -8,6 +8,7 @@ import { normalizeProps, useMachine } from "@zag-js/preact";
 import { ChevronDown } from "lucide-preact";
 import { useId, useMemo, useState } from "preact/hooks";
 
+import { type Bound, bound } from "../../lib/signals.ts";
 import { inputProps, popupPositioning } from "../../lib/zag.ts";
 import { kitText } from "../../texts.ts";
 import { FieldNotes, isInvalid } from "../field/index.tsx";
@@ -15,35 +16,29 @@ import { OptionList, type SelectOption } from "../select/option-list.tsx";
 
 export type ComboboxOption = SelectOption;
 
-/**
- * A text input with a list of options that narrows as you type, for choosing one value from a list too long for Select.
- * `value` is the chosen option (`undefined` for none); the typed text only filters and is not a value. Arrow keys move
- * the highlight, Enter chooses, Esc closes (Zag combobox machine). Filtering is a case-insensitive "contains" on the
- * label; `emptyText` shows when nothing matches. With `name` a hidden input carries the value in a form.
- */
-export function Combobox({
-  label,
-  hint,
-  error,
-  options,
-  value,
-  onChange,
-  placeholder,
-  emptyText = kitText.noResults,
-  name,
-  disabled = false,
-}: {
+type ComboboxOwn = {
   label: string;
   hint?: string;
   error?: string;
   options: ComboboxOption[];
-  value: string | undefined;
-  onChange: (value: string | undefined) => void;
   placeholder?: string;
   emptyText?: string;
   name?: string;
   disabled?: boolean;
-}) {
+};
+
+/** The props of `Combobox`: the own props, then either a `field` signal or `value` with `onChange` (never both). */
+export type ComboboxProps = ComboboxOwn & Bound<string | undefined>;
+
+/**
+ * A text input with a list of options that narrows as you type, for choosing one value from a list too long for Select.
+ * The value is the chosen option (`undefined` for none); the typed text only filters and is not a value. Arrow keys move
+ * the highlight, Enter chooses, Esc closes (Zag combobox machine). Filtering is a case-insensitive "contains" on the
+ * label; `emptyText` shows when nothing matches. With `name` a hidden input carries the value in a form.
+ */
+export function Combobox(props: ComboboxProps) {
+  const { value, set, rest } = bound<string | undefined, ComboboxOwn>(props);
+  const { label, hint, error, options, placeholder, emptyText = kitText.noResults, name, disabled = false } = rest;
   const [query, setQuery] = useState("");
   const selected = options.find((option) => option.value === value);
   // While the input shows the chosen label, offer the whole list rather than only that option.
@@ -69,7 +64,7 @@ export function Combobox({
     openOnClick: true,
     inputBehavior: "autohighlight",
     onInputValueChange: (details) => setQuery(details.inputValue),
-    onValueChange: (details) => onChange(details.value[0]),
+    onValueChange: (details) => set(details.value[0]),
     positioning: popupPositioning("bottom-start", { sameWidth: true }),
   });
   const api = zag.connect(service, normalizeProps);

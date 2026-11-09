@@ -7,6 +7,7 @@ import { File as FileIcon, UploadCloud, X } from "lucide-preact";
 import { useId } from "preact/hooks";
 
 import { formatBytes } from "../../lib/format.ts";
+import { type Bound, bound } from "../../lib/signals.ts";
 import { inputProps } from "../../lib/zag.ts";
 import { kitText } from "../../texts.ts";
 import { FieldNotes } from "../field/index.tsx";
@@ -18,23 +19,7 @@ const REJECT_TEXT: Record<string, () => string> = {
   TOO_MANY_FILES: () => kitText.tooManyFiles,
 };
 
-/**
- * A drop zone for choosing files by clicking it or dragging them onto it (Zag file-upload machine; the zone is also
- * reachable and operable by keyboard). The chosen files are the caller's: `files` goes in, `onFiles` brings the new list
- * out, and the component only picks and shows them, it does not upload. A file that breaks `accept`, `maxFileSize` or
- * `maxFiles` is refused with a message under the zone.
- */
-export function FileUpload({
-  label,
-  prompt,
-  hint,
-  accept,
-  maxFileSize,
-  maxFiles = 1,
-  files,
-  onFiles,
-  disabled = false,
-}: {
+type FileUploadOwn = {
   label: string;
   /** The line inside the empty zone, e.g. "Drop a file here or click to choose". */
   prompt: string;
@@ -45,10 +30,21 @@ export function FileUpload({
   maxFileSize?: number;
   /** How many files at most; 1 (the default) makes the zone replace its file instead of adding to a list. */
   maxFiles?: number;
-  files: File[];
-  onFiles: (files: File[]) => void;
   disabled?: boolean;
-}) {
+};
+
+/** The props of `FileUpload`: the own props, then either a `field` signal or `value` with `onChange` (never both); the value is the list of chosen files. */
+export type FileUploadProps = FileUploadOwn & Bound<File[]>;
+
+/**
+ * A drop zone for choosing files by clicking it or dragging them onto it (Zag file-upload machine; the zone is also
+ * reachable and operable by keyboard). The chosen files are the caller's: the value goes in and the new list comes out
+ * through `onChange`, and the component only picks and shows them, it does not upload. A file that breaks `accept`,
+ * `maxFileSize` or `maxFiles` is refused with a message under the zone.
+ */
+export function FileUpload(props: FileUploadProps) {
+  const { value: files, set, rest } = bound<File[], FileUploadOwn>(props);
+  const { label, prompt, hint, accept, maxFileSize, maxFiles = 1, disabled = false } = rest;
   const service = useMachine(zag.machine, {
     id: useId(),
     accept,
@@ -57,7 +53,7 @@ export function FileUpload({
     disabled,
     translations: { dropzone: prompt },
     acceptedFiles: files,
-    onFileChange: (details) => onFiles(details.acceptedFiles),
+    onFileChange: (details) => set(details.acceptedFiles),
   });
   const api = zag.connect(service, normalizeProps);
   const rejected = api.rejectedFiles[0]?.errors[0];

@@ -42,7 +42,7 @@ export function ListPage<Status extends string, Row>({
       </PageHead>
       <Chips options={statusOptions} value={list.status} onChange={list.changeStatus} />
       <QueryTable query={list.query} rows={list.rows} columns={columns} rowKey={rowKey} empty={empty} />
-      <Pager page={list.page} hasNext={list.hasNext} onPage={list.setPage} />
+      <Pager value={list.page} onChange={list.setPage} hasNext={list.hasNext} />
     </>
   );
 }

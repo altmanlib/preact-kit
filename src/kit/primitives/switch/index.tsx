@@ -3,11 +3,11 @@ import "./switch.css";
 import { type Bound, bound } from "../../lib/signals.ts";
 import { FieldNotes } from "../field/index.tsx";
 
-/** The props of `Switch`: either a `field` signal or `value` with `onValue` (never both). */
+/** The props of `Switch`: either a `field` signal or `value` with `onChange` (never both). */
 export type SwitchProps = { label: string; hint?: string; name?: string; disabled?: boolean } & Bound<boolean>;
 
 /**
- * An on/off switch with an optional hint beneath; it follows a signal or is plain controlled with `value` and `onValue`.
+ * An on/off switch with an optional hint beneath; it follows a signal or is plain controlled with `value` and `onChange`.
  * Use it for a setting that applies at once; use CheckField for a choice that is submitted.
  */
 export function Switch(props: SwitchProps) {

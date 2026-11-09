@@ -15,14 +15,7 @@ function SelectDemo() {
   const region = useSignal<string | undefined>("eu");
   return (
     <div class="demo-stack">
-      <Select
-        label="Plan"
-        placeholder="Choose a plan"
-        hint="Type a letter to jump."
-        options={PLANS}
-        value={plan.value}
-        onChange={(value) => (plan.value = value)}
-      />
+      <Select label="Plan" placeholder="Choose a plan" hint="Type a letter to jump." options={PLANS} field={plan} />
       <Select
         label="Region"
         options={[

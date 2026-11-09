@@ -5,7 +5,7 @@ import { Search } from "lucide-preact";
 
 import { type Bound, bound } from "../../lib/signals.ts";
 
-/** The props of `SearchInput`: either a `field` signal or `value` with `onValue` (never both). */
+/** The props of `SearchInput`: either a `field` signal or `value` with `onChange` (never both). */
 export type SearchInputProps = { label: string; placeholder?: string } & Bound<string>;
 
 /**

@@ -11,7 +11,7 @@ import { kitText } from "../../texts.ts";
 import { FieldNotes } from "../field/index.tsx";
 import { IconButton } from "../icon-button/index.tsx";
 
-/** The props of `NumberField`: either a `field` signal or `value` with `onValue` (never both); both carry the text, not the number. */
+/** The props of `NumberField`: either a `field` signal or `value` with `onChange` (never both); both carry the text, not the number. */
 export type NumberFieldProps = NumberFieldOwn & Bound<string>;
 
 type NumberFieldOwn = {
@@ -21,11 +21,11 @@ type NumberFieldOwn = {
   min?: number;
   max?: number;
   step?: number;
-} & Omit<ComponentProps<"input">, "value" | "onInput" | "type" | "min" | "max" | "step" | "label">;
+} & Omit<ComponentProps<"input">, "value" | "onChange" | "onInput" | "type" | "min" | "max" | "step" | "label">;
 
 /**
  * A labelled number input that follows `field` (the text, so an empty or half-typed value can be held), or is plain
- * controlled with `value` and `onValue`, with − and + steppers.
+ * controlled with `value` and `onChange`, with − and + steppers.
  * ArrowUp and ArrowDown step too; leaving the field pulls a readable number into `min`/`max`. Read the number with
  * `parseNumber(text)`; unreadable text is for the caller to report through `error`.
  */

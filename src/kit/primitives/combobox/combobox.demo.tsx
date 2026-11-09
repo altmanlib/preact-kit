@@ -33,8 +33,7 @@ function ComboboxDemo() {
         placeholder="Type to filter"
         hint={`Chosen: ${country.value ?? "nothing yet"}`}
         options={COUNTRIES}
-        value={country.value}
-        onChange={(value) => (country.value = value)}
+        field={country}
         name="country"
       />
       <Combobox label="Locked" options={COUNTRIES} value="japan" onChange={() => undefined} disabled />

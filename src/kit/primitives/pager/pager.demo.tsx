@@ -7,7 +7,7 @@ const LAST_PAGE = 4;
 
 function PagerDemo() {
   const page = useSignal(0);
-  return <Pager page={page.value} hasNext={page.value < LAST_PAGE} onPage={(next) => (page.value = next)} />;
+  return <Pager field={page} hasNext={page.value < LAST_PAGE} />;
 }
 
 export default defineDemo({

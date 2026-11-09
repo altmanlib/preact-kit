@@ -5,6 +5,7 @@ import { normalizeProps, useMachine } from "@zag-js/preact";
 import * as zag from "@zag-js/slider";
 import { useId } from "preact/hooks";
 
+import { type Bound, bound } from "../../lib/signals.ts";
 import { inputProps } from "../../lib/zag.ts";
 import { FieldNotes } from "../field/index.tsx";
 
@@ -71,12 +72,15 @@ function Track({
 /**
  * Chooses one number in a range by dragging a thumb or with the arrow keys, Home, End and Page Up/Down (Zag slider
  * machine). The current value shows beside the label. For a value that must be typed exactly use NumberField.
+ * Either a `field` signal or `value` with `onChange` (never both).
  */
-export function Slider({ value, onChange, ...base }: SliderBase & { value: number; onChange: (value: number) => void }) {
-  return <Track {...base} values={[value]} onValues={(values) => onChange(values[0] ?? value)} />;
+export function Slider(props: SliderBase & Bound<number>) {
+  const { value, set, rest } = bound<number, SliderBase>(props);
+  return <Track {...rest} values={[value]} onValues={(values) => set(values[0] ?? value)} />;
 }
 
-/** Chooses a span between two numbers with two thumbs; the thumbs cannot cross. */
-export function RangeSlider({ value, onChange, ...base }: SliderBase & { value: [number, number]; onChange: (value: [number, number]) => void }) {
-  return <Track {...base} values={value} onValues={(values) => onChange([values[0] ?? value[0], values[1] ?? value[1]])} />;
+/** Chooses a span between two numbers with two thumbs; the thumbs cannot cross. Same two modes as `Slider`, with a `[start, end]` value. */
+export function RangeSlider(props: SliderBase & Bound<[number, number]>) {
+  const { value, set, rest } = bound<[number, number], SliderBase>(props);
+  return <Track {...rest} values={value} onValues={(values) => set([values[0] ?? value[0], values[1] ?? value[1]])} />;
 }

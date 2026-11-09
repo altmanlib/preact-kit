@@ -7,39 +7,35 @@ import * as zag from "@zag-js/select";
 import { ChevronDown } from "lucide-preact";
 import { useId, useMemo } from "preact/hooks";
 
+import { type Bound, bound } from "../../lib/signals.ts";
 import { popupPositioning } from "../../lib/zag.ts";
 import { FieldNotes, isInvalid } from "../field/index.tsx";
 import { OptionList, type SelectOption } from "./option-list.tsx";
 
 export type { SelectOption };
 
-/**
- * A labelled list box for choosing one value from a short list. `value` is the chosen option (`undefined` shows
- * `placeholder`). Keyboard, type-ahead, focus return and the listbox semantics come from the Zag select machine; the
- * list is placed against the trigger and as wide as it, and never clipped by a scrolling ancestor. With `name` a hidden
- * input carries the value in a form. For a handful of actions use Dropdown.
- */
-export function Select({
-  label,
-  hint,
-  error,
-  options,
-  value,
-  onChange,
-  placeholder = "",
-  name,
-  disabled = false,
-}: {
+type SelectOwn = {
   label: string;
   hint?: string;
   error?: string;
   options: SelectOption[];
-  value: string | undefined;
-  onChange: (value: string) => void;
   placeholder?: string;
   name?: string;
   disabled?: boolean;
-}) {
+};
+
+/** The props of `Select`: the own props, then either a `field` signal or `value` with `onChange` (never both). */
+export type SelectProps = SelectOwn & Bound<string | undefined>;
+
+/**
+ * A labelled list box for choosing one value from a short list. The value is the chosen option (`undefined` shows
+ * `placeholder`). Keyboard, type-ahead, focus return and the listbox semantics come from the Zag select machine; the
+ * list is placed against the trigger and as wide as it, and never clipped by a scrolling ancestor. With `name` a hidden
+ * input carries the value in a form. For a handful of actions use Dropdown.
+ */
+export function Select(props: SelectProps) {
+  const { value, set, rest } = bound<string | undefined, SelectOwn>(props);
+  const { label, hint, error, options, placeholder = "", name, disabled = false } = rest;
   const collection = useMemo(
     () =>
       zag.collection({
@@ -58,7 +54,7 @@ export function Select({
     invalid: isInvalid(error),
     onValueChange: (details) => {
       const picked = details.value[0];
-      if (picked !== undefined) onChange(picked);
+      if (picked !== undefined) set(picked);
     },
     positioning: popupPositioning("bottom-start", { sameWidth: true }),
   });

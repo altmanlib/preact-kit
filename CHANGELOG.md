@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- **统一取值方式**(不兼容): 所有承载值的控件都用 `Bound<T>`, 二选一传 `field` 信号或 `value` + `onChange`. `Bound` 的 `onValue` 改名为 `onChange`(`TextField` `TextAreaField` `CheckField` `NumberField` `Switch` `SearchInput`; 包装原生元素的控件不再透传原生的 `onChange` 事件); `Select` `Combobox` `RadioGroup` `Slider` `RangeSlider` `TagsInput` `DatePicker` `DateRangePicker` `Tabs` 新增 `field` 用法; `FileUpload` 的 `files`/`onFiles` 改为 `value`/`onChange`; `Chips` 新增 `field` 用法; `Pager` 的 `page`/`onPage` 改为 `value`/`onChange`; `Select` 的 `onChange`/`field` 类型由 `string` 放宽为 `string | undefined`
+
 - 提取共用部件: `field` 新增 `FieldNotes` 与 `isInvalid`, `select` 新增 `OptionList`(`Select`/`Combobox` 共用), 新增 `lib/zag`(`popupPositioning`, `inputProps`), 对话框共用内部的 `DialogLayer`/`DialogHead`; 新增 `.control-box` 类与 token `--focus-glow`(`TagsInput`, `DatePicker`, `SearchInput` 的输入框外观收并到这里)
 - `Modal`/`Drawer` 的内部类名 `.modal-head` `.modal-body` `.drawer-head` 合并为 `.dialog-head` `.dialog-body`(**不兼容**: 依赖这些类名覆盖样式的调用方需要调整)
 - `FileUpload` 的提示行顺序改为先 hint 后拒绝原因, 与其他控件一致; 修复 `CommandPalette` 的 `aria-label` 没有写到对话框上

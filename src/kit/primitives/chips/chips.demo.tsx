@@ -14,7 +14,7 @@ const OPTIONS: { value: Status | undefined; label: string }[] = [
 
 function StatusChips({ title }: { title?: string }) {
   const value = useSignal<Status | undefined>(undefined);
-  return <Chips options={OPTIONS} value={value.value} onChange={(next) => (value.value = next)} title={title} />;
+  return <Chips options={OPTIONS} field={value} title={title} />;
 }
 
 export default defineDemo({
