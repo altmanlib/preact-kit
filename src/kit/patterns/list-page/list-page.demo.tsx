@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/preact-query";
 
 import { defineDemo } from "../../demo.ts";
-import { Badge, type Tone } from "../../primitives/badge/index.tsx";
-import { Button } from "../../primitives/button/index.tsx";
-import type { Column } from "../../primitives/data-table/index.tsx";
+import { Button } from "../../primitives/actions/button/index.tsx";
+import { Badge, type Tone } from "../../primitives/data-display/badge/index.tsx";
+import type { Column } from "../../primitives/data-display/data-table/index.tsx";
 import { ListPage } from "./index.tsx";
 
 type Status = "paid" | "pending" | "failed";

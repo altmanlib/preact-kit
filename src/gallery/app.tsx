@@ -1,5 +1,5 @@
 import type { Demo } from "../kit/demo.ts";
-import { ThemeSwitch } from "../kit/primitives/theme-switch/index.tsx";
+import { ThemeSwitch } from "../kit/primitives/foundations/theme-switch/index.tsx";
 import { demos } from "./demos.gen.ts";
 import { groupDemos } from "./groups.ts";
 import { current, demoPath } from "./route.ts";

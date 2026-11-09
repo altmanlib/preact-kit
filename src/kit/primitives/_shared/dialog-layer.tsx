@@ -6,7 +6,7 @@ import type { ComponentChildren, RefObject } from "preact";
 import { createPortal } from "preact/compat";
 
 import { kitText } from "../../texts.ts";
-import { IconButton } from "../icon-button/index.tsx";
+import { IconButton } from "../actions/icon-button/index.tsx";
 
 /** The title row of a dialog: the heading, linked to the dialog as its name, and a close button. */
 export function DialogHead({ api, title, onClose }: { api: zag.Api; title: string; onClose: () => void }) {

@@ -14,12 +14,12 @@
 - 固定文案集中在 `kit/texts.ts`, 应用用 `setKitText` 改写; API 错误码文案用 `setErrorTexts` 注册
 - 接入 Zag.js(设计见 [docs/design/2026-11-10-01-zag-adoption.md](docs/design/2026-11-10-01-zag-adoption.md)): `Select` `Dropdown` `Tooltip` `Toast` `Modal` `Drawer` `Tabs` 由 Zag 驱动, 新增 `Combobox` `Popover` `Slider`/`RangeSlider` `TagsInput` `FileUpload` `DatePicker`/`DateRangePicker` `CommandPalette` `SearchInput`; 弹层共用样式在 `primitives/_shared/popover.css`(`.popup`), 对话框的层在 `_shared/dialog.css`
 - `Suggest`/`MentionInput` 是焦点留在输入框的候选列表(`popover="manual"`, Popover API 与 CSS anchor positioning), 不迁移
-- 布局: `primitives/layout` 含 `Stack`(`wrap`) `Spacer` `Grid` `Split` `Container` `Page`; 窄屏断点 760px
+- `primitives/` 按展示站侧边栏的类别分子目录(`actions` `form` `selection` `overlays` `navigation` `feedback` `data-display` `layout` `foundations`), 对外路径 `primitives/<类别>/<名>`
+- 布局: `primitives/layout/layout` 含 `Stack`(`wrap`) `Spacer` `Grid` `Split` `Container` `Page`; 窄屏断点 760px
 
 ## 近期建议(接着做时从这里选)
 
 - 浏览器冒烟测试: 设计草案在 [docs/design/2026-11-10-02-e2e-smoke.md](docs/design/2026-11-10-02-e2e-smoke.md)(`status: draft`), 等用户确认新增 devDependency `playwright` 与范围后才开工; 这是目前最大的质量缺口(Zag 组件的行为全靠手测)
-- `primitives/` 按类别分子目录(见待决策)
 - 迁入原有的通用单元: `SecretMask`/`SecretReveal`, `downloadFile`(见待办)
 - skills-hub 改用 preact-kit 的 `Select`/`Dropdown`/`Tooltip`/`Toast`/`Modal`/`Tabs`/`TagsInput`/`FileUpload`/`SearchInput`/`CommandPalette`, 删除它自带的重复实现
 
@@ -39,7 +39,5 @@
 - patterns: 设置页, 登录页, 成员管理
 
 ## 待决策
-
-- `primitives/` 目前平铺 50 多个目录. 倾向按展示站侧边栏的 10 组(`src/gallery/groups.ts`)分子目录, 需要重新设计 `package.json` 的 `exports` 通配符与 `architecture.ts` 的 zone, 并改所有内部 import. 使用方只有作者自己, 不需要考虑兼容; 待确认分组方案后开工
 
 - 浏览器下限: Zag 组件用 JS 定位, 只在 Chromium 上验证过; `Suggest`/`MentionInput` 还依赖 Popover API 与 CSS anchor positioning. 需要覆盖其他或更老的浏览器时再验证并加回退

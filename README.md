@@ -18,7 +18,7 @@ src/
 │  ├─ tokens.css  motion.css  base.css   # 设计 token, 动效, 重置
 │  ├─ demo.ts  texts.ts  assets.d.ts     # 与展示站的契约; 组件的固定文案(可用 setKitText 改写); 样式导入声明
 │  ├─ lib/                               # hook 与工具: errors, http, signals, paging, leaving-dialog, roving, anchor, toasts, number, format
-│  ├─ primitives/<name>/                 # index.tsx + <name>.css + <name>.demo.tsx; _shared/ 放弹层共用样式
+│  ├─ primitives/<group>/<name>/         # index.tsx + <name>.css + <name>.demo.tsx; _shared/ 放弹层共用样式
 │  └─ patterns/<name>/                   # 由 primitives 组合出的页面范式
 ├─ gallery/                              # 展示站, 自动收集 *.demo.tsx
 ├─ architecture.ts                       # 谁可以引用谁, architecture.test.ts 强制
@@ -37,13 +37,13 @@ bun add preact @preact/signals    # peer 依赖; 用 lib/paging 或 ListPage 时
 ```
 
 ```tsx
-import { Button } from "@altmanlib/preact-kit/primitives/button";
+import { Button } from "@altmanlib/preact-kit/primitives/actions/button";
 import { ListPage } from "@altmanlib/preact-kit/patterns/list-page";
 import { usePagedList } from "@altmanlib/preact-kit/lib/paging";
 import { setKitText } from "@altmanlib/preact-kit/texts";
 ```
 
-- 子路径: `primitives/<名>`, `patterns/<名>`, `lib/<名>`, `texts`, `base.css`, `tokens.css`, `motion.css`; 没有总入口. 组件自己引入自己的样式
+- 子路径: `primitives/<类别>/<名>`, `patterns/<名>`, `lib/<名>`, `texts`, `base.css`, `tokens.css`, `motion.css`; 没有总入口. 组件自己引入自己的样式
 - 页面引入 `@altmanlib/preact-kit/base.css`(含 token 与重置); 改品牌在自己的样式里覆盖 token, 文案用 `setKitText` 改写
 - `tsconfig.json` 的 `types` 加上 `@altmanlib/preact-kit/assets`(样式文件的导入声明)
 - 升级: 改 tag 并 `bun add`, 跑自己的 `ci`; 1.0 之前次版本号可含不兼容改动, 见 [CHANGELOG.md](CHANGELOG.md)

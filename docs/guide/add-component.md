@@ -11,10 +11,11 @@ updated: 2026-11-04
 
 | 类别 | 目录 | 约束 |
 | ---- | ---- | ---- |
-| primitive | `src/kit/primitives/<name>/` | 通用控件: 不含业务词汇, 固定文案, 接口地址; 只依赖 `kit/demo.ts`, `kit/texts.ts`, `kit/lib`, 以及其他 primitive(如 `Pager` 用 `Button`) |
+| primitive | `src/kit/primitives/<group>/<name>/` | 通用控件: 不含业务词汇, 固定文案, 接口地址; 只依赖 `kit/demo.ts`, `kit/texts.ts`, `kit/lib`, 以及其他 primitive(如 `Pager` 用 `Button`) |
 | pattern | `src/kit/patterns/<name>/` | 由 primitive 与 lib 组合出的页面范式; 文案/列定义/取数通过属性注入 |
 | lib | `src/kit/lib/` | 没有自己标记的 hook 与工具; 只依赖 `kit/texts.ts` |
 
+- `<group>` 是展示站侧边栏的类别(`src/gallery/groups.ts`)对应的目录: `actions` `form` `selection` `overlays` `navigation` `feedback` `data-display` `layout` `foundations`; 新组件放进最贴近的一组, 同步在 `groups.ts` 登记; 对外路径是 `primitives/<group>/<name>`
 - `src/kit/primitives/_shared/` 放几个组件共用的样式与内部部件(弹层的 `popover.css`, 对话框的 `dialog.css` 与 `dialog-layer.tsx`), 不对外导出, 没有 demo
 - 表单控件的提示行用 `field` 的 `FieldNotes`, 无效状态用 `isInvalid`; 不是原生 `<input>` 、由多个元素组成的输入框加 `control-box` 类(边框, 悬停, 聚焦光晕, 无效与禁用的外观, 子元素 `<input>` 自动变素), 组件自己只写布局
 - 新增顶层目录时在 `src/architecture.ts` 加对应 zone
@@ -26,7 +27,7 @@ updated: 2026-11-04
 ├─ index.tsx        # 组件与它的属性类型; 顶部 import "./<name>.css"
 ├─ <name>.css       # 只用 tokens.css 里的 token
 ├─ <name>.demo.tsx  # 默认导出 defineDemo(...), 展示站自动收集
-└─ <name>.test.ts   # 组件目录里的纯逻辑(如 avatar/initials.ts)才写; 通用逻辑放 lib/ 并写测试
+└─ <name>.test.ts   # 组件目录里的纯逻辑(如 data-display/avatar/initials.ts)才写; 通用逻辑放 lib/ 并写测试
 ```
 
 - `*.demo.tsx` 是展示站的唯一入口: 新增后 `bun run dev` 重新生成清单即可出现在左侧导航, 不改展示站代码
@@ -54,12 +55,12 @@ updated: 2026-11-04
 弹层, 对话框, 选择, 日期, 滑块这类组件用 Zag.js 提供行为与可访问性, 样式仍是本库的; 新增同类组件照此:
 
 - 机器包用 `bun add --exact @zag-js/<组件>`, 版本与已有的 `@zag-js/*` 保持一致; 组件里 `useMachine(machine, props)` 加 `connect(service, normalizeProps)`(`@zag-js/preact`), 把 `api.get<部件>Props()` 展开到对应元素上; 对外只给 `value`/`onChange`, 不暴露机器
-- 弹层的定位交给 Zag popper: `positioning: popupPositioning(placement)`(`lib/zag.ts`, `fixed` 让它不被滚动祖先裁剪); 选项列表用 `select/option-list.tsx` 的 `OptionList`, 渲染成 `<div class="popup-positioner" {...api.getPositionerProps()}><div class="popup" {...api.getContentProps()}>`, 样式用 `_shared/popover.css` 的 `.popup`(菜单项与列表项用 `.pop-item`, 高亮与禁用看 `data-highlighted`/`data-disabled`)
+- 弹层的定位交给 Zag popper: `positioning: popupPositioning(placement)`(`lib/zag.ts`, `fixed` 让它不被滚动祖先裁剪); 选项列表用 `selection/select/option-list.tsx` 的 `OptionList`, 渲染成 `<div class="popup-positioner" {...api.getPositionerProps()}><div class="popup" {...api.getContentProps()}>`, 样式用 `_shared/popover.css` 的 `.popup`(菜单项与列表项用 `.pop-item`, 高亮与禁用看 `data-highlighted`/`data-disabled`)
 - 用 `data-part`/`data-state` 属性选择状态, 选择器以组件类名为前缀; 弹层只有进场动画
 - 对话类(`Modal`, `Drawer`, `CommandPalette`)用 `lib/leaving-dialog` 的 `useLeavingDialog`: 组件挂载即打开, 退场动画挂在 `data-state="closed"` 上, 结束后才调 `onClose`; 层、标题行与正文用 `_shared/dialog-layer.tsx` 的 `DialogLayer`/`DialogHead` 与 `.dialog-body`(内部用 `createPortal` 渲染到 `document.body`)
 - Zag 对 `input` 的 `role` 类型比 Preact 宽, 展开 `getInputProps()` 时用 `lib/zag.ts` 的 `inputProps()`
 - 当没有对应的原生控件能给出同等的键盘与读屏行为时才用 Zag; 原生 `<input type="checkbox">`, `<input type="radio">`, `<details>` 已经足够的保持原生
-- 焦点留在输入框的候选列表(`Suggest`, `MentionInput`)不用 Zag, 基于 Popover API 与 CSS anchor positioning, 用 `primitives/suggest/list.tsx` 的 `SuggestList` 与 `useManualPopover`: 弹层是 `popover="manual"`, 在列表上按下不抢走输入框焦点, 按键在输入框一侧处理, 输入法组字期间(`isComposing`, `keyCode 229`)不拦截按键
+- 焦点留在输入框的候选列表(`Suggest`, `MentionInput`)不用 Zag, 基于 Popover API 与 CSS anchor positioning, 用 `primitives/selection/suggest/list.tsx` 的 `SuggestList` 与 `useManualPopover`: 弹层是 `popover="manual"`, 在列表上按下不抢走输入框焦点, 按键在输入框一侧处理, 输入法组字期间(`isComposing`, `keyCode 229`)不拦截按键
 
 ## 6. 验证与提交
 

@@ -4,6 +4,7 @@
 
 ## Unreleased
 
+- **primitives 按类别分子目录**(不兼容): 导入路径由 `primitives/<名>` 改为 `primitives/<类别>/<名>`, 类别为 `actions` `form` `selection` `overlays` `navigation` `feedback` `data-display` `layout` `foundations`(与展示站侧边栏一致); `primitives/layout` 改为 `primitives/layout/layout`, `primitives/glide` 改为 `primitives/layout/glide`, `primitives/dialog-host` 改为 `primitives/overlays/dialog-host`
 - **统一取值方式**(不兼容): 所有承载值的控件都用 `Bound<T>`, 二选一传 `field` 信号或 `value` + `onChange`. `Bound` 的 `onValue` 改名为 `onChange`(`TextField` `TextAreaField` `CheckField` `NumberField` `Switch` `SearchInput`; 包装原生元素的控件不再透传原生的 `onChange` 事件); `Select` `Combobox` `RadioGroup` `Slider` `RangeSlider` `TagsInput` `DatePicker` `DateRangePicker` `Tabs` 新增 `field` 用法; `FileUpload` 的 `files`/`onFiles` 改为 `value`/`onChange`; `Chips` 新增 `field` 用法; `Pager` 的 `page`/`onPage` 改为 `value`/`onChange`; `Select` 的 `onChange`/`field` 类型由 `string` 放宽为 `string | undefined`
 
 - 提取共用部件: `field` 新增 `FieldNotes` 与 `isInvalid`, `select` 新增 `OptionList`(`Select`/`Combobox` 共用), 新增 `lib/zag`(`popupPositioning`, `inputProps`), 对话框共用内部的 `DialogLayer`/`DialogHead`; 新增 `.control-box` 类与 token `--focus-glow`(`TagsInput`, `DatePicker`, `SearchInput` 的输入框外观收并到这里)

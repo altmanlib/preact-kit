@@ -40,7 +40,7 @@ updated: 2026-11-10
 
 ### 2.5 布局组件
 
-从 skills-hub 借鉴并合并进 `primitives/layout`, 间距只用 `--space-*`: `Split`(主区加固定侧栏, 窄屏堆叠), `Spacer`, `Container`, `Page`(`PageHead` 加正文堆叠), `Stack` 的 `wrap`, `Grid` 窄屏收紧间距. 窄屏断点统一 760px. 否决独立的 `Row`: `Stack direction="row"` 已覆盖. 新增类名带 `layout-` 前缀, 避免与使用方自带的 `.page` `.split` 冲突
+从 skills-hub 借鉴并合并进 `primitives/layout/layout`, 间距只用 `--space-*`: `Split`(主区加固定侧栏, 窄屏堆叠), `Spacer`, `Container`, `Page`(`PageHead` 加正文堆叠), `Stack` 的 `wrap`, `Grid` 窄屏收紧间距. 窄屏断点统一 760px. 否决独立的 `Row`: `Stack direction="row"` 已覆盖. 新增类名带 `layout-` 前缀, 避免与使用方自带的 `.page` `.split` 冲突
 
 ## 3. 已知取舍
 

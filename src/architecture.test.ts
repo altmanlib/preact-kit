@@ -53,9 +53,9 @@ test("no import crosses the layers", () => {
 });
 
 test("the rules reject what they should", () => {
-  expect(violation({ from: "kit/primitives/button/index.tsx", specifier: "../../../gallery/app.tsx" })).toBeDefined();
-  expect(violation({ from: "kit/primitives/button/index.tsx", specifier: "node:fs" })).toBeDefined();
-  expect(violation({ from: "kit/primitives/button/button.demo.tsx", specifier: "../../demo.ts" })).toBeUndefined();
-  expect(violation({ from: "gallery/app.tsx", specifier: "../kit/primitives/button/index.tsx" })).toBeUndefined();
+  expect(violation({ from: "kit/primitives/actions/button/index.tsx", specifier: "../../../../gallery/app.tsx" })).toBeDefined();
+  expect(violation({ from: "kit/primitives/actions/button/index.tsx", specifier: "node:fs" })).toBeDefined();
+  expect(violation({ from: "kit/primitives/actions/button/button.demo.tsx", specifier: "../../../demo.ts" })).toBeUndefined();
+  expect(violation({ from: "gallery/app.tsx", specifier: "../kit/primitives/actions/button/index.tsx" })).toBeUndefined();
   expect(violation({ from: "kit/demo.ts", specifier: "./primitives/button/index.tsx" })).toBeDefined();
 });

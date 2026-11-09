@@ -1,10 +1,10 @@
 import type { ComponentChildren } from "preact";
 
 import { usePagedList } from "../../lib/paging.ts";
-import { Chips } from "../../primitives/chips/index.tsx";
-import { type Column, QueryTable } from "../../primitives/data-table/index.tsx";
-import { PageHead } from "../../primitives/heading/index.tsx";
-import { Pager } from "../../primitives/pager/index.tsx";
+import { type Column, QueryTable } from "../../primitives/data-display/data-table/index.tsx";
+import { PageHead } from "../../primitives/data-display/heading/index.tsx";
+import { Pager } from "../../primitives/navigation/pager/index.tsx";
+import { Chips } from "../../primitives/selection/chips/index.tsx";
 
 /**
  * The shape of a list page: title (with actions), a status filter, the table in every state, and previous/next.

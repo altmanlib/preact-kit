@@ -33,7 +33,7 @@ updated: 2026-10-31
 
 ## 3. `exports`
 
-- `./primitives/*` → `./src/kit/primitives/*/index.tsx`
+- `./primitives/*` → `./src/kit/primitives/*/index.tsx`(`*` 含类别目录, 如 `primitives/actions/button`)
 - `./patterns/*` → `./src/kit/patterns/*/index.tsx`
 - `./lib/*` → `./src/kit/lib/*.ts`
 - `./texts` → `./src/kit/texts.ts`
