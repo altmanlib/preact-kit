@@ -19,6 +19,7 @@
 
 ## 近期建议(接着做时从这里选)
 
+- `LinkButton` hover 字色被 `base.css` 的 `a:hover` 盖掉: `.btn-primary` / `.btn-danger` 等未在 hover 重申 `color`, 特异性输给 `a:hover`(字色变成 `--ink`, 叠在品牌底上不可读). `Button` 不受影响. 触发: 任意 `LinkButton`(尤其 `primary`/`danger`) hover 时核对字色; 修法任选: `a.btn` 排除全局链接 hover, 或各 variant 的 hover 显式写回 `color`
 - 浏览器冒烟测试: 设计草案在 [docs/design/2026-11-10-02-e2e-smoke.md](docs/design/2026-11-10-02-e2e-smoke.md)(`status: draft`), 等用户确认新增 devDependency `playwright` 与范围后才开工; 这是目前最大的质量缺口(Zag 组件的行为全靠手测)
 - 迁入原有的通用单元: `SecretMask`/`SecretReveal`, `downloadFile`(见待办)
 - skills-hub 改用 preact-kit 的 `Select`/`Dropdown`/`Tooltip`/`Toast`/`Modal`/`Tabs`/`TagsInput`/`FileUpload`/`SearchInput`/`CommandPalette`, 删除它自带的重复实现
