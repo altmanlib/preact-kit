@@ -19,12 +19,8 @@ export default defineDemo({
     },
     {
       title: "Inside a button",
-      note: "Disable the button while it works.",
-      render: () => (
-        <Button disabled>
-          <Spinner size="sm" label="Saving" /> Saving
-        </Button>
-      ),
+      note: "Use `busy` on the button: it shows a spinner, blocks clicks, and keeps its width.",
+      render: () => <Button busy>Saving</Button>,
     },
   ],
 });

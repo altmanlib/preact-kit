@@ -1,10 +1,35 @@
+import { useSignal } from "@preact/signals";
+
 import { defineDemo } from "../../../demo.ts";
 import { Button, LinkButton } from "./index.tsx";
+
+function BusyToggle() {
+  const busy = useSignal(false);
+  const clicks = useSignal(0);
+  return (
+    <>
+      <Button
+        variant="primary"
+        busy={busy.value}
+        onClick={() => {
+          clicks.value += 1;
+          busy.value = true;
+          setTimeout(() => {
+            busy.value = false;
+          }, 2000);
+        }}
+      >
+        Save changes
+      </Button>
+      <span class="muted">Clicks: {clicks.value}</span>
+    </>
+  );
+}
 
 export default defineDemo({
   name: "Button",
   kind: "primitive",
-  summary: "A native button in five looks and three sizes, and a link in the same look.",
+  summary: "A native button in five looks and three sizes, a link in the same look, and a busy state that keeps the width.",
   examples: [
     {
       title: "Variants",
@@ -69,6 +94,41 @@ export default defineDemo({
           </Button>
         </>
       ),
+    },
+    {
+      title: "Busy",
+      note: "`busy` shows a small spinner, blocks the action, and keeps the width: the label stays in the layout, hidden, with the spinner stacked over it. A busy button keeps its variant fill; a busy LinkButton does not navigate.",
+      render: () => (
+        <>
+          <Button busy>Default</Button>
+          <Button variant="primary" busy>
+            Primary
+          </Button>
+          <Button variant="quiet" busy>
+            Quiet
+          </Button>
+          <Button variant="text" busy>
+            Text
+          </Button>
+          <Button variant="danger" busy>
+            Danger
+          </Button>
+          <Button size="sm" busy>
+            Small
+          </Button>
+          <Button size="lg" busy>
+            Large
+          </Button>
+          <LinkButton href="#/button" variant="primary" busy>
+            Download
+          </LinkButton>
+        </>
+      ),
+    },
+    {
+      title: "Busy on click",
+      note: "The width stays the same while the action runs; further clicks do not count.",
+      render: () => <BusyToggle />,
     },
   ],
 });

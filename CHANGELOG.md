@@ -5,6 +5,7 @@
 ## Unreleased
 
 - 新增 `CopyBlock`: 只读多行 `<pre>`(等宽字体, 保留换行, 长行换行, 过高时滚动), 右上角是 `CopyButton`; 与 `CopyButton`/`CopyField` 同入口(`primitives/actions/copy`); `label` 为无障碍名称(与 `CopyField` 一样必填), 可选 `copyTitle` 与 `class`
+- `Button` 与 `LinkButton` 新增 `busy`: 显示小号 `Spinner`, 禁止点击, 宽度保持不变(标签仍占位, 旋转图标叠在上面). `Button` 为 `disabled` + `aria-busy`, 并保留该变体的底色(不像 `disabled` 那样褪成禁用态); `LinkButton` 为 `aria-disabled` + `aria-busy` 并阻止跳转
 
 ## 0.11.1 - 2026-11-10
 
