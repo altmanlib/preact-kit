@@ -17,18 +17,17 @@
 - `primitives/` 按展示站侧边栏的类别分子目录(`actions` `form` `selection` `overlays` `navigation` `feedback` `data-display` `layout` `foundations`), 对外路径 `primitives/<类别>/<名>`
 - 布局: `primitives/layout/layout` 含 `Stack`(`wrap`) `Spacer` `Grid` `Split` `Container` `Page`; 窄屏断点 760px
 
-## 近期建议(接着做时从这里选)
+## 下一步
 
 - `LinkButton` hover 字色被 `base.css` 的 `a:hover` 盖掉: `.btn-primary` / `.btn-danger` 等未在 hover 重申 `color`, 特异性输给 `a:hover`(字色变成 `--ink`, 叠在品牌底上不可读). `Button` 不受影响. 触发: 任意 `LinkButton`(尤其 `primary`/`danger`) hover 时核对字色; 修法任选: `a.btn` 排除全局链接 hover, 或各 variant 的 hover 显式写回 `color`
 - 浏览器冒烟测试: 设计草案在 [docs/design/2026-11-10-02-e2e-smoke.md](docs/design/2026-11-10-02-e2e-smoke.md)(`status: draft`), 等用户确认新增 devDependency `playwright` 与范围后才开工; 这是目前最大的质量缺口(Zag 组件的行为全靠手测)
 - 迁入原有的通用单元: `SecretMask`/`SecretReveal`, `downloadFile`(见待办)
-- skills-hub 改用 preact-kit 的 `Select`/`Dropdown`/`Tooltip`/`Toast`/`Modal`/`Tabs`/`TagsInput`/`FileUpload`/`SearchInput`/`CommandPalette`, 删除它自带的重复实现
 
-## 暂缓(较重, 等用户启动)
+## 暂缓
 
 - `ContextMenu`, `Tree`, 虚拟列表, 表格排序/多选/列显隐/固定列, 图表(折线/柱/饼), `Sidebar` 布局
 
-## 待办(无顺序)
+## 待办
 
 - 依赖包分发的迁移(决策见 [docs/record/2026-10-31-package-distribution.md](docs/record/2026-10-31-package-distribution.md)): 包改造已完成, 待发版后让使用方改依赖并删除本地重复单元
 - 待迁入或新增的通用单元: `SecretMask`/`SecretReveal`, `PictureDropzone`(基于 `FileUpload` 的图片预览), `Login` 与 `useCodeSender`, `PageRoot`/`SessionGate`(会话外壳), `downloadFile`
@@ -41,4 +40,4 @@
 
 ## 待决策
 
-- 浏览器下限: Zag 组件用 JS 定位, 只在 Chromium 上验证过; `Suggest`/`MentionInput` 还依赖 Popover API 与 CSS anchor positioning. 需要覆盖其他或更老的浏览器时再验证并加回退
+无
