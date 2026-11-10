@@ -18,3 +18,33 @@
   border-radius: var(--radius-sm);
   transform: translateY(-50%);
 }
+
+/* A multiline read-only block: the copy button stays in the top-right while the text may scroll. */
+.copy-block {
+  position: relative;
+  width: 100%;
+  background: var(--surface-sunken);
+  border: var(--hairline) solid var(--line);
+  border-radius: var(--radius);
+}
+.copy-block-body {
+  margin: 0;
+  max-height: calc(var(--space-14) * 6);
+  padding: var(--space-3);
+  padding-right: calc(var(--control-chip) + var(--space-1) * 2 + var(--space-3));
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: var(--leading-body);
+  color: var(--text);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.copy-block .btn-icon {
+  position: absolute;
+  top: var(--space-1);
+  right: var(--space-1);
+  width: var(--control-chip);
+  height: var(--control-chip);
+  border-radius: var(--radius-sm);
+}

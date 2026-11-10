@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- 新增 `CopyBlock`: 只读多行 `<pre>`(等宽字体, 保留换行, 长行换行, 过高时滚动), 右上角是 `CopyButton`; 与 `CopyButton`/`CopyField` 同入口(`primitives/actions/copy`); `label` 为无障碍名称(与 `CopyField` 一样必填), 可选 `copyTitle` 与 `class`
+
 ## 0.11.1 - 2026-11-10
 
 - 修复 `LinkButton` hover 字色被 `base.css` 的 `a:hover` 盖掉(`primary`/`danger` 等叠在品牌底上不可读): 全局链接 hover 改为 `a:hover:not(.btn)`

@@ -41,3 +41,26 @@ export function CopyField({ value, label, copyTitle }: { value: string; label: s
     </div>
   );
 }
+
+/** A read-only multiline block showing `value` in a `<pre>`, with the copy button in the top-right corner. */
+export function CopyBlock({
+  value,
+  label,
+  copyTitle,
+  class: className,
+}: {
+  value: string;
+  /** Accessible name of the block, same role as `CopyField`'s `label`. */
+  label: string;
+  copyTitle?: string;
+  class?: string;
+}) {
+  return (
+    <div class={className ? `copy-block ${className}` : "copy-block"}>
+      <pre class="copy-block-body" tabIndex={0} aria-label={label}>
+        {value}
+      </pre>
+      <CopyButton value={value} title={copyTitle} />
+    </div>
+  );
+}
