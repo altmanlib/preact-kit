@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+## 0.11.1 - 2026-11-10
+
 - 修复 `LinkButton` hover 字色被 `base.css` 的 `a:hover` 盖掉(`primary`/`danger` 等叠在品牌底上不可读): 全局链接 hover 改为 `a:hover:not(.btn)`
 
 ## 0.11.0 - 2026-11-09
