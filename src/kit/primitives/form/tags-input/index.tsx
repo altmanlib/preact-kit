@@ -10,7 +10,7 @@ import { useId } from "preact/hooks";
 import { type Bound, bound } from "../../../lib/signals.ts";
 import { inputProps } from "../../../lib/zag.ts";
 import { kitText } from "../../../texts.ts";
-import { FieldNotes, isInvalid } from "../field/index.tsx";
+import { FieldNotes, isInvalid, useFieldNotes } from "../field/index.tsx";
 
 type TagsInputOwn = {
   label: string;
@@ -53,6 +53,7 @@ export function TagsInput(props: TagsInputProps) {
     onValueChange: (details) => set(details.value),
   });
   const api = zag.connect(service, normalizeProps);
+  const { hintId, errorId, describedBy } = useFieldNotes(hint, error);
 
   return (
     <div class="field" {...api.getRootProps()}>
@@ -68,10 +69,15 @@ export function TagsInput(props: TagsInputProps) {
             </button>
           </span>
         ))}
-        <input class="tags-field" placeholder={value.length === 0 ? placeholder : undefined} {...inputProps(api.getInputProps())} />
+        <input
+          class="tags-field"
+          placeholder={value.length === 0 ? placeholder : undefined}
+          {...inputProps(api.getInputProps())}
+          aria-describedby={describedBy}
+        />
       </div>
       <input {...inputProps(api.getHiddenInputProps())} />
-      <FieldNotes hint={hint} error={error} />
+      <FieldNotes hint={hint} error={error} hintId={hintId} errorId={errorId} />
     </div>
   );
 }

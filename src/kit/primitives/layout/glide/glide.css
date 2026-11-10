@@ -5,6 +5,7 @@
   margin: calc(var(--space-1) * -1);
   box-sizing: content-box;
 }
+/* Known deviation: height is the property that has to change when the content is measured. */
 .glide-on {
   transition: height var(--duration-slide) var(--ease-out);
 }

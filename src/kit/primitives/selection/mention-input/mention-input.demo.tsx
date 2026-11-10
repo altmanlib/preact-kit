@@ -27,7 +27,7 @@ function ChatDemo() {
       <MentionInput
         label="Message"
         triggers={["@", "＠"]}
-        placeholder="Type @ to mention someone, Enter to send, Shift+Enter for a new line"
+        placeholder="Type @ to mention someone, Enter to send, Shift+Enter for a new line…"
         handle={handle}
         items={(match) =>
           PEOPLE.filter((person) => person.name.toLowerCase().includes(match.query.toLowerCase())).map((person) => ({

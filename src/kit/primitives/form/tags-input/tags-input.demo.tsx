@@ -10,7 +10,7 @@ function TagsDemo() {
     <div class="demo-stack">
       <TagsInput
         label="Topics"
-        placeholder="Type and press Enter"
+        placeholder="Type and press Enter…"
         hint="Enter or a comma adds; Backspace removes the last; paste splits on commas."
         field={tags}
         name="topics"

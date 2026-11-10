@@ -4,7 +4,7 @@
 }
 .accordion-item {
   border-bottom: var(--hairline) solid var(--line);
-  /* Lets the details content animate to and from `height: auto`. */
+  /* Lets the details content animate to and from `height: auto`. Known deviation: this animates height, not only transform/opacity, because the panel has to open to its content. */
   interpolate-size: allow-keywords;
 }
 .accordion-item::details-content {

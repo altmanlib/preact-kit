@@ -41,13 +41,11 @@ textarea.input {
 .input:hover:not(:disabled) {
   border-color: var(--line-hover);
 }
-.input:focus-visible {
-  outline: 0;
-  border-color: var(--ink);
-  box-shadow: var(--focus-glow);
-}
 .input::placeholder {
   color: var(--disabled-ink);
+}
+.input[aria-invalid="true"] {
+  border-color: var(--bad);
 }
 .input:disabled {
   color: var(--muted);
@@ -65,16 +63,14 @@ textarea.input {
   background: var(--card-inner);
   border: var(--hairline) solid var(--line-strong);
   border-radius: var(--radius);
-  transition:
-    border-color var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
+  transition: border-color var(--duration-fast) var(--ease-out);
 }
 .control-box:hover:not([data-disabled]) {
   border-color: var(--line-hover);
 }
 .control-box:focus-within {
-  border-color: var(--ink);
-  box-shadow: var(--focus-glow);
+  outline: var(--focus-ring) solid var(--focus);
+  outline-offset: var(--focus-offset);
 }
 .control-box[data-invalid] {
   border-color: var(--bad);

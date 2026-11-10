@@ -4,6 +4,14 @@
 
 ## Unreleased
 
+- `Field` `TextField` `TextAreaField` 以及共用 `FieldNotes` 的控件: 错误与提示有稳定 `id`, 控件带 `aria-invalid` 与 `aria-describedby`; `.input[aria-invalid="true"]` 使用与数字输入框相同的红色边框
+- `TextField` 在 `type="email"` 时默认 `spellcheck={false}` 与 `autocomplete="email"`, 显式传入的属性仍优先生效
+- 输入框与组合控件(`.control-box:focus-within`)改用与全局 `:focus-visible` 相同的 2px 环 + 2px 偏移, 焦点环无动画; `CommandPalette` 搜索框补上可见焦点
+- `IconButton` 补上禁用样式, 悬停不作用于 `:disabled`
+- `DataTable` 的 `.num` 列使用 `tabular-nums`; 标题 `h1` `h2` `h3` 使用 `text-wrap: balance`; 对话框与命令面板的滚动区加 `overscroll-behavior: contain`
+- 交互元素在 `base.css` 上使用 `touch-action: manipulation` 并设置点按高亮
+- 示例里作为提示的 placeholder 以省略号结尾
+
 ## 0.12.0 - 2026-11-10
 
 - 新增 `CopyBlock`: 只读多行 `<pre>`(等宽字体, 保留换行, 长行换行, 过高时滚动), 右上角是 `CopyButton`; 与 `CopyButton`/`CopyField` 同入口(`primitives/actions/copy`); `label` 为无障碍名称(与 `CopyField` 一样必填), 可选 `copyTitle` 与 `class`

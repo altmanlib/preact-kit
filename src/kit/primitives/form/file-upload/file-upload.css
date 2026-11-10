@@ -21,7 +21,6 @@
   color: var(--text);
   background: var(--accent-soft);
   border-color: var(--ink);
-  outline: 0;
 }
 .dropzone-bad {
   border-color: var(--bad);

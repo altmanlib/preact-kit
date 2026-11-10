@@ -43,7 +43,8 @@
   outline: 0;
 }
 .palette-input input:focus-visible {
-  outline: 0;
+  outline: var(--focus-ring) solid var(--focus);
+  outline-offset: calc(var(--focus-offset) * -1);
 }
 .palette-input input::placeholder {
   color: var(--disabled-ink);
@@ -51,6 +52,7 @@
 .palette-list {
   padding: var(--space-1);
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .palette-group {
   padding: var(--space-2) var(--space-2) var(--space-1);

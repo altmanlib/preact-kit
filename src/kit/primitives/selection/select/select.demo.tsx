@@ -15,7 +15,7 @@ function SelectDemo() {
   const region = useSignal<string | undefined>("eu");
   return (
     <div class="demo-stack">
-      <Select label="Plan" placeholder="Choose a plan" hint="Type a letter to jump." options={PLANS} field={plan} />
+      <Select label="Plan" placeholder="Choose a plan…" hint="Type a letter to jump." options={PLANS} field={plan} />
       <Select
         label="Region"
         options={[
@@ -28,7 +28,7 @@ function SelectDemo() {
         name="region"
       />
       <Select label="Locked" options={PLANS} value="team" onChange={() => undefined} disabled />
-      <Select label="Currency" placeholder="Choose one" options={PLANS} value={undefined} onChange={() => undefined} error="This field is required." />
+      <Select label="Currency" placeholder="Choose one…" options={PLANS} value={undefined} onChange={() => undefined} error="This field is required." />
     </div>
   );
 }

@@ -30,7 +30,7 @@ function ComboboxDemo() {
     <div class="demo-stack">
       <Combobox
         label="Country"
-        placeholder="Type to filter"
+        placeholder="Type to filter…"
         hint={`Chosen: ${country.value ?? "nothing yet"}`}
         options={COUNTRIES}
         field={country}
@@ -39,7 +39,7 @@ function ComboboxDemo() {
       <Combobox label="Locked" options={COUNTRIES} value="japan" onChange={() => undefined} disabled />
       <Combobox
         label="Required"
-        placeholder="Type to filter"
+        placeholder="Type to filter…"
         options={COUNTRIES}
         value={undefined}
         onChange={() => undefined}

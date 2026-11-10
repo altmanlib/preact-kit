@@ -32,7 +32,7 @@ function MentionDemo() {
         <textarea
           class="input"
           rows={3}
-          placeholder="Type @ to mention someone, Enter to send"
+          placeholder="Type @ to mention someone, Enter to send…"
           value={text.value}
           onInput={(event) => (text.value = event.currentTarget.value)}
           onKeyDown={(event) => {
@@ -70,7 +70,7 @@ function TwoTriggersDemo() {
       items={(match) => (sources[match.trigger] ?? []).filter((row) => row.label.toLowerCase().startsWith(match.query.toLowerCase()))}
       onPick={(pick) => (text.value = pick.text)}
     >
-      <input class="input" placeholder="@ for people, # for tags" value={text.value} onInput={(event) => (text.value = event.currentTarget.value)} />
+      <input class="input" placeholder="@ for people, # for tags…" value={text.value} onInput={(event) => (text.value = event.currentTarget.value)} />
     </Suggest>
   );
 }

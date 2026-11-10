@@ -9,7 +9,7 @@ import { normalizeNumber, parseNumber, stepNumber } from "../../../lib/number.ts
 import { type Bound, bound } from "../../../lib/signals.ts";
 import { kitText } from "../../../texts.ts";
 import { IconButton } from "../../actions/icon-button/index.tsx";
-import { FieldNotes } from "../field/index.tsx";
+import { FieldNotes, isInvalid, useFieldNotes } from "../field/index.tsx";
 
 /** The props of `NumberField`: either a `field` signal or `value` with `onChange` (never both); both carry the text, not the number. */
 export type NumberFieldProps = NumberFieldOwn & Bound<string>;
@@ -33,6 +33,7 @@ export function NumberField(props: NumberFieldProps) {
   const { value: text, set, rest } = bound<string, NumberFieldOwn>(props);
   const { label, hint, error, min, max, step = 1, disabled = false, ...input } = rest;
   const labelId = useId();
+  const { hintId, errorId, describedBy, invalid } = useFieldNotes(hint, error);
   const current = parseNumber(text);
   const stepBy = (direction: 1 | -1) => {
     set(stepNumber({ text, direction, step, min, max }));
@@ -55,7 +56,8 @@ export function NumberField(props: NumberFieldProps) {
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuenow={current}
-          aria-invalid={error ? true : undefined}
+          aria-invalid={invalid || undefined}
+          aria-describedby={describedBy}
           disabled={disabled}
           value={text}
           onInput={(event) => set(event.currentTarget.value)}
@@ -70,7 +72,7 @@ export function NumberField(props: NumberFieldProps) {
           <Plus aria-hidden="true" />
         </IconButton>
       </div>
-      <FieldNotes hint={hint} error={error} />
+      <FieldNotes hint={hint} error={error} hintId={hintId} errorId={errorId} />
     </div>
   );
 }

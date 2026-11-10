@@ -2,7 +2,7 @@
 title: 新增组件
 type: guide
 status: published
-updated: 2026-11-04
+updated: 2026-11-11
 ---
 
 # 新增组件
@@ -17,7 +17,7 @@ updated: 2026-11-04
 
 - `<group>` 是展示站侧边栏的类别(`src/gallery/groups.ts`)对应的目录: `actions` `form` `selection` `overlays` `navigation` `feedback` `data-display` `layout` `foundations`; 新组件放进最贴近的一组, 同步在 `groups.ts` 登记; 对外路径是 `primitives/<group>/<name>`
 - `src/kit/primitives/_shared/` 放几个组件共用的样式与内部部件(弹层的 `popover.css`, 对话框的 `dialog.css` 与 `dialog-layer.tsx`), 不对外导出, 没有 demo
-- 表单控件的提示行用 `field` 的 `FieldNotes`, 无效状态用 `isInvalid`; 不是原生 `<input>` 、由多个元素组成的输入框加 `control-box` 类(边框, 悬停, 聚焦光晕, 无效与禁用的外观, 子元素 `<input>` 自动变素), 组件自己只写布局
+- 表单控件的提示行用 `field` 的 `FieldNotes`, 无效状态用 `isInvalid`; 不是原生 `<input>` 、由多个元素组成的输入框加 `control-box` 类(边框, 悬停, 聚焦环, 无效与禁用的外观, 子元素 `<input>` 自动变素), 组件自己只写布局
 - 新增顶层目录时在 `src/architecture.ts` 加对应 zone
 
 ## 2. 一个组件的文件

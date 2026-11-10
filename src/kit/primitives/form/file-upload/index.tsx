@@ -10,7 +10,7 @@ import { formatBytes } from "../../../lib/format.ts";
 import { type Bound, bound } from "../../../lib/signals.ts";
 import { inputProps } from "../../../lib/zag.ts";
 import { kitText } from "../../../texts.ts";
-import { FieldNotes } from "../field/index.tsx";
+import { FieldNotes, useFieldNotes } from "../field/index.tsx";
 
 const REJECT_TEXT: Record<string, () => string> = {
   FILE_INVALID_TYPE: () => kitText.fileInvalidType,
@@ -57,11 +57,18 @@ export function FileUpload(props: FileUploadProps) {
   });
   const api = zag.connect(service, normalizeProps);
   const rejected = api.rejectedFiles[0]?.errors[0];
+  const rejectError = rejected === undefined ? undefined : (REJECT_TEXT[rejected] ?? (() => kitText.fileRejected))();
+  const { hintId, errorId, describedBy, invalid } = useFieldNotes(hint, rejectError);
 
   return (
     <div class="field" {...api.getRootProps()}>
       <label {...api.getLabelProps()}>{label}</label>
-      <div class={rejected === undefined ? "dropzone" : "dropzone dropzone-bad"} {...api.getDropzoneProps()}>
+      <div
+        class={invalid ? "dropzone dropzone-bad" : "dropzone"}
+        {...api.getDropzoneProps()}
+        aria-describedby={describedBy}
+        aria-invalid={invalid || undefined}
+      >
         {/* Zag types the hidden input role more loosely than Preact accepts */}
         <input {...inputProps(api.getHiddenInputProps())} />
         <UploadCloud size={20} aria-hidden="true" />
@@ -85,7 +92,7 @@ export function FileUpload(props: FileUploadProps) {
           ))}
         </ul>
       ) : null}
-      <FieldNotes hint={hint} error={rejected === undefined ? undefined : (REJECT_TEXT[rejected] ?? (() => kitText.fileRejected))()} />
+      <FieldNotes hint={hint} error={rejectError} hintId={hintId} errorId={errorId} />
     </div>
   );
 }

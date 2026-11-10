@@ -38,5 +38,6 @@
   gap: var(--space-3);
   align-content: start;
   overflow: auto;
+  overscroll-behavior: contain;
   padding: var(--space-4) var(--space-5) var(--space-5);
 }

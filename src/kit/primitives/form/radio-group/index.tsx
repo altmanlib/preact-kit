@@ -3,6 +3,7 @@ import "./radio-group.css";
 import { useId } from "preact/hooks";
 
 import { type Bound, bound } from "../../../lib/signals.ts";
+import { useFieldNotes } from "../field/index.tsx";
 
 export type RadioOption = { value: string; label: string; hint?: string; disabled?: boolean };
 
@@ -26,8 +27,9 @@ export function RadioGroup(props: RadioGroupProps) {
   const { value, set, rest } = bound<string | undefined, RadioGroupOwn>(props);
   const { label, hint, error, options, name, disabled = false } = rest;
   const fallbackName = useId();
+  const { hintId, errorId, describedBy, invalid } = useFieldNotes(hint, error);
   return (
-    <fieldset class="choices" disabled={disabled} aria-invalid={error ? true : undefined}>
+    <fieldset class="choices" disabled={disabled} aria-invalid={invalid || undefined} aria-describedby={describedBy}>
       <legend class="choices-label">{label}</legend>
       {options.map((option) => (
         <label key={option.value} class={option.disabled ? "choice choice-disabled" : "choice"}>
@@ -45,8 +47,16 @@ export function RadioGroup(props: RadioGroupProps) {
           </span>
         </label>
       ))}
-      {hint ? <small class="choices-hint">{hint}</small> : null}
-      {error ? <small class="choices-hint field-bad">{error}</small> : null}
+      {hint ? (
+        <small class="choices-hint" id={hintId}>
+          {hint}
+        </small>
+      ) : null}
+      {error ? (
+        <small class="choices-hint field-bad" id={errorId}>
+          {error}
+        </small>
+      ) : null}
     </fieldset>
   );
 }

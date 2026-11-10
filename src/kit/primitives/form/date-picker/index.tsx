@@ -11,7 +11,7 @@ import { useId, useState } from "preact/hooks";
 import { type Bound, bound } from "../../../lib/signals.ts";
 import { inputProps, popupPositioning } from "../../../lib/zag.ts";
 import { kitText } from "../../../texts.ts";
-import { FieldNotes, isInvalid } from "../field/index.tsx";
+import { FieldNotes, useFieldNotes } from "../field/index.tsx";
 
 type PickerBase = {
   label: string;
@@ -151,19 +151,19 @@ function Picker({
     positioning: popupPositioning("bottom-start"),
   });
   const api = zag.connect(service, normalizeProps);
-  const invalid = isInvalid(error);
+  const { hintId, errorId, describedBy, invalid } = useFieldNotes(hint, error);
 
   return (
     <div class="field" {...api.getRootProps()}>
       <label {...api.getLabelProps()}>{label}</label>
       <div class="control-box date-control" data-invalid={invalid ? "" : undefined} {...api.getControlProps()}>
-        <input class="date-input" {...inputProps(api.getInputProps({ index: 0 }))} />
+        <input class="date-input" {...inputProps(api.getInputProps({ index: 0 }))} aria-describedby={describedBy} />
         {range ? (
           <>
             <span class="date-sep" aria-hidden="true">
               –
             </span>
-            <input class="date-input" {...inputProps(api.getInputProps({ index: 1 }))} />
+            <input class="date-input" {...inputProps(api.getInputProps({ index: 1 }))} aria-describedby={describedBy} />
           </>
         ) : null}
         <button type="button" class="date-trigger" {...api.getTriggerProps()}>
@@ -187,7 +187,7 @@ function Picker({
           )}
         </div>
       </div>
-      <FieldNotes hint={hint} error={error} />
+      <FieldNotes hint={hint} error={error} hintId={hintId} errorId={errorId} />
     </div>
   );
 }

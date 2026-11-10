@@ -13,9 +13,14 @@
     color var(--duration-fast) var(--ease-out),
     background-color var(--duration-fast) var(--ease-out);
 }
-.btn-icon:hover {
+.btn-icon:hover:not(:disabled) {
   color: var(--text);
   background: var(--idle-soft);
+}
+.btn-icon:disabled {
+  color: var(--disabled-ink);
+  background: transparent;
+  cursor: not-allowed;
 }
 /* Pressing only deepens the fill; the icon button does not shrink. */
 .btn-icon:active:not(:disabled) {

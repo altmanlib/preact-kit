@@ -11,7 +11,7 @@ import { useId, useMemo, useState } from "preact/hooks";
 import { type Bound, bound } from "../../../lib/signals.ts";
 import { inputProps, popupPositioning } from "../../../lib/zag.ts";
 import { kitText } from "../../../texts.ts";
-import { FieldNotes, isInvalid } from "../../form/field/index.tsx";
+import { FieldNotes, isInvalid, useFieldNotes } from "../../form/field/index.tsx";
 import { OptionList, type SelectOption } from "../select/option-list.tsx";
 
 export type ComboboxOption = SelectOption;
@@ -68,19 +68,20 @@ export function Combobox(props: ComboboxProps) {
     positioning: popupPositioning("bottom-start", { sameWidth: true }),
   });
   const api = zag.connect(service, normalizeProps);
+  const { hintId, errorId, describedBy } = useFieldNotes(hint, error);
 
   return (
     <div class="field" {...api.getRootProps()}>
       <label {...api.getLabelProps()}>{label}</label>
       <div class="combobox-control" {...api.getControlProps()}>
-        <input class="input" {...inputProps(api.getInputProps())} />
+        <input class="input" {...inputProps(api.getInputProps())} aria-describedby={describedBy} />
         <button type="button" class="combobox-trigger" aria-label={kitText.showOptions} {...api.getTriggerProps()}>
           <ChevronDown size={16} aria-hidden="true" />
         </button>
       </div>
       {name ? <input type="hidden" name={name} value={value ?? ""} /> : null}
       <OptionList api={api} options={shown} empty={<p class="combobox-empty">{emptyText}</p>} />
-      <FieldNotes hint={hint} error={error} />
+      <FieldNotes hint={hint} error={error} hintId={hintId} errorId={errorId} />
     </div>
   );
 }

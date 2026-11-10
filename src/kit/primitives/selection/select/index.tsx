@@ -9,7 +9,7 @@ import { useId, useMemo } from "preact/hooks";
 
 import { type Bound, bound } from "../../../lib/signals.ts";
 import { popupPositioning } from "../../../lib/zag.ts";
-import { FieldNotes, isInvalid } from "../../form/field/index.tsx";
+import { FieldNotes, isInvalid, useFieldNotes } from "../../form/field/index.tsx";
 import { OptionList, type SelectOption } from "./option-list.tsx";
 
 export type { SelectOption };
@@ -60,19 +60,20 @@ export function Select(props: SelectProps) {
   });
   const api = zag.connect(service, normalizeProps);
   const selected = options.find((option) => option.value === value);
+  const { hintId, errorId, describedBy } = useFieldNotes(hint, error);
 
   return (
     <div class="field" {...api.getRootProps()}>
       <span {...api.getLabelProps()}>{label}</span>
       <div {...api.getControlProps()}>
-        <button type="button" class="input select-trigger" {...api.getTriggerProps()}>
+        <button type="button" class="input select-trigger" {...api.getTriggerProps()} aria-describedby={describedBy}>
           <span class={selected ? "select-value" : "select-value select-placeholder"}>{selected?.label ?? placeholder}</span>
           <ChevronDown size={16} aria-hidden="true" />
         </button>
       </div>
       {name ? <input type="hidden" name={name} value={value ?? ""} /> : null}
       <OptionList api={api} options={options} />
-      <FieldNotes hint={hint} error={error} />
+      <FieldNotes hint={hint} error={error} hintId={hintId} errorId={errorId} />
     </div>
   );
 }

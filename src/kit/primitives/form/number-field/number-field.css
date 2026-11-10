@@ -18,6 +18,3 @@
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
-.number-input[aria-invalid="true"] {
-  border-color: var(--bad);
-}

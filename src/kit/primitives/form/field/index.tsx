@@ -1,6 +1,7 @@
 import "./field.css";
 
-import type { ComponentChildren, ComponentProps } from "preact";
+import { cloneElement, type ComponentChildren, type ComponentProps, isValidElement, type VNode } from "preact";
+import { useId } from "preact/hooks";
 
 import { type Bound, bound } from "../../../lib/signals.ts";
 
@@ -9,23 +10,53 @@ export function isInvalid(error: string | undefined): boolean {
   return error !== undefined && error !== "";
 }
 
+/** Ids and ARIA for a labelled control and its hint/error lines. */
+export function useFieldNotes(
+  hint?: string,
+  error?: string,
+): {
+  hintId: string | undefined;
+  errorId: string | undefined;
+  describedBy: string | undefined;
+  invalid: boolean;
+} {
+  const hintId = useId();
+  const errorId = useId();
+  const invalid = isInvalid(error);
+  const describedBy = [hint ? hintId : undefined, invalid ? errorId : undefined].filter(Boolean).join(" ") || undefined;
+  return { hintId: hint ? hintId : undefined, errorId: invalid ? errorId : undefined, describedBy, invalid };
+}
+
 /** The lines under a form control: its hint, then its error. The one place the kit draws them, so every control looks the same. */
-export function FieldNotes({ hint, error }: { hint?: string; error?: string }) {
+export function FieldNotes({ hint, error, hintId, errorId }: { hint?: string; error?: string; hintId?: string; errorId?: string }) {
   return (
     <>
-      {hint ? <small>{hint}</small> : null}
-      {error ? <small class="field-bad">{error}</small> : null}
+      {hint ? <small id={hintId}>{hint}</small> : null}
+      {error ? (
+        <small class="field-bad" id={errorId}>
+          {error}
+        </small>
+      ) : null}
     </>
   );
 }
 
+type ControlProps = { "aria-invalid"?: boolean; "aria-describedby"?: string };
+
 /** A labelled form control with an optional hint and an optional error line beneath it. Put native controls inside with `class="input"`. */
 export function Field({ label, hint, error, children }: { label: string; hint?: string; error?: string; children: ComponentChildren }) {
+  const { hintId, errorId, describedBy, invalid } = useFieldNotes(hint, error);
+  const control = isValidElement(children)
+    ? cloneElement(children as VNode<ControlProps>, {
+        "aria-invalid": invalid || undefined,
+        "aria-describedby": [((children as VNode<ControlProps>).props ?? {})["aria-describedby"], describedBy].filter(Boolean).join(" ") || undefined,
+      })
+    : children;
   return (
     <label class="field">
       <span>{label}</span>
-      {children}
-      <FieldNotes hint={hint} error={error} />
+      {control}
+      <FieldNotes hint={hint} error={error} hintId={hintId} errorId={errorId} />
     </label>
   );
 }
@@ -45,13 +76,21 @@ export type TextFieldProps = FieldFrame & InputAttrs & Bound<string>;
 /**
  * A labelled text input. It follows `field` (a signal), or is plain controlled with `value` and `onChange` (which gets
  * the text, not an event); everything else (`type`, `name`, `maxLength`, …) goes to the input as it is.
+ * `type="email"` defaults to `autocomplete="email"` and `spellcheck={false}`; an explicit attribute still wins.
  */
 export function TextField(props: TextFieldProps) {
   const { value, set, rest } = bound<string, FieldFrame & InputAttrs>(props);
   const { label, hint, error, class: className, ...input } = rest;
+  const emailDefaults = input.type === "email" ? { spellcheck: false as const, autocomplete: "email" } : {};
   return (
     <Field label={label} hint={hint} error={error}>
-      <input {...input} class={joinClass("input", className as string | undefined)} value={value} onInput={(event) => set(event.currentTarget.value)} />
+      <input
+        {...emailDefaults}
+        {...input}
+        class={joinClass("input", className as string | undefined)}
+        value={value}
+        onInput={(event) => set(event.currentTarget.value)}
+      />
     </Field>
   );
 }
