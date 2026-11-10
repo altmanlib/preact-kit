@@ -10,6 +10,7 @@
 - 触屏(`pointer: coarse`)下 `--control-sm/md/lg` 与图标、chip 高度提到至少 44px, 桌面密度不变
 - 浅色 `--disabled-ink` 由 `#a5a3b6` 改为 `#8a889c`, 对比度提高
 - 确定态 `Progress` 用 `transform: scaleX` 代替改 `width`
+- 可点击的 `Tile`(`a.tile`)悬停上浮 2px(`--card-lift`)
 - `Field` `TextField` `TextAreaField` 以及共用 `FieldNotes` 的控件: 错误与提示有稳定 `id`, 控件带 `aria-invalid` 与 `aria-describedby`; `.input[aria-invalid="true"]` 使用与数字输入框相同的红色边框
 - `TextField` 在 `type="email"` 时默认 `spellcheck={false}` 与 `autocomplete="email"`, 显式传入的属性仍优先生效
 - 输入框与组合控件(`.control-box:focus-within`)改用与全局 `:focus-visible` 相同的 2px 环 + 2px 偏移, 焦点环无动画; `CommandPalette` 搜索框补上可见焦点

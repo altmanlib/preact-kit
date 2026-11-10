@@ -51,12 +51,15 @@
   border-radius: var(--radius-sm);
 }
 a.tile {
-  transition: background-color var(--duration-fast) var(--ease-out);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
 }
 a.tile:hover {
   background: var(--card-shell-hover);
   color: inherit;
   text-decoration: none;
+  transform: translateY(calc(var(--card-lift) * -1));
 }
 a.tile-accent:hover {
   background: color-mix(in srgb, var(--accent) 14%, var(--accent-soft));
