@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- 修复 `LinkButton` hover 字色被 `base.css` 的 `a:hover` 盖掉(`primary`/`danger` 等叠在品牌底上不可读): 全局链接 hover 改为 `a:hover:not(.btn)`
+
 ## 0.11.0 - 2026-11-09
 
 - **primitives 按类别分子目录**(不兼容): 导入路径由 `primitives/<名>` 改为 `primitives/<类别>/<名>`, 类别为 `actions` `form` `selection` `overlays` `navigation` `feedback` `data-display` `layout` `foundations`(与展示站侧边栏一致); `primitives/layout` 改为 `primitives/layout/layout`, `primitives/glide` 改为 `primitives/layout/glide`, `primitives/dialog-host` 改为 `primitives/overlays/dialog-host`

@@ -45,7 +45,7 @@ a {
   text-decoration-color: var(--line-strong);
   text-underline-offset: var(--underline-offset);
 }
-a:hover {
+a:hover:not(.btn) {
   color: var(--ink);
   text-decoration-color: currentColor;
 }
