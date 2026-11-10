@@ -18,6 +18,8 @@
 - `DataTable` 的 `.num` 列使用 `tabular-nums`; 标题 `h1` `h2` `h3` 使用 `text-wrap: balance`; 对话框与命令面板的滚动区加 `overscroll-behavior: contain`
 - 交互元素在 `base.css` 上使用 `touch-action: manipulation` 并设置点按高亮
 - 示例里作为提示的 placeholder 以省略号结尾
+- 展示站 Foundations / Theming 可用蓝/绿/橙预设预览只改一对 `--ink` 的换品牌; 该页只存在于展示站, 不进入 kit
+- 展示站: 跳过链接, 窄屏把侧栏收成可开关菜单(`aria-expanded`, Esc 与选中后关闭), 侧栏分组改用非标题元素, 首页文案不再写“左边”, `theme-color` 与 `viewport-fit=cover`
 
 ## 0.12.0 - 2026-11-10
 

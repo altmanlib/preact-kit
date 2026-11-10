@@ -1,25 +1,46 @@
+import { useSignal } from "@preact/signals";
+import { useEffect } from "preact/hooks";
+
 import type { Demo } from "../kit/demo.ts";
+import { IconButton } from "../kit/primitives/actions/icon-button/index.tsx";
 import { ThemeSwitch } from "../kit/primitives/foundations/theme-switch/index.tsx";
-import { demos } from "./demos.gen.ts";
+import { demos } from "./demos.ts";
 import { groupDemos } from "./groups.ts";
 import { current, demoPath } from "./route.ts";
 
-function Sidebar() {
+function MenuGlyph({ open }: { open: boolean }) {
+  return open ? (
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M4 4l8 8M12 4L4 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  ) : (
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M3 5h10M3 8h10M3 11h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  );
+}
+
+function Sidebar({ onNavigate }: { onNavigate: () => void }) {
   return (
-    <nav class="g-side" aria-label="Components">
-      <a class="g-brand" href="#/">
+    <nav class="g-side" id="gallery-nav" aria-label="Components">
+      <a class="g-brand" href="#/" onClick={onNavigate}>
         preact-kit
       </a>
       {groupDemos(demos).map(({ title, demos: items }) => {
         return (
           <section key={title}>
-            <h3 class="g-side-title">{title}</h3>
+            <p class="g-side-title">{title}</p>
             <ul>
               {items.map((demo) => {
                 const active = current.value === demo.name.toLowerCase();
                 return (
                   <li key={demo.name}>
-                    <a href={demoPath(demo.name)} class={active ? "g-link g-link-on" : "g-link"} aria-current={active ? "page" : undefined}>
+                    <a
+                      href={demoPath(demo.name)}
+                      class={active ? "g-link g-link-on" : "g-link"}
+                      aria-current={active ? "page" : undefined}
+                      onClick={onNavigate}
+                    >
                       {demo.name}
                     </a>
                   </li>
@@ -53,20 +74,60 @@ function DemoView({ demo }: { demo: Demo }) {
 }
 
 export function App() {
+  const navOpen = useSignal(false);
+  const closeNav = () => {
+    navOpen.value = false;
+  };
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && navOpen.value) {
+        navOpen.value = false;
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    closeNav();
+  }, [current.value]);
+
   const demo = demos.find((item) => item.name.toLowerCase() === current.value);
   return (
-    <div class="g-shell">
-      <Sidebar />
-      <main class="g-main">
-        {demo ? (
-          <DemoView demo={demo} />
-        ) : (
-          <article>
-            <h1>preact-kit</h1>
-            <p class="muted">{demos.length} component(s). Pick one on the left.</p>
-          </article>
-        )}
-      </main>
-    </div>
+    <>
+      <a class="g-skip" href="#main">
+        Skip to content
+      </a>
+      <div class={navOpen.value ? "g-shell g-nav-open" : "g-shell"}>
+        {navOpen.value ? <div class="g-nav-backdrop" onClick={closeNav} /> : null}
+        <header class="g-bar">
+          <IconButton
+            label={navOpen.value ? "Close menu" : "Open menu"}
+            aria-expanded={navOpen.value}
+            aria-controls="gallery-nav"
+            onClick={() => {
+              navOpen.value = !navOpen.value;
+            }}
+          >
+            <MenuGlyph open={navOpen.value} />
+          </IconButton>
+          <a class="g-brand" href="#/" onClick={closeNav}>
+            preact-kit
+          </a>
+        </header>
+        <Sidebar onNavigate={closeNav} />
+        <main class="g-main" id="main">
+          {demo ? (
+            <DemoView demo={demo} />
+          ) : (
+            <article>
+              <h1>preact-kit</h1>
+              <p class="muted">{demos.length} component(s). Choose one from the navigation to view its examples.</p>
+            </article>
+          )}
+        </main>
+      </div>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 
-import { demos } from "./demos.gen.ts";
+import { demos } from "./demos.ts";
 import { groupDemos, GROUPS } from "./groups.ts";
 
 test("every demo is in exactly one sidebar group", () => {

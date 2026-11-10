@@ -10,7 +10,7 @@ export const GROUPS: { title: string; names: string[] }[] = [
   { title: "Feedback", names: ["Toast", "Alert", "Note", "Spinner", "Progress", "Skeleton", "Empty", "QueryStatus"] },
   { title: "Data display", names: ["DataTable", "Badge", "Tag", "Avatar", "Card", "Tile", "Fact", "Accordion", "Heading"] },
   { title: "Layout", names: ["Layout", "GlideHeight"] },
-  { title: "Foundations", names: ["Motion", "ThemeSwitch"] },
+  { title: "Foundations", names: ["Motion", "ThemeSwitch", "Theming"] },
   { title: "Patterns", names: ["ListPage"] },
 ];
 
