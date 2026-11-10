@@ -1,4 +1,5 @@
 import { defineDemo } from "../../../demo.ts";
+import { Section } from "../../data-display/heading/index.tsx";
 import { Empty } from "./index.tsx";
 
 export default defineDemo({
@@ -25,7 +26,7 @@ export default defineDemo({
     },
     {
       title: "Compact",
-      note: "`compact` has no illustration or fill and little padding: for a spot inside a list or a panel.",
+      note: "`compact` has no illustration or fill, little padding, and is left-aligned: for a spot inside a list or a panel.",
       render: () => (
         <div class="demo-stack">
           <Empty compact />
@@ -34,12 +35,18 @@ export default defineDemo({
       ),
     },
     {
-      title: "Compact in a panel",
-      note: "Next to a heading the host provides the surface, so only the line of text is left.",
+      title: "Compact in a section",
+      note: 'Next to a heading the host provides the surface, so only the line of text is left. It lines up with the title; pass `align="center"` to centre it.',
       render: () => (
-        <div class="demo-stack" style="max-width: 20rem; padding: var(--space-3); background: var(--card-inner); border-radius: var(--radius)">
-          <h3>Attachments</h3>
-          <Empty compact>Nothing attached.</Empty>
+        <div class="demo-stack">
+          <Section title="Attachments">
+            <Empty compact>Nothing attached.</Empty>
+          </Section>
+          <Section title="Centered">
+            <Empty compact align="center">
+              Nothing attached.
+            </Empty>
+          </Section>
         </div>
       ),
     },

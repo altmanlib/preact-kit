@@ -8,6 +8,7 @@
 - primitives 另有 `LinkButton`, `QueryStatus`, `TopNav`(顶栏标签与滑动指示条); `DataTable`/`QueryTable` 的 `rowAttrs`, `Section` 与 `Tile` 的 `class` 及透传属性; lib 另有 `format`(`formatTime`, `formatBytes`)
 - primitives 另有 `NavList`(竖排可选项列表: 标题, 次要文字, 前后插槽, `aria-current`, 方向键/Home/End), `ThemeSwitch`(系统/浅色/深色三档, 绑定 `lib/theme` 的 `theme`); lib 另有 `theme`(`theme` 信号, `applyTheme`: 写 `<html data-theme>`, `system` 时移除, 存 localStorage, key 可注入, 无 `localStorage`/`document` 时降级); 展示站的主题切换用的就是它
 - `Note` 的 `action`(行尾操作, `ErrorNote` 的重试基于它), `Empty` 的 `compact`, `Button`/`LinkButton` 的 `text` 变体
+- 新增 `CopyBlock`(只读多行 `<pre>`, 右上角 `CopyButton`); `Button`/`LinkButton` 新增 `busy`; `Empty` 的 `compact` 默认左对齐, 可选 `align`
 - 所有承载值的控件(`TextField` `TextAreaField` `CheckField` `NumberField` `Switch` `SearchInput` `Select` `Combobox` `RadioGroup` `Slider` `RangeSlider` `TagsInput` `DatePicker` `DateRangePicker` `FileUpload` `Tabs` `Chips` `Pager`)用同一种取值方式, 二选一: `field` 信号, 或普通受控的 `value` + `onChange`(`lib/signals` 的 `Bound`/`bound`); 包装原生元素的控件从属性类型里去掉原生的 `onChange`, `onChange` 得到的是值而不是事件
 - patterns: `ListPage`
 - `ConfirmButton` 用 `Modal` 弹出确认框, `onConfirm` 可返回 Promise

@@ -44,11 +44,21 @@ function EmptyArt() {
 
 /**
  * A faint block with a small illustration above the line of text; the stock sentence when `children` is omitted.
- * `compact` drops the illustration, the fill and most of the padding, for a spot inside a list or a panel.
+ * `compact` drops the illustration, the fill and most of the padding, and is left-aligned, for a spot inside a list or a panel.
  */
-export function Empty({ compact = false, children }: { compact?: boolean; children?: ComponentChildren }) {
+export function Empty({
+  compact = false,
+  align,
+  children,
+}: {
+  compact?: boolean;
+  /** Defaults to `start` when `compact`, otherwise `center`. */
+  align?: "start" | "center";
+  children?: ComponentChildren;
+}) {
+  const alignment = align ?? (compact ? "start" : "center");
   return (
-    <div class={compact ? "empty empty-compact" : "empty"}>
+    <div class={["empty", compact ? "empty-compact" : "", alignment === "start" ? "empty-start" : ""].filter(Boolean).join(" ")}>
       {compact ? null : <EmptyArt />}
       <p>{children ?? kitText.empty}</p>
     </div>

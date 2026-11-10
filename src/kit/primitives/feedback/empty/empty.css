@@ -19,3 +19,9 @@
   font-size: var(--text-xs);
   background: transparent;
 }
+
+/* Compact is for a list or panel, so it lines up with the host's title unless `align="center"` is passed. */
+.empty-start {
+  justify-items: start;
+  text-align: start;
+}
