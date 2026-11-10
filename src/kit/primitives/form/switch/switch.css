@@ -37,7 +37,7 @@
   transition: transform var(--duration-fast) var(--ease-out);
 }
 .switch-input:checked + .switch-track {
-  background: var(--ink);
+  background: var(--ink-fill);
 }
 .switch-input:checked + .switch-track .switch-thumb {
   transform: translateX(calc(var(--space-5) * 0.75));

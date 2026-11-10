@@ -1,12 +1,18 @@
 /*
  * Design tokens: palette, type, space, shape and motion as role tokens. This is the only file that holds raw colors.
  * Each color is one `light-dark(light, dark)` pair; `color-scheme` picks the side: the system by default, or the
- * `data-theme="light|dark"` attribute on <html>. A rebrand is a new set of these values and nothing else.
+ * `data-theme="light|dark"` attribute on <html>.
+ *
+ * Brand: set `--ink` (one light-dark pair) to rebrand. `--ink-fill`, `--ink-hover`, `--ink-fill-hover`, `--accent`,
+ * `--accent-soft` and `--focus` are derived from it. Neutrals (`--bg` through `--line-hover`, `--text`, `--muted`,
+ * shadows) are a second, optional group: they are slightly purple-tinted; override them together when the brand hue
+ * should also reach surfaces. A dark `--ink` cannot be both a 4.5:1 link on `--surface` and a 4.5:1 fill under white
+ * type, so `--ink-fill` is a darker mix in dark and equals `--ink` in light.
  */
 :root {
   color-scheme: light dark;
 
-  /* ---- palette ---- */
+  /* ---- neutrals: surfaces, lines, text (optional to override as a set) ---- */
   /* desk and surfaces, from the page inwards */
   --bg: light-dark(#fff, #121118);
   --surface: light-dark(#fbfbfd, #17161f);
@@ -25,12 +31,25 @@
   --text: light-dark(#1b1a25, #ecebf5);
   --muted: light-dark(#5d5b6f, #a09eb5);
   --text-invert: light-dark(#fbfbfe, #121118);
-  /* brand: the primary action, the focus ring and the standing tab */
-  --ink: light-dark(#5b3df5, #7a63ff);
-  --ink-hover: light-dark(#4a2fd8, #8f7bff);
+  --disabled-ink: light-dark(#8a889c, #6a6880);
+  --backdrop: light-dark(rgb(18 16 32 / 42%), rgb(0 0 0 / 60%));
+  /* shadows are built from one color so they work in both schemes */
+  --shadow-color: light-dark(rgb(27 26 37), rgb(0 0 0));
+  --shadow: 0 12px 32px color-mix(in srgb, var(--shadow-color) 12%, transparent), 0 1px 2px color-mix(in srgb, var(--shadow-color) 6%, transparent);
+  --shadow-bar: 0 1px 2px color-mix(in srgb, var(--shadow-color) 6%, transparent), 0 4px 14px color-mix(in srgb, var(--shadow-color) 5%, transparent);
+  --shadow-lift: 0 1px 2px color-mix(in srgb, var(--shadow-color) 8%, transparent), 0 16px 40px color-mix(in srgb, var(--shadow-color) 14%, transparent);
+
+  /* ---- brand: override --ink only; the rest follows ---- */
+  /* text, links, the focus ring; dark side is light enough for 4.5:1 on --surface */
+  --ink: light-dark(#5b3df5, #836eff);
+  /* solid fills under --on-ink (primary buttons, a selected day); darker in dark so white type is 4.5:1 */
+  --ink-fill: light-dark(var(--ink), color-mix(in oklab, var(--ink) 72%, black));
+  --ink-hover: light-dark(color-mix(in oklab, var(--ink) 82%, black), color-mix(in oklab, var(--ink) 88%, white));
+  --ink-fill-hover: light-dark(color-mix(in oklab, var(--ink-fill) 82%, black), color-mix(in oklab, var(--ink-fill) 82%, black));
   --on-ink: #fff;
   --accent: var(--ink);
-  --accent-soft: light-dark(#edeafe, #2a2452);
+  --accent-soft: light-dark(color-mix(in oklab, var(--ink) 10%, white), color-mix(in oklab, var(--ink) 22%, black));
+
   /* states */
   --ok: light-dark(#2b6a4c, #6fd0a0);
   --ok-soft: light-dark(#e0eee6, #17301f);
@@ -44,13 +63,6 @@
   --toast-ok: light-dark(#d4f3e2, #14442b);
   --toast-warn: light-dark(#ffecb8, #4a3808);
   --toast-bad: light-dark(#fddad5, #571f1b);
-  --disabled-ink: light-dark(#a5a3b6, #6a6880);
-  --backdrop: light-dark(rgb(18 16 32 / 42%), rgb(0 0 0 / 60%));
-  /* shadows are built from one color so they work in both schemes */
-  --shadow-color: light-dark(rgb(27 26 37), rgb(0 0 0));
-  --shadow: 0 12px 32px color-mix(in srgb, var(--shadow-color) 12%, transparent), 0 1px 2px color-mix(in srgb, var(--shadow-color) 6%, transparent);
-  --shadow-bar: 0 1px 2px color-mix(in srgb, var(--shadow-color) 6%, transparent), 0 4px 14px color-mix(in srgb, var(--shadow-color) 5%, transparent);
-  --shadow-lift: 0 1px 2px color-mix(in srgb, var(--shadow-color) 8%, transparent), 0 16px 40px color-mix(in srgb, var(--shadow-color) 14%, transparent);
 
   /* ---- type ---- */
   /* Latin system UI first so English glyphs are not taken from CJK faces */
@@ -112,7 +124,6 @@
   --focus: var(--ink);
   --focus-ring: 2px;
   --focus-offset: 2px;
-  --focus-glow: 0 0 0 var(--space-1) color-mix(in srgb, var(--ink) 14%, transparent);
   --z-sticky: 10;
   --z-overlay: 100;
   --z-dialog: 200;
@@ -129,7 +140,9 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-linear: linear;
   --enter-lift: 6px;
-  --press-scale: 0.97;
+  --press-scale: 0.985;
+  --hover-lift: 1px;
+  --card-lift: 2px;
 }
 
 :root[data-theme="light"] {
@@ -138,4 +151,15 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
+}
+
+/* Coarse pointers get 44px targets; fine pointers keep the compact desktop density. */
+@media (pointer: coarse) {
+  :root {
+    --control-sm: 44px;
+    --control-md: 44px;
+    --control-lg: 48px;
+    --control-icon: 44px;
+    --control-chip: 44px;
+  }
 }

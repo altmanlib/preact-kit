@@ -21,7 +21,7 @@ export function Progress({ label, value, max = 100, showValue = false }: { label
         aria-valuemax={max}
         aria-valuenow={ratio === undefined ? undefined : Math.min(Math.max(value ?? 0, 0), max)}
       >
-        <span class="progress-bar" style={ratio === undefined ? undefined : `width: ${ratio * 100}%`} />
+        <span class="progress-bar" style={ratio === undefined ? undefined : { "--progress": String(ratio) }} />
       </div>
     </div>
   );

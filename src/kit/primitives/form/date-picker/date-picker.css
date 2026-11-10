@@ -127,7 +127,7 @@
 }
 .cal-cell[data-selected] {
   color: var(--on-ink);
-  background: var(--ink);
+  background: var(--ink-fill);
 }
 .cal-cell[data-disabled],
 .cal-cell[data-unavailable] {

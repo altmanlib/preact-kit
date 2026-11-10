@@ -20,11 +20,14 @@
     color var(--duration-fast) var(--ease-out),
     transform var(--duration-fast) var(--ease-out);
 }
-.btn:hover:not(:disabled):not([aria-disabled="true"]) {
+.btn:hover:not(:disabled):not([aria-disabled="true"]):not(.btn-text) {
+  transform: translateY(calc(var(--hover-lift) * -1));
+}
+.btn:hover:not(:disabled):not([aria-disabled="true"]):not(.btn-text):not(.btn-primary):not(.btn-danger):not(.btn-quiet) {
   background: var(--surface-press);
 }
-.btn:active:not(:disabled):not([aria-disabled="true"]) {
-  transform: scale(var(--press-scale));
+.btn:active:not(:disabled):not([aria-disabled="true"]):not(.btn-text) {
+  transform: translateY(var(--hover-lift)) scale(var(--press-scale));
 }
 
 .btn:disabled:not([aria-busy="true"]),
@@ -69,11 +72,11 @@
 }
 .btn-primary {
   color: var(--on-ink);
-  background: var(--ink);
+  background: var(--ink-fill);
   font-weight: var(--weight-semibold);
 }
 .btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
-  background: var(--ink-hover);
+  background: var(--ink-fill-hover);
 }
 .btn-primary:disabled:not([aria-busy="true"]),
 .btn-primary[aria-disabled="true"]:not([aria-busy="true"]) {

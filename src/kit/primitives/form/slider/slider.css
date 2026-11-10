@@ -28,7 +28,7 @@
 }
 .slider-range {
   height: 100%;
-  background: var(--ink);
+  background: var(--ink-fill);
   border-radius: inherit;
 }
 .slider-thumb {
@@ -47,7 +47,7 @@
   outline-offset: var(--focus-offset);
 }
 .slider-thumb[data-dragging] {
-  box-shadow: var(--focus-glow);
+  box-shadow: var(--shadow);
 }
 .slider[data-disabled] .slider-control {
   cursor: not-allowed;
