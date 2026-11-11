@@ -18,7 +18,7 @@
 - `primitives/` 按展示站侧边栏的类别分子目录(`actions` `form` `selection` `overlays` `navigation` `feedback` `data-display` `layout` `foundations`), 对外路径 `primitives/<类别>/<名>`
 - 布局: `primitives/layout/layout` 含 `Stack`(`wrap`) `Spacer` `Grid` `Split` `Container` `Page`; 窄屏断点 760px
 - 品牌主题单源: 覆盖一对 `--ink`(`light-dark()`)即可换品牌, `--ink-fill` `--ink-hover` `--accent-soft` `--focus` 等由它派生; 中性色(微紫调)可作为第二组覆盖. 说明见 [docs/guide/theming.md](docs/guide/theming.md); 展示站 Foundations / Theming 提供预设预览
-- 设计调整: 表单错误态与 `aria` 关联, 焦点环与全局 `:focus-visible` 对齐, 触屏 44px 控件高度, 按钮/可点击 Tile 的悬停上浮与按下回落, 展示站窄屏导航与跳过链接
+- 设计调整: 表单错误态与 `aria` 关联, 焦点环与全局 `:focus-visible` 对齐, 触屏 44px 控件高度, 可点击 Tile 的悬停上浮, 按钮按下缩放, 展示站窄屏导航与跳过链接
 - 已知取舍: `Accordion` 与 `GlideHeight` 的展开仍过渡 `height`(不是只改 transform/opacity), 因为面板必须走到内容高度; 见对应样式注释
 
 ## 下一步

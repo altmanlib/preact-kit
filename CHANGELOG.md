@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- 移除 `Button` / `LinkButton` 悬停上浮与 `--hover-lift`; 按下仍用 `--press-scale`
+
 ## 0.13.1 - 2026-11-11
 
 - 展示站可静态构建(`bun run build` → `dist/`), 推送 `v*` tag 时部署到 GitHub Pages: https://altmanlib.github.io/preact-kit/

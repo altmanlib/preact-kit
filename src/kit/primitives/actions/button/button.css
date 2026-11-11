@@ -20,14 +20,11 @@
     color var(--duration-fast) var(--ease-out),
     transform var(--duration-fast) var(--ease-out);
 }
-.btn:hover:not(:disabled):not([aria-disabled="true"]):not(.btn-text) {
-  transform: translateY(calc(var(--hover-lift) * -1));
-}
 .btn:hover:not(:disabled):not([aria-disabled="true"]):not(.btn-text):not(.btn-primary):not(.btn-danger):not(.btn-quiet) {
   background: var(--surface-press);
 }
 .btn:active:not(:disabled):not([aria-disabled="true"]):not(.btn-text) {
-  transform: translateY(var(--hover-lift)) scale(var(--press-scale));
+  transform: scale(var(--press-scale));
 }
 
 .btn:disabled:not([aria-busy="true"]),
