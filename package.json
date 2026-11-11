@@ -33,6 +33,7 @@
   "scripts": {
     "gen": "bun scripts/gen-demos.ts",
     "dev": "bun run gen && bun src/server.ts",
+    "build": "bun run gen && bun scripts/build-gallery.ts",
     "format": "bun fmt src scripts",
     "format:check": "bun fmt --check src scripts",
     "typecheck": "bun run gen && bun check",

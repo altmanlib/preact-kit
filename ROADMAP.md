@@ -2,7 +2,7 @@
 
 ## 已完成
 
-- 骨架: 目录, 展示站(自动收集 demo, 明暗/跟随系统切换), token(`light-dark()`), 边界检查
+- 骨架: 目录, 展示站(自动收集 demo, 明暗/跟随系统切换), token(`light-dark()`), 边界检查; 展示站静态构建并在 `v*` tag 部署到 GitHub Pages(设计见 [docs/design/2026-11-11-01-gallery-github-pages.md](docs/design/2026-11-11-01-gallery-github-pages.md))
 - primitives: `Button` `Badge` `Note`/`ErrorNote` `Empty` `Skeleton` `Tile`/`Tiles` `Fact`/`Facts` `PageHead`/`Section` `Chips` `SubNav` `Pager` `GlideHeight` `Field`/`TextField`/`TextAreaField`/`CheckField` `IconButton` `CopyButton`/`CopyField` `ConfirmButton` `DataTable`/`QueryTable` `Modal` `Drawer` `DialogProvider`/`useDialog` `Switch` `Tabs` `Dropdown` `Select` `Suggest` `MentionInput`(设计见 [docs/design/2026-11-04-01-mention-input.md](docs/design/2026-11-04-01-mention-input.md)) `Tooltip` `Toast`/`Toaster` `RadioGroup` `NumberField` `Alert` `Spinner` `Progress` `Tag` `Avatar` `Card` `Breadcrumb` `Accordion` `Stack`/`Grid`
 - lib: `errors`(`ApiError`/`setErrorTexts`), `http`(`request`/`query`), `signals`(`useFields`/`useOpen`/`set`), `paging`(`usePagedList`, 依赖 `@tanstack/preact-query`), `leaving-dialog`(对话框共用的 Zag dialog 与退场逻辑), `roving`(列表键盘焦点与首字母定位, `NavList` 与 `Suggest` 用), `anchor`(Popover API 弹层与触发器的锚点命名, `Suggest`/`MentionInput` 用), `toasts`(`showToast`, 基于 Zag toast store), `zag`(`popupPositioning`, `inputProps`), `number`(数字文本的解析/步进/修正), `suggest`(触发字符的判定, 应用选择与按键含义)
 - primitives 另有 `LinkButton`, `QueryStatus`, `TopNav`(顶栏标签与滑动指示条); `DataTable`/`QueryTable` 的 `rowAttrs`, `Section` 与 `Tile` 的 `class` 及透传属性; lib 另有 `format`(`formatTime`, `formatBytes`)

@@ -7,8 +7,11 @@ Preact 组件库: 通用组件 + 设计 token(明暗两套), 经 GitHub 安装; 
 ```bash
 bun install
 bun run dev      # http://localhost:5600
+bun run build    # 静态展示站 → dist/（发版 tag 会部署到 GitHub Pages）
 bun run ci       # 格式/类型/文档/测试
 ```
+
+在线预览（随发版更新）: [altmanlib.github.io/preact-kit](https://altmanlib.github.io/preact-kit/)
 
 ## 结构
 
