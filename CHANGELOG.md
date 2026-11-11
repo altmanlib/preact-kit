@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- `Chips` `Tabs` `SubNav` `ThemeSwitch` 的选项在所有状态下使用同一字重(`--weight-medium`), 选中不再加粗, 避免选项变宽导致相邻选项抖动; 选中仍由内层色块与文字色标示
+
 ## 0.13.3 - 2026-11-11
 
 - `Drawer` 的 `onSubmit` 改为可选: 不传时是查看面板, 没有外层表单与页脚, 内容可自带表单, 经标题行关闭按钮或 Esc 关闭; 新增 `width` 设置面板宽度(默认 `--drawer-width`)

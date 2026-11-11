@@ -27,6 +27,8 @@
   padding: 0 var(--space-3);
   font: inherit;
   font-size: var(--text-xs);
+  /* One weight for every state: a heavier selected label would widen the option and shift its neighbours. */
+  font-weight: var(--weight-medium);
   color: var(--muted);
   text-decoration: none;
   white-space: nowrap;
@@ -61,7 +63,6 @@
 .subnav a[aria-current="page"],
 .theme-option:has(:checked) {
   color: var(--text);
-  font-weight: var(--weight-semibold);
   background: var(--card-inner);
 }
 
