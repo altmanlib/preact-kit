@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+## 0.13.0 - 2026-11-11
+
 - **品牌色单源**(不兼容): 覆盖一对 `--ink` 即可换品牌, `--ink-fill` `--ink-fill-hover` `--ink-hover` `--accent` `--accent-soft` `--focus` 由它派生(`color-mix` in oklab, 仍是 `light-dark()` 成对). 深色方案里文字链接与实心底无法共用同一个亮度, 故拆出 `--ink-fill`(浅色下等于 `--ink`, 深色下更深), 主按钮、选中日、开关打开、进度条与滑块填充改用它, 不再用 `--ink` / `--ink-hover`. 默认深色 `--ink` 由 `#7a63ff` 改为 `#836eff`, 以便叠在 `--surface` 上达到 4.5:1. 调用方若曾覆盖 `--ink` 或 `--ink-hover` 来改主按钮底色, 请改覆盖 `--ink-fill` / `--ink-fill-hover`. 说明见 `docs/guide/theming.md`
 - **移除 `--focus-glow`**(不兼容): 组合控件不再用光晕. 调用方若覆盖了 `--focus-glow`, 可删掉
 - `--press-scale` 默认由 `0.97` 改为 `0.985`. `Button` / `LinkButton`(`text` 变体除外)悬停上浮 1px(`--hover-lift`), 按下回落并带按压缩放. 运动仍只改 transform/opacity, 并走现有的 `prefers-reduced-motion` 处理
