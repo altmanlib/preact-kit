@@ -40,6 +40,10 @@
   gap: var(--space-2);
   padding: 0 var(--space-5) var(--space-5);
 }
+/* Viewing panel: no footer, so the body fills the panel. */
+.drawer-view .drawer-body {
+  flex: 1;
+}
 /* Pinned footer: the body fills the panel and the footer sits on its own ruled strip at the bottom. */
 .drawer-sticky .drawer-body {
   flex: 1;

@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- `Drawer` 的 `onSubmit` 改为可选: 不传时是查看面板, 没有外层表单与页脚, 内容可自带表单, 经标题行关闭按钮或 Esc 关闭; 新增 `width` 设置面板宽度(默认 `--drawer-width`)
+
 ## 0.13.2 - 2026-11-11
 
 - 移除 `Button` / `LinkButton` 悬停上浮与 `--hover-lift`; 按下仍用 `--press-scale`

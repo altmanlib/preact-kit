@@ -31,6 +31,7 @@ export function DialogLayer({
   contentClass,
   positionerClass,
   label,
+  style,
   children,
 }: {
   api: zag.Api;
@@ -41,13 +42,15 @@ export function DialogLayer({
   positionerClass?: string;
   /** The content's accessible name, when no visible title is linked to it. */
   label?: string;
+  /** Inline style of the content element, for custom properties such as the drawer width. */
+  style?: string;
   children: ComponentChildren;
 }) {
   return createPortal(
     <>
       <div class="dialog-backdrop" {...api.getBackdropProps()} hidden={false} />
       <div class={positionerClass ? `dialog-positioner ${positionerClass}` : "dialog-positioner"} {...api.getPositionerProps()}>
-        <div class={contentClass} {...api.getContentProps()} aria-label={label} hidden={false} ref={exiting}>
+        <div class={contentClass} {...api.getContentProps()} aria-label={label} style={style} hidden={false} ref={exiting}>
           {children}
         </div>
       </div>
