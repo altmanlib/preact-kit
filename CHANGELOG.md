@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+## 0.13.2 - 2026-11-11
+
 - 移除 `Button` / `LinkButton` 悬停上浮与 `--hover-lift`; 按下仍用 `--press-scale`
 
 ## 0.13.1 - 2026-11-11
