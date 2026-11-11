@@ -32,3 +32,7 @@ updated: 2026-11-11
 - 不改客户端路由为 history path
 - 暂不配自定义域名; 若以后挂到根路径, 再把 `publicPath` 改为 `/`
 - 日常 `ci` 不跑静态构建; 只在 Pages workflow 里构建. 若发版前常踩构建失败再考虑纳入 `ci`
+
+## 5. 已知取舍
+
+- `github-pages` 环境默认只允许 `main` 分支部署; 按 tag 发版时须另加 `v*` tag 策略, 否则 build 过、deploy 会被环境保护拒绝
