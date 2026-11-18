@@ -44,6 +44,7 @@ Preact 组件库 `@altmanlib/preact-kit`: 一套带设计 token(含暗色)的通
 - 代码注释用英文; 文档用中文, 只写现行事实
 - `docs/` 文档带 front matter 四项(`title`/`type`/`status`/`updated`), `title` 与 `# 标题` 一致, 由 `bun run docs:check` 校验; 本文件与 `README.md`/`ROADMAP.md`/`CHANGELOG.md` 不在其范围内
 - 提交前 `bun run ci`; 格式化命令是 `bun run format`
+- 避免不必要的辅助标签与说明；界面能通过布局、控件和内容表达清楚的，不额外添加解释文字。保留必要的操作指引、错误提示和无障碍标签。
 
 ## 常用命令
 
