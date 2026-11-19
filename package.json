@@ -29,7 +29,7 @@
   "engines": {
     "bun": ">=1.4.4"
   },
-  "packageManager": "bun@1.4.4",
+  "packageManager": "bun@1.4.5",
   "scripts": {
     "gen": "bun scripts/gen-demos.ts",
     "dev": "bun run gen && bun src/server.ts",
